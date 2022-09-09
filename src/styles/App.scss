@@ -136,6 +136,9 @@
 .z-index-1 {
   z-index: 1;
 }
+.dropdown-item:active{
+  background-color: $primary !important;
+}
 // background LOGIN /REGISTER
 .bg-container {
   background-repeat: no-repeat;
@@ -147,37 +150,38 @@
   width: 100%;
   position: relative;
   display: block;
+  background: linear-gradient(180deg, #F7F7F7 78.57%, #4A87EB 123.73%);
   @media only screen and (min-width: $desktop) {
     display: flex;
     justify-content: center;
     align-items: center;
   }
 }
-.bg1 {
-  @media only screen and (min-width: $desktop) {
-    background-image: url(../assets/images/background-pplr-1.jpeg);
-  }
-}
-.bg2 {
-  @media only screen and (min-width: $desktop) {
-    background-image: url(../assets/images/background-pplr-2.jpeg);
-  }
-}
-.bg3 {
-  @media only screen and (min-width: $desktop) {
-    background-image: url(../assets/images/background-pplr-3.jpeg);
-  }
-}
-.bg4 {
-  @media only screen and (min-width: $desktop) {
-    background-image: url(../assets/images/background-pplr-4.jpeg);
-  }
-}
-.bg5 {
-  @media only screen and (min-width: $desktop) {
-    background-image: url(../assets/images/background-pplr-5.jpeg);
-  }
-}
+// .bg1 {
+//   @media only screen and (min-width: $desktop) {
+//     background-image: url(../assets/images/background-pplr-1.jpeg);
+//   }
+// }
+// .bg2 {
+//   @media only screen and (min-width: $desktop) {
+//     background-image: url(../assets/images/background-pplr-2.jpeg);
+//   }
+// }
+// .bg3 {
+//   @media only screen and (min-width: $desktop) {
+//     background-image: url(../assets/images/background-pplr-3.jpeg);
+//   }
+// }
+// .bg4 {
+//   @media only screen and (min-width: $desktop) {
+//     background-image: url(../assets/images/background-pplr-4.jpeg);
+//   }
+// }
+// .bg5 {
+//   @media only screen and (min-width: $desktop) {
+//     background-image: url(../assets/images/background-pplr-5.jpeg);
+//   }
+// }
 .cont {
   display: flex;
   justify-content: center;
@@ -297,7 +301,8 @@
   top: 3rem;
   width: 100%;
   min-height: calc(100vh - 3rem);
-  background-color: $background-main;
+  // background-color: $background-main;
+  background:  linear-gradient(180deg, rgba(217, 222, 230, 0.69) 70.81%, rgba(0, 88, 128, 0.29) 117.17%);
 }
 .user-header {
   position: fixed;
@@ -363,7 +368,7 @@
   min-height: calc(100% - 3rem);
   padding: 2rem 0 3rem 0;
   width: 100%;
-  background-color: $background-main;
+  background-color: transparent;
   color: $text-primary;
 
   .dropdown-menu[data-bs-popper] {
@@ -870,5 +875,6 @@
     cursor: pointer;
   
   }
+
 }
 
