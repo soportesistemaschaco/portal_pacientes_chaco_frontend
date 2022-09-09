@@ -1,4 +1,4 @@
-# Portal del paciente - La Rioja
+# Portal del paciente - Provincia de Chaco
 Frontend
 
 ### Requerimientos

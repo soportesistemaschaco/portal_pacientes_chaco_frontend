@@ -59,7 +59,7 @@ export default function Notificaciones() {
                     key={`${m.message.id}-${i}`} 
                     idMessage={m.message.id}
                     asunto={m.message.header} 
-                    from='Portal del paciente | La Rioja' 
+                    from='Portal del paciente | Chaco' 
                     mensaje={m.message.body} {...i}
                     isRead={m.read_datetime}
                     action={initMessages}

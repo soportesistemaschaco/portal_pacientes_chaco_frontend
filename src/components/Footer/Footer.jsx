@@ -9,7 +9,7 @@ function Footer() {
             <div className='container-fluid'>
                 <div className='row'>
                     <p className='col-sm '>
-                        &copy;{new Date().getFullYear()} Gobierno de La Rioja |  Ministerio de Salud  | Fundación FEIAS
+                        &copy;{new Date().getFullYear()} Gobierno de Chaco |  Ministerio de Salud  | Fundación FEIAS
                     </p>
                 </div>
             </div>

@@ -62,7 +62,7 @@ function Header() {
                         </button>
                     </div>}
                     <Link to='/' className={`d-flex ${auth.isLogged() ? 'w-100 justify-content-center justify-content-lg-start' : 'justify-content-start'}`} >
-                        <img className="logo" src={logo} alt="logo portal del paciente - La Rioja" />
+                        <img className="logo" src={logo} alt="logo portal del paciente - Chaco" />
                      {location.pathname === "/login-admin" || auth.typeUser === 1 ? <p className="mb-0 ms-2 admin-header-text d-none d-sm-block"> / administrador </p> : <></>}
                      </Link>
                     <Navbar.Collapse className="justify-content-end">

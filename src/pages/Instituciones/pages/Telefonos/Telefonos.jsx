@@ -12,15 +12,15 @@ export default function Telefonos() {
                         </div>
                         <div className="col-12 col-md-6">
                             <h5 className="mt-3">Ministerio de Salud</h5>
-                            <h6>Gobierno de La Rioja</h6>
+                            <h6>Gobierno de Chaco</h6>
 
                             <ul className="list-unstyled">
-                                <li>Dirección: Av. Ortiz de Ocampo 1700 -</li>
-                                <li>Ciudad de La Rioja, Argentina</li>
+                                {/* <li>Dirección: Av. Ortiz de Ocampo 1700 -</li>
+                                <li>Ciudad de Chaco, Argentina</li>
                                 <li>Código postal: 5300</li>
                                 <li>Teléfono: (0380) 4453700</li>
                                 <li>Horarios: Lunes a Viernes de 8.00 a 16.00 HS</li>
-                                <li><a href="https://salud.larioja.gob.ar/">salud.larioja.gob.ar</a> </li>
+                                <li><a href="hhttps://chaco.gov.ar/">chaco.gov.ar</a> </li> */}
                             </ul>
                             <br />
                             <br />
