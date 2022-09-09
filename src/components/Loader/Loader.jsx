@@ -6,7 +6,7 @@ const Loader = (prop) => {
 
     return (
         <div className={`loader_container ${isActive ? 'd-flex' : 'd-none'}`}>
-            <Spinner animation="border" variant="danger" />
+            <Spinner animation="border" variant="primary" />
         </div>
     )
 }

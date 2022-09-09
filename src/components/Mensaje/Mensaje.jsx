@@ -44,7 +44,7 @@ export const Mensaje = (props) => {
     return <>
         <Container className={`mensaje_container py-2 mb-2 in ${isRead ? "shadow-none bg-secondary bg-opacity-10 fw-normal" : "shadow-sm fw-bold"}`} onClick={abrirMensaje}>
             <Row className='mensaje_row justify-content-end'>
-                <Col className="mensaje_icon">{isRead ? <MdIcon.MdMailOutline className="text-secondary" /> : <MdIcon.MdOutlineMarkEmailUnread className="text-danger" />}</Col>
+                <Col className="mensaje_icon">{isRead ? <MdIcon.MdMailOutline className="text-secondary" /> : <MdIcon.MdOutlineMarkEmailUnread className="text-primary" />}</Col>
                 <Col xs={10} sm={11} lg={5} className="d-flex align-items-center"><p className="mensaje_text asunto">{asunto}</p></Col>
                 <Col xs={10} sm={11} lg={6} className="d-flex align-items-center"><p className="mensaje_text mensaje">{mensaje}</p></Col>
             </Row>

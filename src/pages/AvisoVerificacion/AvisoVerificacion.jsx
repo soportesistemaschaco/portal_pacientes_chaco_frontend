@@ -71,7 +71,7 @@ function AvisoVerificacion() {
                                         </>
                                         :
                                         <div className="w-100 d-flex flex-column flex-sm-row align-items-center">
-                                            <MdIcon.MdOutlineErrorOutline className="text-danger" style={{ fontSize: "5rem" }}></MdIcon.MdOutlineErrorOutline>
+                                            <MdIcon.MdOutlineErrorOutline className="text-primary" style={{ fontSize: "5rem" }}></MdIcon.MdOutlineErrorOutline>
                                             <p className="m-0 ms-2">Error en la validación de email.</p>
                                         </div>
                                     }
@@ -92,7 +92,7 @@ function AvisoVerificacion() {
                                 :
                                 <>
                                     <div className="w-100 d-flex flex-column flex-sm-row align-items-center mb-5">
-                                        <MdIcon.MdOutlineErrorOutline className="text-danger me-3" style={{ fontSize: "5rem" }}></MdIcon.MdOutlineErrorOutline>
+                                        <MdIcon.MdOutlineErrorOutline className="text-primary me-3" style={{ fontSize: "5rem" }}></MdIcon.MdOutlineErrorOutline>
                                         <h2 className='mb-0'>Hubo un error en la registración.</h2>
                                     </div>
                                     <Link to="/register">Haz click aquí para intentarlo nuevamente</Link>

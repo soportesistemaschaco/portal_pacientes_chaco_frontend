@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { Navbar, Container, NavDropdown } from 'react-bootstrap';
-import logo from '../../assets/statics/logo-ligth.png'
+import logo from '../../assets/statics/logo-light.svg'
 import useAuth from '../../hooks/useAuth';
 import * as MdIcon from 'react-icons/md';
 import * as BsIcon from 'react-icons/bs';

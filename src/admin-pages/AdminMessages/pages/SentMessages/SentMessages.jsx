@@ -49,11 +49,11 @@ export default function SentMessages() {
     return (
         <Container className='p-3'>
             <div className="d-flex justify-content-end w-100">
-                <Button variant="danger" onClick={handleShow}>Crear mensaje + </Button>
+                <Button variant="primary" onClick={handleShow}>Crear mensaje + </Button>
             </div>
             {loading ? <Loader isActive={loading} />
                 : <Container>
-                    <h5>Mensajes Enviados <span className="fw-light text-danger">({messages.length})</span></h5>
+                    <h5>Mensajes Enviados <span className="fw-light text-primary">({messages.length})</span></h5>
                     {messages.length > 0 ? messages.map((m, i) => {
                         return (
                             <Message key={m.id} header={m.header} body={m.body} idMessage={m.id} status={m.sent_datetime} initMessages={initMessages}></Message>

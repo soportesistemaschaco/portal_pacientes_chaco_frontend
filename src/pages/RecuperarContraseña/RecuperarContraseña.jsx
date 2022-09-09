@@ -127,7 +127,7 @@ export default function RecuperarContraseña() {
                                         {errors.email && <ErrorMessage><p>{errors.email.message}</p></ErrorMessage>}
                                     </Form.Group>
                                     <div className="d-flex flex-column align-items-end">
-                                        <Button variant="outline-danger" type="submit">
+                                        <Button variant="outline-primary" type="submit">
                                             Enviar
                                         </Button>
                                     </div>
@@ -179,7 +179,7 @@ export default function RecuperarContraseña() {
                                         {errors.confirmPassword && <ErrorMessage><p>{errors.confirmPassword.message}</p></ErrorMessage>}
                                     </Form.Group>
                                     <div className="d-flex flex-column align-items-end">
-                                        <Button variant="outline-danger" type="submit">
+                                        <Button variant="outline-primary" type="submit">
                                             Actualizar contraseña.
                                         </Button>
                                     </div>
@@ -198,7 +198,7 @@ export default function RecuperarContraseña() {
                                 {!isSuccess &&
                                     <div className="in">
                                         <div className="w-100 d-flex flex-column flex-sm-row align-items-center">
-                                            <MdIcon.MdOutlineErrorOutline className="text-danger" style={{ fontSize: "5rem" }}></MdIcon.MdOutlineErrorOutline>
+                                            <MdIcon.MdOutlineErrorOutline className="text-primary" style={{ fontSize: "5rem" }}></MdIcon.MdOutlineErrorOutline>
                                             <p className="m-0 ms-2">Hubo un error al actualizar la contraseña.</p>
                                         </div>
                                         <button className="btn text-primary mt-2" onClick={() => { restart() }}>Intentar nuevamente.</button>

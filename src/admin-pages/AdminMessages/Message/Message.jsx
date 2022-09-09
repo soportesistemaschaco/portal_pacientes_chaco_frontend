@@ -62,7 +62,7 @@ export const Message = (props) => {
                     <span style={{fontSize: '0.6rem'}}>{status}</span>
                     </div>
                     <div className="my-tooltip" >
-                        <button className='btn text-danger btn-icon ms-0' onClick={() => { handleDeleteMessage(idMessage) }}><MdIcon.MdDeleteForever style={{ fontSize: '1.5rem' }} /></button>
+                        <button className='btn text-primary btn-icon ms-0' onClick={() => { handleDeleteMessage(idMessage) }}><MdIcon.MdDeleteForever style={{ fontSize: '1.5rem' }} /></button>
                         <span className="tiptext">
                             Eliminar
                         </span>
@@ -77,7 +77,7 @@ export const Message = (props) => {
                         </span>
                     </div>
                     <div className="my-tooltip" >
-                        <button className='btn text-danger btn-icon ms-0 me-1' onClick={() => { handleDeleteMessage(idMessage) }}><MdIcon.MdDeleteForever style={{ fontSize: '1.5rem' }} /></button>
+                        <button className='btn text-primary btn-icon ms-0 me-1' onClick={() => { handleDeleteMessage(idMessage) }}><MdIcon.MdDeleteForever style={{ fontSize: '1.5rem' }} /></button>
                         <span className="tiptext">
                             Eliminar
                         </span>

@@ -50,7 +50,7 @@ function EnfermedadesCronicas() {
             <button type='submit' className='btn btn-dark' onClick={agregarAfeccion}>Guardar Cambios</button>
           </Form>
         } */}
-        {/* {!activeForm && <button className='btn btn-outline-danger' onClick={agregarAfeccion}>+ Agregar</button>} */}
+        {/* {!activeForm && <button className='btn btn-outline-primary' onClick={agregarAfeccion}>+ Agregar</button>} */}
       </Col>
     </Row>
   )

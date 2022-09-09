@@ -1,5 +1,114 @@
 @import "Vars.scss";
 
+
+.bg-primary,
+.bg-success {
+    background-color: $primary !important;
+}
+.bg-primary-alt {
+    background-color: var(--main-color-green-alt) !important;
+}
+.bg-primary-alt-2 {
+    background-color: var(--main-color-green-alt-2) !important;
+}
+.bg-primary-90 {
+    background-color: var(--main-color-green-70) !important;
+}
+.bg-danger-90 {
+    background-color: var(--main-color-red-30) !important;
+}
+.bg-primary-bs-90 {
+    background-color: var(--main-color-primary-bs-30) !important;
+}
+.bg-primary-blue {
+    background-color: var(--bs-blue) !important;
+}
+.bg-danger {
+    background-color: var(--main-color-red) !important;
+}
+.bg-secondary-lt {
+    background-color: var(--main-color-gray-bg) !important;
+}
+.bg-gray {
+    background-color: var(--main-color-gray) !important;
+}
+.bg-magenta {
+    background-color: var(--main-color-magenta) !important;
+}
+.bg-pink {
+    background-color: var(--main-color-pink) !important;
+}
+.btn-outline-primary {
+    background-color: white;
+    color: $primary;
+    border-color: $primary;
+}
+
+.btn-primary {
+  background-color: $primary;
+  color: white;
+  border-color: $primary;
+}
+.no-min-w {
+    min-width: auto !important;
+}
+.no-min-h {
+    min-height: auto !important;
+}
+.btn-check:active + .btn-outline-primary, 
+.btn-check:checked + .btn-outline-primary, 
+.btn-outline-primary.active, 
+.btn-outline-primary.dropdown-toggle.show, 
+.btn-outline-primary:active {
+    background-color: $primary;
+    border-color: $primary;
+    box-shadow: none !important;
+}
+.btn-outline-primary:hover {
+    background-color: $primary;
+    color: white;
+    border-color: $primary;
+}
+
+.btn-check:active + .btn-primary, 
+.btn-check:checked + .btn-primary, 
+.btn-primary.active, 
+.btn-primary.dropdown-toggle.show, 
+.btn-primary:active {
+    background-color: $primary-dark !important;
+    border-color: $primary;
+    box-shadow: none !important;
+}
+.btn-primary:hover {
+    background-color: $primary-dark !important;
+    color: white;
+    border-color: $primary !important;
+}
+
+.border-primary {
+    border-color: $primary !important;
+}
+.border-secondary {
+    border-color: var(--main-color-gray) !important;
+}
+.text-primary {
+    color: $primary !important;
+}
+.bg-primary-bs {
+    background-color: #0d6efd !important
+}
+.text-primary-bs {
+    color: #0d6efd !important
+}
+.text-secondary {
+    color: var(--main-color-gray) !important;
+}
+.text-secondary-lt {
+    color: var(--main-color-gray-lt) !important;
+}
+.text-dark {
+    color: var(--main-color-black) !important;
+}
 .active {
   // background-color: $accent;
   color: $text-primary !important;
@@ -326,7 +435,7 @@
   background-color: $primary;
   color: $text-light;
   margin-right: 1rem;
-  border: 3px solid #ff5f7f;
+  border: 3px solid $primary-light;
 }
 .title-step {
   color: $primary;
@@ -398,7 +507,8 @@
 .error-form {
   transition: 0.2s;
   display: flex;
-  color: $primary-dark;
+  color: $text-red;
+  
   p {
     display: flex;
     font-size: 0.8rem;

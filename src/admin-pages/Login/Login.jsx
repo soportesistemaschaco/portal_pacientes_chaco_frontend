@@ -99,7 +99,7 @@ function Login() {
                                 </Form.Label> */}
                                 </Form.Group>
                                 <div className="d-flex flex-column align-items-center align-items-sm-end mt-3">
-                                    <Button variant="danger" type="submit">
+                                    <Button variant="primary" type="submit">
                                         Iniciar Sesión
                                     </Button>
                                 </div>

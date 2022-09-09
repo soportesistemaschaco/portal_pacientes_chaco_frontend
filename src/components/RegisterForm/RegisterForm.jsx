@@ -502,7 +502,7 @@ export default function RegisterForm(formType) {
                                     <Form className="form-group form_register" onSubmit={handleSubmit(() => onSubmit(stepsForm.length, i))}>
                                         {s.component}
                                         <div className="d-flex w-100 justify-content-end align-items-center">
-                                            <Button variant="danger" type="submit">{stepsForm.length + 1 > i ? 'Siguiente' : 'Registrar'}</Button>
+                                            <Button variant="primary" type="submit">{stepsForm.length + 1 > i ? 'Siguiente' : 'Registrar'}</Button>
                                         </div>
                                     </Form>
                                 }

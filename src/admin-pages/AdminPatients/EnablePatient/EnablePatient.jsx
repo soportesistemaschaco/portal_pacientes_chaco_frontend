@@ -243,7 +243,7 @@ export default function EnablePatient({ show, handleClose, id, action }) {
                         <Button variant="outline-secondary" onClick={handleClose}>
                             Cancelar
                         </Button>
-                        <Button variant="outline-danger" onClick={() => handleReject(patient.id)}>
+                        <Button variant="outline-primary" onClick={() => handleReject(patient.id)}>
                             Rechazar solicitud
                         </Button>
                         <Button variant="primary" onClick={() => handleValidate(patient.id)}>

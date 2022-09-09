@@ -6,7 +6,7 @@ export default function NotFound() {
         <Container fluid className="d-flex align-items-center justify-content-end" style={{height:'80vh'}}>
             <Row >
                 <Col>
-                    <h1 className="text-danger">Error 404... Página no encontrada</h1>
+                    <h1 className="text-primary">Error 404... Página no encontrada</h1>
                     <Link to="/">Volver al inicio</Link>
                 </Col>
             </Row>

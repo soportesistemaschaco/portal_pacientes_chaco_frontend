@@ -100,11 +100,11 @@ function LoginPerson() {
                                         </Form.Label>
                                     </Form.Group>
                                     <div className="d-flex flex-column align-items-center align-items-sm-end mt-3">
-                                        <Button variant="danger" type="submit">
+                                        <Button variant="primary" type="submit">
                                             Iniciar Sesión
                                         </Button>
                                         <button type="button" className="btn btn-ligth mt-3" >
-                                            <Link to="/register" className="text-danger">Crear cuenta</Link>
+                                            <Link to="/register" className="text-primary">Crear cuenta</Link>
                                         </button>
                                     </div>
                                 </Form>
