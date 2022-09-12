@@ -2,11 +2,13 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import AdminMain from "../admin-pages/AdminMain/AdminMain";
 import AdminMessages from "../admin-pages/AdminMessages";
 import AdminPatients from "../admin-pages/AdminPatients";
+import Header from "../components/Header";
 import NotFound from "../pages/NotFound/NotFound";
 
 export default function AdminRouter() {
   return (
     <div className="user-container">
+      <Header></Header>
       <div className="admin-container">
         <Switch>
           <Route exact path="/admin" component={AdminMain} />
