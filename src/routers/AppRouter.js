@@ -31,7 +31,7 @@ export default function AppRouter() {
         {loading ? 
          <Loader isActive={loading}></Loader>  
         : <Router>
-            <Header />
+            {/* <Header /> */}
             <div className="main-container">
             <Switch>
                 <PublicRoute exact path='/login' component={LoginPerson }/>

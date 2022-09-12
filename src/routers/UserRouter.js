@@ -13,11 +13,13 @@ import Turnos from '../pages/Turnos';
 // import Estudios from '../pages/Estudios';
 import NotFound from '../pages/NotFound/NotFound';
 import AgregarPaciente from '../pages/GrupoFamiliar/AgregarPaciente';
+import Header from '../components/Header';
 
 export default function UserRouter() {
 
     return (
         <div className='user-container top-user-header'>
+            <Header></Header>
         <PatientProvider>
         <UserHeader/>
         <div className='patient-container'>
