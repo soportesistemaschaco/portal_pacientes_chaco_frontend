@@ -6,13 +6,14 @@ import {
   error
 } from "../components/SwalAlertData";
 import { loginPersonService } from "../services/loginPersonService";
+import tgdServiceToken, { tgdServiceUserData } from "../services/tgdServices";
 
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem("user")) || null
-  ); 
+  );
   const [tokenUser, setTokenUser] = useState(
     JSON.parse(localStorage.getItem("tokenUser")) || null
   );
@@ -48,11 +49,11 @@ const AuthProvider = ({ children }) => {
         .then((res) => {
           if (res.ok) {
             return res.json();
-          }else {
+          } else {
             return res.text().then(text => {
               let readeble = JSON.parse(text)
-              throw new Error(readeble.detail) 
-          })
+              throw new Error(readeble.detail)
+            })
           }
         })
         .then((data) => {
@@ -67,7 +68,7 @@ const AuthProvider = ({ children }) => {
             case 'Mail not validated.':
               Swal.fire(error('Email no validado'));
               break;
-              case 'Incorrect username or password...':
+            case 'Incorrect username or password...':
               Swal.fire(error('Email o password incorrecto'));
               break;
             default:
@@ -87,8 +88,8 @@ const AuthProvider = ({ children }) => {
           } else {
             return res.text().then(text => {
               let readeble = JSON.parse(text)
-              throw new Error(readeble.detail) 
-          })
+              throw new Error(readeble.detail)
+            })
           }
         })
         .then((data) => {
@@ -102,10 +103,10 @@ const AuthProvider = ({ children }) => {
             case 'Mail not email_validated.':
               Swal.fire(error('Email no validado'));
               break;
-              case 'Incorrect username or password...':
+            case 'Incorrect username or password...':
               Swal.fire(error('Email o password incorrecto'));
               break;
-              case 'Wait for approval.':
+            case 'Wait for approval.':
               Swal.fire(error('El usuario aún no ha sido habilitado para ingresar'));
               break;
             default:
@@ -136,6 +137,38 @@ const AuthProvider = ({ children }) => {
     }
   }
 
+  // LOGIN WITH TGD
+  const getUserTokenTGD = useCallback(
+    (params) => {
+      tgdServiceToken(params)
+        .then((response) => {
+          console.log('tokenTGD response', response)
+          if (response.access_token) {
+            let tgdToken
+            getUserDataTGD(tgdToken)
+          } 
+        })
+        .catch((error) => {
+          console.log('error', error)
+        })
+    }
+    , []
+  );
+
+
+  const getUserDataTGD = useCallback(
+    (tgdToken) => {
+      tgdServiceUserData(tgdToken)
+        .then((response) => {
+          console.log('userTGD response', response)
+        })
+        .catch((error) => {
+          console.log('error', error)
+        })
+    }
+    , []
+  );
+  // EXPIRE SESSION
   useEffect(() => {
     getLocalStorage("curtime");
   }, []);
@@ -162,10 +195,10 @@ const AuthProvider = ({ children }) => {
   };
 
   const saveLoginData = (e, p) => {
-    if(e) {
+    if (e) {
       localStorage.setItem("loginDataEmail", e);
     }
-    if(p){
+    if (p) {
       localStorage.setItem("loginDataPassword", p);
     }
   }
@@ -181,6 +214,7 @@ const AuthProvider = ({ children }) => {
     loginPerson,
     loginAdmin,
     logout,
+    getUserTokenTGD,
     isLogged() {
       getLocalStorage("curtime");
       if (tokenUser) {

@@ -53,6 +53,12 @@ export let UPDATE_HEADER = () => {
   return header;
 };
 
+export let TGD_HEADER = (tgdToken) => {
+  let header = {
+    "Authorization": `Bearer ${tgdToken}`,
+  }
+}
+
 // login ---------------------------------------
 
 export const API_ENDPOINT_LOGINADMIN = `${baseUrl}/login-admin`;
@@ -248,5 +254,15 @@ export const API_ENDPOINT_MEDICATIONS = (institution_id, patient_id) => {
 
 export const API_ENDPOINT_PERSONALHYSTORIES = (institution_id, patient_id) => {
   let url = `${baseUrl}/hcegeneral/${institution_id}/personalHistories/${patient_id}`;
+  return url;
+};
+// // TGD URL
+export const TGD_GET_USER_TOKEN = (query) => {
+  let url = `${environment.tgd.authURL}/token?${query}`;
+  return url;
+};
+
+export const TGD_GET_USER_DATA = () => {
+  let url = `${environment.tgd.apiURL}/persona`;
   return url;
 };

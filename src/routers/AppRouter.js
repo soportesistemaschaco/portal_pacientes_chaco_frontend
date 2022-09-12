@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom/cjs/react-router-dom.min"
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
-import Header from "../components/Header";
 import Footer from "../components/Footer";
 import LoginPerson from "../pages/LoginPerson";
 import Login from "../admin-pages/Login";
@@ -35,6 +34,7 @@ export default function AppRouter() {
             <div className="main-container">
             <Switch>
                 <PublicRoute exact path='/login' component={LoginPerson }/>
+                <PublicRoute exact path='/callback' component={LoginPerson }/>
                 <PublicRoute exact path='/login-admin' component={Login}/>
                 <PublicRoute exact path='/register' component={Register}/>
                 <PublicRoute exact path='/verificacion' component={AvisoVerificacion}/>
