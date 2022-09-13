@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
@@ -46,11 +47,11 @@ function LoginPerson() {
     useEffect(() => {
         if (code) {
             setLoading(true);
-            getUserData(code);
+            getToken(code);
         }
     }, [code])
 
-    const getUserData = (code) => {
+    const getToken = (code) => {
         const searchParamsTGD = {
             grant_type: 'authorization_code',
             client_id: tgdCredentials.clientId,

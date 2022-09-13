@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useCallback, useEffect, createContext } from "react";
 import loginService from "../services/loginService";
 import Swal from "sweetalert2";
@@ -138,6 +139,7 @@ const AuthProvider = ({ children }) => {
   }
 
   // LOGIN WITH TGD
+  // with the code obtained, I request the token
   const getUserTokenTGD = useCallback(
     (params) => {
       tgdServiceToken(params)
@@ -155,7 +157,8 @@ const AuthProvider = ({ children }) => {
     , []
   );
 
-
+  
+  // with the tpken obtained, I request the user data
   const getUserDataTGD = useCallback(
     (tgdToken) => {
       tgdServiceUserData(tgdToken)
