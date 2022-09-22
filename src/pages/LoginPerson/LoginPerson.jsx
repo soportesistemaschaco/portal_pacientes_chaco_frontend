@@ -33,64 +33,64 @@ function LoginPerson() {
         authURL: environment.tgd.authURL + '/auth'
     }
 
-    // const onSuccess = (response) => {
-    //     console.log(response);
-    //         // if (code) {
-    //             setLoading(true);
-    //             getToken(code);
-    //         // }
-    // }
-    const onSuccess = ({ code }) => fetch(`http://stage.ventanillaunica.chaco.gov.ar/oauth/v2/token?grant_type=authorization_code&client_id=109_469fzlhy0084gkscg4gsk8k88ow4kgggso8s44ososo80ccos8&client_secret=1pnatc2ds77ocoggsk0gw4ccsw4gswoocows40ogcww4owg0c8&redirect_uri=https%3A%2F%2Ftest-portal.salud.chaco.gob.ar%2Fcallback&code=${code}`, {
-        method: 'GET',
-        headers: {
-          'content-type': 'application/json',
-        },
-      })
-        .then(res => res.json())
-        .then((data) => {
-          setAccessToken(data.access_token);
-          return data.access_token;
-        })
-        .then(token => fetch(`http://stage.ventanillaunica.chaco.gov.ar/api/v1/persona`, {
-          method: 'GET',
-          headers: {
-            accept: 'application/json',
-            authorization: `Bearer ${token}`,
-          },
-        }))
-        .then(res => res.json())
-        .then(res => console.log(res))
-        .catch(err => console.error(err));
+    const onSuccess = (response) => {
+        console.log(response);
+            // if (code) {
+                setLoading(true);
+                getToken(code);
+            // }
+    }
+    // const onSuccess = ({ code }) => fetch(`http://stage.ventanillaunica.chaco.gov.ar/oauth/v2/token?grant_type=authorization_code&client_id=109_469fzlhy0084gkscg4gsk8k88ow4kgggso8s44ososo80ccos8&client_secret=1pnatc2ds77ocoggsk0gw4ccsw4gswoocows40ogcww4owg0c8&redirect_uri=https%3A%2F%2Ftest-portal.salud.chaco.gob.ar%2Fcallback&code=${code}`, {
+    //     method: 'GET',
+    //     headers: {
+    //       'content-type': 'application/json',
+    //     },
+    //   })
+    //     .then(res => res.json())
+    //     .then((data) => {
+    //       setAccessToken(data.access_token);
+    //       return data.access_token;
+    //     })
+    //     .then(token => fetch(`http://stage.ventanillaunica.chaco.gov.ar/api/v1/persona`, {
+    //       method: 'GET',
+    //       headers: {
+    //         accept: 'application/json',
+    //         authorization: `Bearer ${token}`,
+    //       },
+    //     }))
+    //     .then(res => res.json())
+    //     .then(res => console.log(res))
+    //     .catch(err => console.error(err));
     
     const onFailure = response => console.error(response);
 
-    useEffect(() => {
-        if (auth.isLogged()) history.push(previousObjetURL || "/usuario")
-    }, [auth, history, previousObjetURL])
+    // useEffect(() => {
+    //     if (auth.isLogged()) history.push(previousObjetURL || "/usuario")
+    // }, [auth, history, previousObjetURL])
 
     const onSubmit = () => {
         // TODO: HARDCODE
         auth.loginPerson('violeta.pugliese@gmail.com', 123546);
     }
 
-    // useEffect(() => {
-    //     if (code) {
-    //         setLoading(true);
-    //         getToken(code);
-    //     }
-    // }, [code])
+    useEffect(() => {
+        if (code) {
+            setLoading(true);
+            getToken(code);
+        }
+    }, [code])
 
-    // const getToken = (code) => {
-    //     const searchParamsTGD = {
-    //         grant_type: 'authorization_code',
-    //         client_id: tgdCredentials.clientId,
-    //         client_secret: tgdCredentials.clientSecret,
-    //         redirect_uri: tgdCredentials.redirectURI,
-    //         code: code
-    //     }
-    //     auth.getUserTokenTGD(searchParamsTGD);
-    //     setLoading(false);
-    // }
+    const getToken = (code) => {
+        const searchParamsTGD = {
+            grant_type: 'authorization_code',
+            client_id: tgdCredentials.clientId,
+            client_secret: tgdCredentials.clientSecret,
+            redirect_uri: tgdCredentials.redirectURI,
+            code: code
+        }
+        auth.getUserTokenTGD(searchParamsTGD);
+        setLoading(false);
+    }
 
     return (
         <div className="bg-container">
