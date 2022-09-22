@@ -57,6 +57,7 @@ export let TGD_HEADER = (tgdToken) => {
   let header = {
     "Authorization": `Bearer ${tgdToken}`,
   }
+  return header;
 }
 
 // login ---------------------------------------
