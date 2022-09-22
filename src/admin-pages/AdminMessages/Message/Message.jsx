@@ -59,10 +59,10 @@ export const Message = (props) => {
                 <Col xs={6} sm={3} className="d-flex flex-sm-row justify-content-end align-items-center">
                     <div className='d-flex flex-column align-items-end'>
                     <span style={{fontSize: '0.6rem'}}>Enviado:</span>
-                    <span style={{fontSize: '0.6rem'}}>{status}</span>
+                    <span style={{fontSize: '0.6rem'}}>{status.replace('T', ' - ')}</span>
                     </div>
                     <div className="my-tooltip" >
-                        <button className='btn text-primary btn-icon ms-0' onClick={() => { handleDeleteMessage(idMessage) }}><MdIcon.MdDeleteForever style={{ fontSize: '1.5rem' }} /></button>
+                        <button className='btn text-danger btn-icon ms-0' onClick={() => { handleDeleteMessage(idMessage) }}><MdIcon.MdDeleteForever style={{ fontSize: '1.5rem' }} /></button>
                         <span className="tiptext">
                             Eliminar
                         </span>
@@ -77,7 +77,7 @@ export const Message = (props) => {
                         </span>
                     </div>
                     <div className="my-tooltip" >
-                        <button className='btn text-primary btn-icon ms-0 me-1' onClick={() => { handleDeleteMessage(idMessage) }}><MdIcon.MdDeleteForever style={{ fontSize: '1.5rem' }} /></button>
+                        <button className='btn text-danger btn-icon ms-0 me-1' onClick={() => { handleDeleteMessage(idMessage) }}><MdIcon.MdDeleteForever style={{ fontSize: '1.5rem' }} /></button>
                         <span className="tiptext">
                             Eliminar
                         </span>

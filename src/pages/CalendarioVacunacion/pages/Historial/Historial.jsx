@@ -1,11 +1,10 @@
 import React from 'react';
+import DataNotFound from '../../../../components/DataNotFound';
 
 function Historial() {
     return (
         <div className='in'>
-            <p>
-                No hay datos disponibles Historial
-            </p>
+            <DataNotFound text="mis turnos" />
         </div>
     )
 }

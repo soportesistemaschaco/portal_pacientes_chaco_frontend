@@ -5,7 +5,8 @@ import CalendarioVacunacionRouter from './CalendarioVacunacionRouter';
 import { SidebarData } from '../../components/Sidebar/SidebarData'
 
 function CalendarioVacunacion() {
-    const routes = SidebarData.perfilDelPaciente[5].options;
+    const datahc = SidebarData.perfilDelPaciente.find(d => d.id === 7)
+    const routes = datahc.options;
 
     return (
         <Container className='p-3'>

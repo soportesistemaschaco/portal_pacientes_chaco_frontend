@@ -1,6 +1,6 @@
 import * as MdIcon from "react-icons/md";
 import * as FaIcon from "react-icons/fa";
-
+import vaccines from "../../assets/statics/vaccines_icon.svg";
 
 export const SidebarData = {
   inicio: [
@@ -130,26 +130,26 @@ export const SidebarData = {
         }, 
       ],
     },
-    // {
-    //   id: 7,
-    //   title: "Vacunación",
-    //   path: false,
-    //   icon: <MdIcon.MdEditCalendar className="menu-icon" />,
-    //   acordeon: true,
-    //   a: false,
-    //   cName: "sidebar-text",
-    //   aIcon: <MdIcon.MdKeyboardArrowDown className="menu-icon" />,
-    //   options:[
-    //     {
-    //       title: "Historial",
-    //       path: "/usuario/calendario-vacunacion/historial"
-    //     },
-    //     {
-    //       title: "Turno de vacunación",
-    //       path: "/usuario/calendario-vacunacion/turno-vacunacion"
-    //     } 
-    //   ],
-    // },
+    {
+      id: 7,
+      title: "Vacunación",
+      path: false,
+      icon: <img src={vaccines} className="custom-icon menu-icon" />,
+      acordeon: true,
+      a: false,
+      cName: "sidebar-text",
+      aIcon: <MdIcon.MdKeyboardArrowDown className="menu-icon" />,
+      options:[
+        {
+          title: "Historial",
+          path: "/usuario/calendario-vacunacion/historial"
+        },
+        {
+          title: "Turno de vacunación",
+          path: "/usuario/calendario-vacunacion/turno-vacunacion"
+        } 
+      ],
+    },
     {
       id: 8,
       title: "Programa Sumar",
