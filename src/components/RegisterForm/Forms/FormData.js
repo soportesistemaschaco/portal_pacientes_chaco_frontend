@@ -392,3 +392,11 @@ export const ValuesRegisterForm = {
   id_person_status: 1, //note - table db =>  1: pending , 2: validated , 3: refused
   is_deleted: false, //hardcode
 };
+
+export const ValuesRegisterAdminForm = {
+  name: "",
+  surname: "",
+  password: "",
+  username: "",
+  status: true,
+};

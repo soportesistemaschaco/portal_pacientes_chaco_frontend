@@ -224,8 +224,8 @@ export const SidebarData = {
   admin: [
     {
       id: 14,
-      title: "Alta de pacientes",
-      path: "/admin/alta-de-pacientes/pacientes-pendientes",
+      title: "Panel de administradores",
+      path: "/admin/panel/listado",
       icon: <FaIcon.FaUserCheck className="menu-icon" />,
       acordeon: false,
       a: false,
@@ -233,13 +233,9 @@ export const SidebarData = {
       aIcon: <MdIcon.MdKeyboardArrowDown className="menu-icon" />,
       options: [
         {
-          title: "Pacientes pendientes",
-          path: "/admin/alta-de-pacientes/pacientes-pendientes"
-        },
-        {
-          title:  "Pacientes rechazados",
-          path: "/admin/alta-de-pacientes/pacientes-rechazados"
-        } 
+          title: "Listado",
+          path: "/admin/panel/listado"
+        }
       ],
     },
     {
