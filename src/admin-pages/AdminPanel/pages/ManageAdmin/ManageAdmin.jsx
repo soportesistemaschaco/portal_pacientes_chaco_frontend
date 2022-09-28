@@ -3,18 +3,16 @@ import { Col, Table } from "react-bootstrap";
 import DataNotFound from "../../../../components/DataNotFound";
 import Loader from "../../../../components/Loader";
 import { getPersons } from "../../../../services/adminServices";
-import { getAdminStatus } from "../../../../services/personServices";
 import Swal from "sweetalert2";
 import * as MdIcon from "react-icons/md";
 import * as FaIcon from 'react-icons/fa';
 import { error } from "../../../../components/SwalAlertData";
-import { Link } from "react-router-dom";
+import { Link, } from "react-router-dom";
 
 export default function ManageAdmin() {
 
     const [loading, setLoading] = useState(true);
     const [reload, setReload] = useState(1);
-
     const [patientsPending, setPendingPatients] = useState([]);
 
     const getData = useCallback(
@@ -99,10 +97,12 @@ export default function ManageAdmin() {
                                                 <td>Activo</td>
                                                 <td>
                                                     <div className="my-tooltip">
-                                                        <button className='btn text-secondary btn-icon' onClick={() => { }} ><MdIcon.MdEditNote style={{ fontSize: '1.5rem' }} /></button>
-                                                        <span className="tiptext">
-                                                            Editar
-                                                        </span>
+                                                        <Link className="text-dark" to={`/admin/panel/editar?id=${5}`} >
+                                                            <button className='btn text-secondary btn-icon'><MdIcon.MdEditNote style={{ fontSize: '1.5rem' }} /></button>
+                                                            <span className="tiptext">
+                                                                Editar
+                                                            </span>
+                                                        </Link>
                                                     </div>
                                                 </td>
                                             </tr>
