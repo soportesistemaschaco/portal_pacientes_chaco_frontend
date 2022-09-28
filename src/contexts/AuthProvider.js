@@ -145,9 +145,9 @@ const AuthProvider = ({ children }) => {
       tgdServiceToken(params)
         .then((response) => {
           console.log('tokenTGD response', response)
-          if (response.access_token) {
-            let tgdToken
-            getUserDataTGD(tgdToken)
+          if (response.access_token ) {
+            let tgdToken = response.access_token;
+            getUserDataTGD(tgdToken);
           } 
         })
         .catch((error) => {
