@@ -70,15 +70,39 @@ export const SumarChart = (props) => {
 
     return (
         <Col lg={6} className='my-3'>
-        <h5>Consumo de datos SUMAR</h5>
-        <div className="p-3 border border-secundary rounded" style={{ maxHeight: '400px' }}>
-            <Bar
-                data={data}
-                height={70}
-                width={100}
-                options={options}
-            />
-        </div>
-    </Col>
+            <h5>Consumo de datos SUMAR</h5>
+            <div className="mb-3 d-flex">
+                <div>
+                    <label htmlFor="desde">Desde:</label>
+                    <input
+                        className="mx-2 border boder-secundary rounded p-2"
+                        type="date"
+                        name='from'
+                        value={fromDate}
+                        onChange={(event) => setFromDate(event.target.value)}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="desde">Hasta:</label>
+                    <input className="mx-2 border boder-secundary rounded p-2"
+                        type="date"
+                        name='from'
+                        value={toDate}
+                        onChange={(event) => setToDate(event.target.value)}
+                    />
+                </div>
+                <div xs={1}>
+                    <Button><MdIcon.MdSearch /></Button>
+                </div>
+            </div>
+            <div className="p-3 border border-secundary rounded" style={{ maxHeight: '400px' }}>
+                <Bar
+                    data={data}
+                    height={70}
+                    width={100}
+                    options={options}
+                />
+            </div>
+        </Col>
     )
 }
