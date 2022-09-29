@@ -1,5 +1,5 @@
 import { Switch, Route, Redirect } from "react-router-dom";
-import AdminDasboard from "../admin-pages/AdminDashboard/AdminPanel";
+import AdminDasboard from "../admin-pages/AdminDashboard/AdminDashboard";
 import AdminMain from "../admin-pages/AdminMain/AdminMain";
 import AdminMessages from "../admin-pages/AdminMessages";
 import AdminPanel from "../admin-pages/AdminPanel/AdminPanel";
