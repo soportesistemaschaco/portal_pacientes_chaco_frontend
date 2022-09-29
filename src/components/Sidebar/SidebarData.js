@@ -257,6 +257,17 @@ export const SidebarData = {
           path: "/admin/mensajeria/borradores"
         } 
       ],
+    },
+    {
+      id: 16,
+      title: "Indicadores",
+      path: "/admin/indicadores",
+      icon: <MdIcon.MdOutlineDashboard className="menu-icon" />,
+      acordeon: false,
+      a: false,
+      cName: "sidebar-text",
+      aIcon: <MdIcon.MdKeyboardArrowDown className="menu-icon" />,
+      options: [],
     }
   ],
 };

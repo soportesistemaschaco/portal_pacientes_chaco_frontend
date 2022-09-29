@@ -10,6 +10,7 @@ const AdminMain = () => {
     const links = [
         { id: 1, path: "/admin/panel/listado", namePath: "Panel de Administradores", icon: <FaIcon.FaUserCheck className="main__icon" /> },
         { id: 2, path: "/admin/mensajeria/mensajes-enviados", namePath: "Mensajería", icon: <MdIcon.MdOutlineMessage className="main__icon" /> },
+        { id: 3, path: "/admin/indicadores", namePath: "Indicadores", icon: <MdIcon.MdOutlineDashboard className="main__icon" /> },
     ]
 
 

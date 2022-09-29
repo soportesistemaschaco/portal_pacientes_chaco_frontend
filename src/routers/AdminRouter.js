@@ -1,4 +1,5 @@
 import { Switch, Route, Redirect } from "react-router-dom";
+import AdminDasboard from "../admin-pages/AdminDashboard/AdminPanel";
 import AdminMain from "../admin-pages/AdminMain/AdminMain";
 import AdminMessages from "../admin-pages/AdminMessages";
 import AdminPanel from "../admin-pages/AdminPanel/AdminPanel";
@@ -14,6 +15,7 @@ export default function AdminRouter() {
           <Route exact path="/admin" component={AdminMain} />
           <Route path="/admin/panel" component={AdminPanel} />
           <Route path="/admin/mensajeria" component={AdminMessages} />
+          <Route path="/admin/indicadores" component={AdminDasboard} />
           <Route path="/admin/404" component={NotFound} />
           <Route path="/admin/*">
             <Redirect to="/admin/404" />
