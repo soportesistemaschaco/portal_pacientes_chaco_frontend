@@ -23,6 +23,7 @@ const AuthProvider = ({ children }) => {
   ); //note: 1 = admin / 2 = person
   const curtime = new Date().getTime();
   const [newUser, setNewUser] = useState(false);
+  const [loading, setLoading] = useState(false); 
 
   useEffect(() => {
     try {
@@ -46,6 +47,7 @@ const AuthProvider = ({ children }) => {
 
   const loginAdmin = useCallback(
     (u, p) => {
+      setLoading(true);
       loginService(u, p)
         .then((res) => {
           if (res.ok) {
@@ -61,10 +63,12 @@ const AuthProvider = ({ children }) => {
           setTypeUser(1); //hardcode - 1 = user-admin. 2 = user-person
           setUser(data);
           setTokenUser(data.access_token);
+          setLoading(false)
           return tokenUser;
         })
         .catch((err) => {
-          console.log("error: ", err);
+          setLoading(false)
+          console.error("error: ", err);
           switch (err.message) {
             case 'Mail not validated.':
               Swal.fire(error('Email no validado'));
@@ -82,6 +86,7 @@ const AuthProvider = ({ children }) => {
 
   const loginPerson = useCallback(
     (u, p) => {
+      setLoading(true);
       loginPersonService(u, p)
         .then((res) => {
           if (res.ok) {
@@ -97,9 +102,12 @@ const AuthProvider = ({ children }) => {
           setUser(data.data);
           setTokenUser(data.access_token);
           setTypeUser(2); //hardcode //hardcode - 1 = user-admin. 2 = user-person
+          setLoading(false);
           return tokenUser;
         })
         .catch((err) => {
+          setLoading(false);
+          console.error("error: ", err);
           switch (err.message) {
             case 'Mail not email_validated.':
               Swal.fire(error('Email no validado'));
@@ -211,6 +219,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const contextValue = {
+    loading,
     user,
     tokenUser,
     typeUser,
