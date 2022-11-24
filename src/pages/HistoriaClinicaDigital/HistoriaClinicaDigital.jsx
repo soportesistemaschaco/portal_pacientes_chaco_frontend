@@ -6,6 +6,7 @@ import HCDRouter from './HCDRouter';
 import SelectType from '../../components/SelectType';
 import usePatient from '../../hooks/usePatient';
 import institutionsServices from '../../services/institutionsServices';
+import * as MdIcon from "react-icons/md";
 
 const HistoriaClinicaDigital = () => {
 
@@ -32,7 +33,10 @@ const HistoriaClinicaDigital = () => {
 
     return (
         <Container className='historia-clinica p-3'>
-            <h5 className='section-title'>Historia Clínica Digital</h5>
+            <div className="d-flex">
+                <MdIcon.MdOutlineFolderShared className="menu-icon text-primary me-1" style={{ fontSize: 'x-large' }} />
+                <h5 className='section-title mb-3'>Historia clínica digital</h5>
+            </div>
             <Row>
                 <Col className='switch-container'>
                     {routes.map((route) => {

@@ -20,7 +20,10 @@ export default function PerfilPaciente() {
     return (
         <Container className='perfil-paciente p-3'>
             <div className="w-100 d-flex justify-content-between">
-                <h5 className='section-title'>Perfil del paciente</h5>
+                <div className="d-flex">
+                    <MdIcon.MdOutlinePersonOutline className="menu-icon text-primary me-1" style={{ fontSize: 'x-large' }} />
+                    <h5 className='section-title mb-3'>Perfil del Paciente</h5>
+                </div>
                 <div className="d-flex align-items-center">
                     <div className="my-tooltip">
                         <button className='btn text-secondary btn-icon' onClick={() => { verHistoriaClinica() }}><MdIcon.MdFolderShared style={{ fontSize: '1.5rem' }} /></button>

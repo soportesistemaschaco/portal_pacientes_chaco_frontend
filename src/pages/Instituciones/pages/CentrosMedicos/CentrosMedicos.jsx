@@ -3,8 +3,8 @@ import institutionsServices from '../../../../services/institutionsServices'
 import useAuth from '../../../../hooks/useAuth.js'
 import Loader from '../../../../components/Loader'
 import DataNotFound from "../../../../components/DataNotFound";
-
-
+import { Container, Row } from "react-bootstrap";
+import * as FaIcon from "react-icons/fa";
 
 export default function CentrosMedicos() {
 
@@ -41,15 +41,20 @@ export default function CentrosMedicos() {
     }, [])
 
     return (
-        <div className="section-contennt in">
-            <h5>Centros Médicos</h5>
-            <Loader isActive={loading}></Loader>
+        <Container className="section-contennt in">
+        <div className="d-flex">
+            <FaIcon.FaRegBuilding className="menu-icon text-primary me-1"/>
+            <h5 className='section-title mb-3'>Centros de salud pública</h5>
+        </div>
+        <Loader isActive={loading}></Loader>
+        <Row className="my-3">
             {institutions?.length > 0 && institutions.map((ins) => {
                 return (
                     <p key={ins.id}>{ins.name}</p>
                 )
             })}
-            {notFound && <DataNotFound text="instituciones"/>}
-        </div>
+            {notFound && <DataNotFound text="instituciones" />}
+        </Row>
+    </Container>
     )
 }

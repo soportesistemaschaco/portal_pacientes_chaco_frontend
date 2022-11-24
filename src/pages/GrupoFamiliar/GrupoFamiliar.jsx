@@ -5,7 +5,7 @@ import usePatient from '../../hooks/usePatient';
 import * as FaIcon from 'react-icons/fa';
 import { Paciente } from './Paciente/Paciente';
 import Loader from '../../components/Loader';
-
+import * as MdIcon from "react-icons/md";
 
 function GrupoFamiliar() {
 
@@ -31,7 +31,10 @@ function GrupoFamiliar() {
 
     return (
         <Container className='p-3'>
-            <h5 className='section-title mb-3'>Grupo familiar</h5>
+            <div className="d-flex">
+                <MdIcon.MdOutlineGroup className="menu-icon text-primary me-1" style={{fontSize: 'x-large'}}/>
+                <h5 className='section-title mb-3'>Grupo familiar</h5>
+            </div>
             <Row className="w-100 mb-3 ms-0">
                 <Col className="w-100 d-flex justify-content-end pe-0">
                     <Link to="/usuario/agregar-paciente">

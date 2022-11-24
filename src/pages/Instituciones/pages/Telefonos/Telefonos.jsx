@@ -1,8 +1,13 @@
 import { Container } from "react-bootstrap";
+import * as MdIcon from "react-icons/md";
 
 export default function Telefonos() {
     return (
-        <Container>
+        <Container className="section-contennt in">
+                <div className="d-flex">
+                    <MdIcon.MdAccountBalance className="menu-icon text-primary me-1" />
+                    <h5 className='section-title mb-3'>Datos institucionales</h5>
+                </div>
             <div className='main-telefonos mt-3'>
                 <div className="container">
                     <div className="row">
@@ -11,7 +16,7 @@ export default function Telefonos() {
                             <h4 className='mb-0 py-1 text-uppercase'>Contacto</h4>
                         </div>
                         <div className="col-12 col-md-6">
-                            <h5 className="mt-3">Ministerio de Salud</h5>
+                            <h5 className="mt-3">Ministerio de Salud Pública</h5>
                             <h6>Gobierno de Chaco</h6>
 
                             <ul className="list-unstyled">
@@ -35,7 +40,6 @@ export default function Telefonos() {
                         {/*colum3*/}
 
                     </div>
-
                 </div>
 
             </div>

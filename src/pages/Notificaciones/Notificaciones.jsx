@@ -7,7 +7,8 @@ import { error } from "../../components/SwalAlertData";
 import useAuth from "../../hooks/useAuth";
 import usePatient from '../../hooks/usePatient'
 import { getMessagesByPerson } from "../../services/messagesServices";
-import Loader from '../../components/Loader'
+import Loader from '../../components/Loader';
+import * as FaIcon from "react-icons/fa";
 
 export default function Notificaciones() {
 
@@ -15,13 +16,13 @@ export default function Notificaciones() {
     var tokenUser = useAuth().tokenUser;
     //Person
     const p = usePatient();
-    const idPerson = p.patient.id 
+    const idPerson = p.patient.id
 
     const [messages, setMessages] = useState();
 
     const getMessages = useCallback(
         (person_id, only_unread) => {
-            getMessagesByPerson(person_id, only_unread) 
+            getMessagesByPerson(person_id, only_unread)
                 .then((res) => {
                     if (res) {
                         let order = res.reverse()
@@ -30,9 +31,9 @@ export default function Notificaciones() {
                         return messages
                     }
                 })
-                .catch((err) => { 
+                .catch((err) => {
                     console.log(err)
-                    Swal.fire(error('Error al cargar los mensajes')) 
+                    Swal.fire(error('Error al cargar los mensajes'))
                     setLoading(false)
                 })
         },
@@ -45,7 +46,7 @@ export default function Notificaciones() {
 
     const initMessages = () => {
         setLoading(true)
-        getMessages(idPerson, false) 
+        getMessages(idPerson, false)
     }
 
 
@@ -53,17 +54,20 @@ export default function Notificaciones() {
         {loading
             ? <Loader isActive={loading} />
             : <Container className='notificaciones p-3'>
-                <h5 className='section-title'>Notificaciones</h5>
+                <div className="d-flex">
+                    <FaIcon.FaRegBell className="menu-icon text-primary me-1" style={{ fontSize: 'x-large' }} />
+                    <h5 className='section-title mb-3'>Notificaciones</h5>
+                </div>
                 {messages.length > 0 ? messages.map((m, i) => {
-                    return <Mensaje 
-                    key={`${m.message.id}-${i}`} 
-                    idMessage={m.message.id}
-                    asunto={m.message.header} 
-                    from='Portal del paciente | Chaco' 
-                    mensaje={m.message.body} {...i}
-                    isRead={m.read_datetime}
-                    action={initMessages}
-                     />
+                    return <Mensaje
+                        key={`${m.message.id}-${i}`}
+                        idMessage={m.message.id}
+                        asunto={m.message.header}
+                        from='Portal del paciente | Chaco'
+                        mensaje={m.message.body} {...i}
+                        isRead={m.read_datetime}
+                        action={initMessages}
+                    />
                 }
                 )
                     :
