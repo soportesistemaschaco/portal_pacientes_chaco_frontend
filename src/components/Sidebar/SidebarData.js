@@ -80,61 +80,70 @@ export const SidebarData = {
       cName: "sidebar-text acordeon",
       aIcon: <MdIcon.MdKeyboardArrowDown className="menu-icon" />,
       options: [
-        {
-          title: "Alergias",
-          path: "/usuario/historia-clinica/alergias"
+         {
+          title: "HSI",
+          path: "/usuario/historia-clinica/hsi"
         },
         {
-          title: "Antecedentes personales",
-          path: "/usuario/historia-clinica/antecedentes-personales"
+          title: "Programa Sumar",
+          path: "/usuario/historia-clinica/programa-sumar"
         },
-        {
-          title: "Antecedentes familiares",
-          path: "/usuario/historia-clinica/antecedentes-familiares"
-        },
-        {
-          title: "Datos antropométricos",
-          path: "/usuario/historia-clinica/datos-antropometricos"
-        },
-        {
-          title: "Datos crónicos",
-          path: "/usuario/historia-clinica/datos-cronicos"
-        },
-        {
-          title: "Hospitalización",
-          path: "/usuario/historia-clinica/hospitalizacion"
-        },
-        {
-          title: "Inmunización",
-          path: "/usuario/historia-clinica/inmunizacion"
-        },
-        {
-          title: "Medicación",
-          path: "/usuario/historia-clinica/medicacion"
-        },
-        {
-          title: "Problemas activos",
-          path: "/usuario/historia-clinica/problemas-activos"
-        },
-        {
-          title: "Problemas resueltos",
-          path: "/usuario/historia-clinica/problemas-resueltos"
-        },
-        {
-          title: "Registros dentales",
-          path: "/usuario/historia-clinica/registros-dentales"
-        },
-        {
-          title: "Signos vitales",
-          path: "/usuario/historia-clinica/signos-vitales"
-        }, 
+
+        // {
+        //   title: "Alergias",
+        //   path: "/usuario/historia-clinica/alergias"
+        // },
+        // {
+        //   title: "Antecedentes personales",
+        //   path: "/usuario/historia-clinica/antecedentes-personales"
+        // },
+        // {
+        //   title: "Antecedentes familiares",
+        //   path: "/usuario/historia-clinica/antecedentes-familiares"
+        // },
+        // {
+        //   title: "Datos antropométricos",
+        //   path: "/usuario/historia-clinica/datos-antropometricos"
+        // },
+        // {
+        //   title: "Datos crónicos",
+        //   path: "/usuario/historia-clinica/datos-cronicos"
+        // },
+        // {
+        //   title: "Hospitalización",
+        //   path: "/usuario/historia-clinica/hospitalizacion"
+        // },
+        // {
+        //   title: "Inmunización",
+        //   path: "/usuario/historia-clinica/inmunizacion"
+        // },
+        // {
+        //   title: "Medicación",
+        //   path: "/usuario/historia-clinica/medicacion"
+        // },
+        // {
+        //   title: "Problemas activos",
+        //   path: "/usuario/historia-clinica/problemas-activos"
+        // },
+        // {
+        //   title: "Problemas resueltos",
+        //   path: "/usuario/historia-clinica/problemas-resueltos"
+        // },
+        // {
+        //   title: "Registros dentales",
+        //   path: "/usuario/historia-clinica/registros-dentales"
+        // },
+        // {
+        //   title: "Signos vitales",
+        //   path: "/usuario/historia-clinica/signos-vitales"
+        // }, 
       ],
     },
     {
       id: 7,
       title: "Vacunación",
       path: false,
-      icon: <img src={vaccines} className="custom-icon menu-icon" />,
+      icon: <img src={vaccines} alt="vacuna" className="custom-icon menu-icon" />,
       acordeon: true,
       a: false,
       cName: "sidebar-text",
@@ -150,17 +159,17 @@ export const SidebarData = {
         } 
       ],
     },
-    {
-      id: 8,
-      title: "Programa Sumar",
-      path: "/usuario/programa-sumar",
-      icon: <MdIcon.MdAddCircleOutline className="menu-icon" />,
-      acordeon: false,
-      a: false,
-      cName: "sidebar-text",
-      aIcon: <MdIcon.MdKeyboardArrowDown className="menu-icon" />,
-      options: false,
-    },
+    // {
+    //   id: 8,
+    //   title: "Programa Sumar",
+    //   path: "/usuario/programa-sumar",
+    //   icon: <MdIcon.MdAddCircleOutline className="menu-icon" />,
+    //   acordeon: false,
+    //   a: false,
+    //   cName: "sidebar-text",
+    //   aIcon: <MdIcon.MdKeyboardArrowDown className="menu-icon" />,
+    //   options: false,
+    // },
   ],
   grupoFamiliar: [
     {
