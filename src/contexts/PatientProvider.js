@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { createContext } from "react";
 import useAuth from "../hooks/useAuth";
 import Swal from "sweetalert2";
-import patientBasicDataServices from "../services/patientService";
+// import patientBasicDataServices from "../services/patientService";
 import { errorActivePatient, toastPatient } from "../components/SwalAlertData";
 import { getPersonByIdentificationNumber } from "../services/personServices";
 
@@ -54,14 +54,19 @@ const PatientProvider = ({ children }) => {
         if (res.id) {
           let p = res;
           if (p) {
-            let body = {
-              gender_id: p.id_gender,
-              identification_number: p.identification_number,
-              type_id: p.id_identification_type,
-            };
-            getPatientBasicData(p, body);
+
+            setPatientInstitution(p.id_usual_institution);
+            setPatient(p);
+          
+            if (p.id_patient) {
+              setIdPatient(p.id_patient);
+            } else {
+              setIdPatient(null);
+            }
+        
             Toast.fire(toastPatient(`${p.name} ${p.surname}`));
             return patient;
+
           }
         } else {
           throw new Error("No se encontró información del paciente");
@@ -77,30 +82,6 @@ const PatientProvider = ({ children }) => {
       });
   }, []);
 
-  const getPatientBasicData = useCallback((p, data) => {
-    patientBasicDataServices(data)
-      .then((res) => {
-        if (p) {
-          setPatientInstitution(p.id_usual_institution);
-          setPatient(p);
-          if (res.detail) {
-            if (p.id_patient) {
-              setIdPatient(p.id_patient);
-            } else {
-              setIdPatient(null);
-            }
-            throw new Error("Error al obtener datos de paciente en HSI");
-          } else {
-            if(res.id){
-              setIdPatient(res.id);
-            }
-          }
-        }
-      })
-      .catch((err) => {
-        console.log("error", err);
-      });
-  }, []);
 
   const changeInstitution = (e) => {
     let id_institution = parseInt(e.target.value);
