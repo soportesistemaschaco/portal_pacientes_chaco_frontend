@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Form } from 'react-bootstrap'
 import institutionsServices from '../../../services/institutionsServices';
-import identificationsTypeServices from '../../../services/parametricServices';
+import { documentTypeServices } from '../../../services/parametricServices';
 import { variantsGender } from '../../ComponentsData';
 import DatePickerComponent from '../../DatePickerComponent';
 import SelectType from '../../SelectType';
@@ -45,7 +45,7 @@ const FormGroup = React.forwardRef((props, ref) => {
 
   const getDNIVariants = useCallback(
     () => {
-      identificationsTypeServices()
+      documentTypeServices()
         .then((res) => {
           const types = res
           return types;
