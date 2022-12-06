@@ -187,9 +187,20 @@ export const API_ENDPOINT_DELETEMESSAGE = (query) => {
   return url;
 };
 
-// sumar ---------------------------------------
+// sumar la rioja ---------------------------------------
 export const API_ENDPOINT_SUMAR = (idn) => {
   let url = `${baseUrl}/data/${idn}`;
+  return url;
+};
+
+// sumar chaco ---------------------------------------
+export const API_ENDPOINT_PRESTACIONES_SUMAR = (query) => {
+  let url = `${baseUrl}/prestaciones?${query}`;
+  return url;
+};
+
+export const API_ENDPOINT_EFECTORES_SUMAR = () => {
+  let url = `${baseUrl}/efectores`;
   return url;
 };
 
@@ -257,6 +268,23 @@ export const API_ENDPOINT_PERSONALHYSTORIES = (institution_id, patient_id) => {
   let url = `${baseUrl}/hcegeneral/${institution_id}/personalHistories/${patient_id}`;
   return url;
 };
+// // HSI CHACO ---------------------------------------------------------------------------
+export const API_ENDPOINT_PATIENT_TURN_HSI = (query) => {
+  let url = `${baseUrl}/patient/turn?${query}`;
+  return url;
+};
+
+export const API_ENDPOINT_PATIENT_CLINICHISTORY_HSI = (query) => {
+  let url = `${baseUrl}/patient/clinichistory?${query}`;
+  return url;
+};
+
+export const API_ENDPOINT_PATIENT_DOCUMENT_TYPE = (query) => {
+  let url = `${baseUrl}/patient/documenttype`;
+  return url;
+};
+
+// // FIN HSI CHACO -----------------------------------------------------------------------
 // // TGD URL
 export const TGD_GET_USER_TOKEN = (query) => {
   let url = `${environment.tgd.authURL}/token?${query}`;
