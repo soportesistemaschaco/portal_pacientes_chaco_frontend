@@ -270,17 +270,17 @@ export const API_ENDPOINT_PERSONALHYSTORIES = (institution_id, patient_id) => {
 };
 // // HSI CHACO ---------------------------------------------------------------------------
 export const API_ENDPOINT_PATIENT_TURN_HSI = (query) => {
-  let url = `${baseUrl}/patient/turn?${query}`;
+  let url = `${baseUrl}/turn?${query}`;
   return url;
 };
 
 export const API_ENDPOINT_PATIENT_CLINICHISTORY_HSI = (query) => {
-  let url = `${baseUrl}/patient/clinichistory?${query}`;
+  let url = `${baseUrl}/clinichistory?${query}`;
   return url;
 };
 
 export const API_ENDPOINT_PATIENT_DOCUMENT_TYPE = (query) => {
-  let url = `${baseUrl}/patient/documenttype`;
+  let url = `${baseUrl}/documenttype`;
   return url;
 };
 
