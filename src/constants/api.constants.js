@@ -204,6 +204,11 @@ export const API_ENDPOINT_EFECTORES_SUMAR = () => {
   return url;
 };
 
+export const API_ENDPOINT_VACUNAS_SUMAR = (idn) => {
+  let url = `${baseUrl}/vaccines?${idn}`;
+  return url;
+};
+
 // hce---------------------------------------
 export const API_ENDPOINT_ALLERGIES = (institution_id, patient_id) => {
   let url = `${baseUrl}/hcegeneral/${institution_id}/allergies/${patient_id}`;
