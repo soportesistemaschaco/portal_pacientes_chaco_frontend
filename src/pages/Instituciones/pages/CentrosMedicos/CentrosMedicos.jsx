@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import institutionsServices from '../../../../services/institutionsServices'
+import { efectoresServices } from '../../../../services/institutionsServices'
 import useAuth from '../../../../hooks/useAuth.js'
 import Loader from '../../../../components/Loader'
 import DataNotFound from "../../../../components/DataNotFound";
@@ -16,7 +16,7 @@ export default function CentrosMedicos() {
 
     const getInstitutions = useCallback(
         () => {
-            institutionsServices(tokenUser)
+            efectoresServices(tokenUser)
                 .then((res) => {
                     const allInstitutions = res
                     return allInstitutions;

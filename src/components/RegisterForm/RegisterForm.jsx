@@ -44,6 +44,12 @@ export default function RegisterForm(formType) {
             }
             );
             setNewValue(targetName)
+        } else if (e.name) {
+            setValues({
+                ...values,
+                ["id_usual_institution:"]: e.id,
+            }
+            );
         } else if (e) {
             setValues({
                 ...values,

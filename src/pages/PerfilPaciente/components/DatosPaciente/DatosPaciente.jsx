@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import usePatient from '../../../../hooks/usePatient';
 import { Col, Row } from "react-bootstrap";
 import { variantsGender } from '../../../../components/ComponentsData';
-import institutionsServices from '../../../../services/institutionsServices';
+import { efectoresServices } from '../../../../services/institutionsServices';
 
 function DatosPaciente() {
 
@@ -26,7 +26,7 @@ function DatosPaciente() {
     const [institution, setInstitution] = useState([]);
     const getInstitutions = useCallback(
         () => {
-            institutionsServices()
+            efectoresServices()
                 .then((res) => {
                     return res
                 })

@@ -23,7 +23,7 @@ const SelectType = React.forwardRef((props, ref) => {
             {!idValue && <option>Seleccionar...</option>}
             {variants.length > 0 && variants.map((variant) => {
                 return (
-                    <option key={`${variant.id}-${variant.name}`} value={variant.id} >{variant.name ||variant.description}</option>
+                    <option key={`${variant.id}-${variant.name}`} value={variant.id} >{variant.name ||variant.description || variant.descripcion}</option>
                 )
             })}
         </Form.Select>

@@ -264,7 +264,7 @@ export const LabelsFormData = {
   id_usual_institution: {
     form_name: "id_usual_institution",
     label: "Establecimiento de atención usual",
-    inputType: "select",
+    inputType: "autocomplete",
     type: "number",
     variants: "variantsInstitutions",
     sm: 6,

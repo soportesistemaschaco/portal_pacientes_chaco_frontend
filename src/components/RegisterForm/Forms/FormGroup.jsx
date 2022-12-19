@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Form } from 'react-bootstrap'
-import institutionsServices from '../../../services/institutionsServices';
+import { efectoresServices } from '../../../services/institutionsServices';
 import { documentTypeServices } from '../../../services/parametricServices';
+import AutocompleteComponent from '../../AutocompleteComponent';
 import { variantsGender } from '../../ComponentsData';
 import DatePickerComponent from '../../DatePickerComponent';
 import SelectType from '../../SelectType';
@@ -27,7 +28,7 @@ const FormGroup = React.forwardRef((props, ref) => {
 
   const getInstitutionsVariants = useCallback(
     () => {
-      institutionsServices()
+      efectoresServices()
         .then((res) => {
           const inst = res
           return inst;
@@ -99,6 +100,15 @@ const FormGroup = React.forwardRef((props, ref) => {
       }
       {inputType === 'select' &&
         <SelectType
+          name={name}
+          variants={options}
+          selectValue={selectValue}
+          disabled={disabled ? disabled : false}
+          handleChange={handleChange}
+        />
+      }
+       {inputType === 'autocomplete' &&
+        <AutocompleteComponent
           name={name}
           variants={options}
           selectValue={selectValue}
