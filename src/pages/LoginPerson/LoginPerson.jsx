@@ -167,11 +167,11 @@ function LoginPerson() {
                                     <Form.Group>
                                         <Form.Label className="text-light"><input type="checkbox" checked={saveData} onChange={(e) => { setSaveData(e.target.checked) }} /> Recordar usuario y contraseña</Form.Label>
                                     </Form.Group>
-                                    <Form.Group>
+                                    {/* <Form.Group>
                                         <Form.Label>
                                             <Link to="/recuperar-clave" className="text-light text-decoration-underline">¿Olvidaste tu contraseña?</Link>
                                         </Form.Label>
-                                    </Form.Group>
+                                    </Form.Group> */}
                                     <div className="d-flex flex-column align-items-center mt-2">
                                         <Button variant="primary" type="submit" className="w-100">
                                             Iniciar Sesión
@@ -187,7 +187,7 @@ function LoginPerson() {
                                             onFailure={onFailure}>
                                             Tu Gobierno Digital
                                         </OAuth2Login>
-                                        <Link to="/register" className="text-light mt-3 ">Crear cuenta en Portal del Paciente</Link>
+                                        {/* <Link to="/register" className="text-light mt-3 ">Crear cuenta en Portal del Paciente</Link> */}
                                     </div>
                                 </Form>
                             </Col>

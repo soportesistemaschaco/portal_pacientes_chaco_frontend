@@ -5,11 +5,11 @@ import PublicRoute from "./PublicRoute";
 import Footer from "../components/Footer";
 import LoginPerson from "../pages/LoginPerson";
 import Login from "../admin-pages/Login";
-import Register from "../pages/Register";
+// import Register from "../pages/Register";
 import UserRouter from "./UserRouter";
 import NotFound from "../pages/NotFound/NotFound";
-import AvisoVerificacion from "../pages/AvisoVerificacion";
-import RecuperarContraseña from "../pages/RecuperarContraseña";
+// import AvisoVerificacion from "../pages/AvisoVerificacion";
+// import RecuperarContraseña from "../pages/RecuperarContraseña";
 import AdminRouter from "./AdminRouter";
 import useAuth from "../hooks/useAuth";
 import Loader from "../components/Loader";
@@ -36,15 +36,15 @@ export default function AppRouter() {
                 <PublicRoute exact path='/login' component={LoginPerson }/>
                 <PublicRoute exact path='/callback' component={LoginPerson }/>
                 <PublicRoute exact path='/login-admin' component={Login}/>
-                <PublicRoute exact path='/register' component={Register}/>
+                {/* <PublicRoute exact path='/register' component={Register}/>
                 <PublicRoute exact path='/verificacion' component={AvisoVerificacion}/>
                 <PublicRoute exact path='/verificacion/*' component={AvisoVerificacion}/>
                 <PublicRoute exact path='/recuperar-clave' component={RecuperarContraseña}/>
-                <PublicRoute exact path='/recuperar-clave/*' component={RecuperarContraseña}/>
+                <PublicRoute exact path='/recuperar-clave/*' component={RecuperarContraseña}/> */}
                 <PrivateRoute path={path} component={ component } />
                 <Route exact path='/'><Redirect to={path}/></Route>  
                 <Route path='/404' component={NotFound}/>   
-                <Route path='*'><Redirect to='/404'/></Route>    
+                <Route path='*'><Redirect to='/'/></Route>    
             </Switch>
             <Footer />
             </div>
