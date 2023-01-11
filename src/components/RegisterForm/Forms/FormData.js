@@ -388,9 +388,9 @@ export const ValuesRegisterForm = {
   username: "",
   id_person: null, //hardcode
   id_patient: null, //hardcode
-  id_admin_status: 1, //note - table db =>  1: pending , 2: validated , 3: refused
-  id_person_status: 1, //note - table db =>  1: pending , 2: validated , 3: refused
-  is_deleted: false, //hardcode
+  id_admin_status: 2, //note - table db =>  1: pending , 2: validated , 3: refused
+  id_person_status: 1, //note - table db =>  1: pending , 2: validated , 3: refused, se cambia a 2 cuando la persona confirma su email
+  is_deleted: false, //hardcode 
 };
 
 export const ValuesRegisterAdminForm = {

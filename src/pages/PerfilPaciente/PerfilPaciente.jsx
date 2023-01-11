@@ -14,7 +14,7 @@ export default function PerfilPaciente() {
     const handleShow = () => setShow(true);
 
     const verHistoriaClinica = () => {
-        history.push('/usuario/historia-clinica/alergias')
+        history.push('/usuario/historia-clinica/hsi')
     }
 
     return (

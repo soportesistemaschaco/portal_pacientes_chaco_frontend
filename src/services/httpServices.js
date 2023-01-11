@@ -25,7 +25,13 @@ export async function put(url, header, data) {
     headers: header,
     body: data,
   })
-  .then(res => res)
-  .catch(err => console.log('err', err));
+  .then(res => {
+    console.log(res)
+    return res
+  })
+  .catch(err => {
+    console.error(err)
+    return err
+  });
   return promise;
 }

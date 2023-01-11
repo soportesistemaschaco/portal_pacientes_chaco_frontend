@@ -50,6 +50,7 @@ export default function RegisterForm(formType) {
                 ["id_usual_institution:"]: e.id,
             }
             );
+            setValue('id_usual_institution', e.id)
         } else if (e) {
             setValues({
                 ...values,
@@ -59,17 +60,17 @@ export default function RegisterForm(formType) {
         }
     }
 
-    const handleChangeImage = (e) => {
-        if (e.target.files) {
-            let targetName = e.target.name
-            setValues({
-                ...values,
-                [targetName]: e.target.files[0],
-            }
-            );
-            setNewValue(targetName)
-        }
-    }
+    // const handleChangeImage = (e) => {
+    //     if (e.target.files) {
+    //         let targetName = e.target.name
+    //         setValues({
+    //             ...values,
+    //             [targetName]: e.target.files[0],
+    //         }
+    //         );
+    //         setNewValue(targetName)
+    //     }
+    // }
 
     const getAddress = (obj) => {
         if (obj.address) {
@@ -140,19 +141,20 @@ export default function RegisterForm(formType) {
         }
     }
 
-    const onSubmitImages = () => {
-        setLoading(true)
-        let images = new FormData();
-        images.append('file1', values.file1, 'file1')
-        images.append('file2', values.file2, 'file2')
-        uploadIdentificationImages(newPersonId, images);
-    }
+    // const onSubmitImages = () => {
+    //     setLoading(true)
+    //     let images = new FormData();
+    //     images.append('file1', values.file1, 'file1')
+    //     images.append('file2', values.file2, 'file2')
+    //     uploadIdentificationImages(newPersonId, images);
+    // }
 
     const onSubmit = (length, i) => {
-        if (length === i + 1) { //last step 
-            onSubmitImages()
-        } else if (length - 1 === i + 1) {  //penultimate step 
-            buildBody()
+        // if (length === i + 1) { 
+        //     onSubmitImages()
+        // } else if (length - 1 === i + 1) {  //penultimate step 
+        if (length === i + 1){
+            buildBody() //last step 
         } else {
             next(i)
         }
@@ -167,8 +169,9 @@ export default function RegisterForm(formType) {
                         if (readeble.status) {
                             auth.newRegisterUser(body)
                             setNewPersonId(readeble.value)
-                            setStep(4)
+                            // setStep(4)
                             setLoading(false)
+                            history.push("/verificacion")
                         } else {
                             Swal.fire(error('Hubo un error al confirmar datos'))
                             throw new Error(text)
@@ -180,8 +183,13 @@ export default function RegisterForm(formType) {
                 }
             })
             .catch((err) => {
-                console.log('error', err)
-                Swal.fire(error('Hubo un error al confirmar datos'))
+                console.error('error', err)
+                if (err.cod === 417){
+                    Swal.fire(error('El usuario ya existe'))
+                } else {
+                    Swal.fire(error('Hubo un error al registrar usuario'))
+                }
+                setStep(0)
                 setLoading(false)
             })
     }, []);
@@ -195,8 +203,14 @@ export default function RegisterForm(formType) {
                         let readeble = JSON.parse(text)
                         if (readeble.status) {
                             setNewPersonId(readeble.value)
-                            setStep(2)
+                            // setStep(2)
                             setLoading(false)
+                            Swal.fire(successRegister).then((result) => {
+                                if (result.isConfirmed) {
+                                    setLoading(false)
+                                    history.push("/usuario/grupo-familiar");
+                                }
+                            })
                         } else {
                             Swal.fire(error('Hubo un error al confirmar datos'))
                             throw new Error(text)
@@ -208,43 +222,48 @@ export default function RegisterForm(formType) {
                 }
             })
             .catch((err) => {
-                console.log('error', err)
-                Swal.fire(error('Hubo un error al confirmar datos'))
+                console.error('error', err)
+                if (err.cod === 417){
+                    Swal.fire(error('El usuario ya existe'))
+                } else {
+                    Swal.fire(error('Hubo un error al registrar usuario'))
+                }
+                setStep(0)
                 setLoading(false)
             })
     }, []);
 
-    const uploadIdentificationImages = useCallback(
-        (id, body) => {
-            uploadIdentificationImagesService(id, body)
-                .then((res) => {
-                    if (res && type === "user") {
-                        if (res.ok) {
-                            setLoading(false)
-                            history.push("/verificacion")
-                        } else {
-                            Swal.fire(error('Ha ocurrido un error al enviar las imágenes'))
-                        }
-                    } else if (res && type === "patient") {
-                        if (res.ok) {
-                            Swal.fire(successRegister).then((result) => {
-                                if (result.isConfirmed) {
-                                    setLoading(false)
-                                    history.push("/usuario/grupo-familiar");
-                                }
-                            })
-                        } else {
-                            Swal.fire(error('Ha ocurrido un error al enviar las imágenes'))
-                        }
-                    }
-                })
-                .catch((err) => {
-                    console.log('error', err)
-                    Swal.fire(error('Ha ocurrido un error al cargar las imágenes'))
-                })
-        },
-        [],
-    );
+    // const uploadIdentificationImages = useCallback(
+    //     (id, body) => {
+    //         uploadIdentificationImagesService(id, body)
+    //             .then((res) => {
+    //                 if (res && type === "user") {
+    //                     if (res.ok) {
+    //                         setLoading(false)
+    //                         history.push("/verificacion")
+    //                     } else {
+    //                         Swal.fire(error('Ha ocurrido un error al enviar las imágenes'))
+    //                     }
+    //                 } else if (res && type === "patient") {
+    //                     if (res.ok) {
+                            // Swal.fire(successRegister).then((result) => {
+                            //     if (result.isConfirmed) {
+                            //         setLoading(false)
+                            //         history.push("/usuario/grupo-familiar");
+                            //     }
+                            // })
+    //                     } else {
+    //                         Swal.fire(error('Ha ocurrido un error al enviar las imágenes'))
+    //                     }
+    //                 }
+    //             })
+    //             .catch((err) => {
+    //                 console.log('error', err)
+    //                 Swal.fire(error('Ha ocurrido un error al cargar las imágenes'))
+    //             })
+    //     },
+    //     [],
+    // );
 
     const loginDataForm =
         <Row className={step === 0 ? "in" : "out"}>
@@ -462,25 +481,25 @@ export default function RegisterForm(formType) {
             }
         </Row>
 
-    const photoDataForm = <Row className={step === 4 || step === 2 ? "in" : "out"}>
-        {(step === 4 && type === 'user') || (step === 2 && type === 'patient') ?
-            <>
-                <p>Para finalizar, ingresá foto de tu documento de identidad</p>
-                <Col xs={12}>
-                    {errors[f.file1.form_name] && <ErrorMessage><p>{errors[f.file1.form_name].message}</p></ErrorMessage>}
-                    <FormGroup inputType={f.file1.inputType} label={f.file1.label} name={f.file1.form_name} value={values.file1}
-                        {...register(`${f.file1.form_name}`, f.file1.register)}
-                        onChange={handleChangeImage}
-                    />
-                    {errors[f.file2.form_name] && <ErrorMessage><p>{errors[f.file2.form_name].message}</p></ErrorMessage>}
-                    <FormGroup inputType={f.file2.inputType} label={f.file2.label} name={f.file2.form_name} value={values.file2}
-                        {...register(`${f.file2.form_name}`, f.file2.register)}
-                        onChange={handleChangeImage}
-                    />
-                </Col>
-            </> : <></>
-        }
-    </Row>
+    // const photoDataForm = <Row className={step === 4 || step === 2 ? "in" : "out"}>
+    //     {(step === 4 && type === 'user') || (step === 2 && type === 'patient') ?
+    //         <>
+    //             <p>Para finalizar, ingresá foto de tu documento de identidad</p>
+    //             <Col xs={12}>
+    //                 {errors[f.file1.form_name] && <ErrorMessage><p>{errors[f.file1.form_name].message}</p></ErrorMessage>}
+    //                 <FormGroup inputType={f.file1.inputType} label={f.file1.label} name={f.file1.form_name} value={values.file1}
+    //                     {...register(`${f.file1.form_name}`, f.file1.register)}
+    //                     onChange={handleChangeImage}
+    //                 />
+    //                 {errors[f.file2.form_name] && <ErrorMessage><p>{errors[f.file2.form_name].message}</p></ErrorMessage>}
+    //                 <FormGroup inputType={f.file2.inputType} label={f.file2.label} name={f.file2.form_name} value={values.file2}
+    //                     {...register(`${f.file2.form_name}`, f.file2.register)}
+    //                     onChange={handleChangeImage}
+    //                 />
+    //             </Col>
+    //         </> : <></>
+    //     }
+    // </Row>
 
     const stepsForm = type === 'user'
         ? [
@@ -488,12 +507,12 @@ export default function RegisterForm(formType) {
             { title: "Datos personales", component: personalDataForm },
             { title: "Domicilio", component: geographicalDataForm },
             { title: "Salud", component: conditionDataForm },
-            { title: "Documento de identidad", component: photoDataForm }
+            // { title: "Documento de identidad", component: photoDataForm }
         ]
         : [
             { title: "Datos personales", component: personalDataForm },
             { title: "Salud", component: conditionDataForm },
-            { title: "Documento de identidad", component: photoDataForm }
+            // { title: "Documento de identidad", component: photoDataForm }
         ]
 
     return (

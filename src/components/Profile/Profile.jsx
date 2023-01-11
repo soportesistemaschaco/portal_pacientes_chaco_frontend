@@ -8,7 +8,7 @@ import usePatient from '../../hooks/usePatient';
 import { updatePerson } from '../../services/personServices';
 import Loader from '../Loader/Loader';
 import { LabelsFormData } from '../RegisterForm/Forms/FormData';
-import { error, success, confirm } from '../SwalAlertData';
+import { error, confirm } from '../SwalAlertData';
 import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
 
 function Profile({ show, handleClose, type }) {
@@ -23,9 +23,10 @@ function Profile({ show, handleClose, type }) {
     const [values, setValues] = useState(data)
     const [newValue, setNewValue] = useState("") //Get and set values form to required
     //set form with data
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const setForm = () => {
         if (show) {
-            Object.entries(data).forEach(([key, value], i) => {
+            Object.entries(data).forEach(([key, value]) => {
                 setValue(`${key}`, value);
             })
         }
@@ -42,9 +43,13 @@ function Profile({ show, handleClose, type }) {
             setValues({
                 ...values,
                 [targetName]: e.target?.value,
-            }
-            );
+            });
             setNewValue(targetName)
+        }else if (e.name) {
+            setValues({
+                ...values,
+                ['id_usual_institution']: e.id,
+            });
         }
     }
     useEffect(() => {
@@ -82,6 +87,7 @@ function Profile({ show, handleClose, type }) {
                     if (res.ok) {
                         return res.text().then(text => {
                             let readeble = JSON.parse(text)
+                            console.log(readeble);
                             if (readeble.status) {
                                 Swal.fire(confirm('El usuario ha sido actualizado. Verás los cambios cuando vuelvas a iniciar sesión.', true))
                                 setLoading(false)
@@ -95,7 +101,7 @@ function Profile({ show, handleClose, type }) {
                     }
                 })
                 .catch((err) => {
-                    console.log('error', err)
+                    console.error('error', err)
                     Swal.fire(error('Error al actualizar datos de usuario'))
                     setLoading(false)
                     handleClose()

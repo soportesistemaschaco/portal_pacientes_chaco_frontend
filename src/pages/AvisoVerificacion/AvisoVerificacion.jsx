@@ -67,7 +67,7 @@ function AvisoVerificacion() {
                                                 <MdIcon.MdOutlineCheckCircleOutline className="text-success" style={{ fontSize: "5rem" }}></MdIcon.MdOutlineCheckCircleOutline>
                                                 <p className="m-0 ms-2">El email ha sido verificado con éxito.</p>
                                             </div>
-                                            <p className="m-0 ms-2">Tu solicicitud está pendiente de alta. Una vez que sea aprobada por el Ministerio de Salud, podrás ingresar en el Portal.</p>
+                                            <Link to="/login">¡Iniciá sesión!</Link>
                                         </>
                                         :
                                         <div className="w-100 d-flex flex-column flex-sm-row align-items-center">

@@ -9,6 +9,7 @@ const AutocompleteComponent = React.forwardRef((props, ref) => {
     const { variants, name, handleChange, onBlur, selectValue, disabled } = props;
     const [idValue, setIdValue] = useState(selectValue ? selectValue : false)
     const [items, setItems] = useState([]);
+    const [value, setValue] = useState('');
 
 
     useEffect(() => {
@@ -28,30 +29,35 @@ const AutocompleteComponent = React.forwardRef((props, ref) => {
       }
     
       const handleOnSelect = (item) => {
-        handleChange(item)
-        setIdValue(item.id)
+        if (item && item.id) {
+          handleChange(item)
+          setIdValue(item.id)
+        }
       }
     
       const handleOnFocus = () => {
       }
 
       const formatResult = (item) => {
-        // return (
-        //   <>
-        //     <span style={{ display: 'block', textAlign: 'left' }}>id: {item.id}</span>
-        //     <span style={{ display: 'block', textAlign: 'left' }}>name: {item.name.split(' - ')[1]}</span>
-        //   </>
-        // )
       }
+
+      useEffect(() => {
+        //SETEA EL VALOR COMO PLACEHOLDER EN INPUT Y TMB SETEA EL VALOR EN EL FORMULARIO. 
+        // LA LIBRERIA react-search-autocomplete NO PERMITE SETEAR UN VALOR POR DEFECTO EN EL INPUT
+        if (idValue) {
+          let item = items.find((ins) => ins.id === idValue);
+          if (item) {
+            handleOnSelect(item);
+            setValue(item.name)
+          }
+        }
+      }, [idValue, items])
 
 
     return (
         <ReactSearchAutocomplete
             items={items}
-            onSearch={handleOnSearch}
-            onHover={handleOnHover}
             onSelect={handleOnSelect}
-            onFocus={handleOnFocus}
             styling={{
                 height: "34px",
                 border: "1px solid gray",
@@ -63,6 +69,7 @@ const AutocompleteComponent = React.forwardRef((props, ref) => {
                 clearIconMargin: "3px 8px 0 0",
                 zIndex: 2,
               }}
+            placeholder={value}
         />
     )
 })

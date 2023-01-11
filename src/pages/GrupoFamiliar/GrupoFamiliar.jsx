@@ -20,7 +20,7 @@ function GrupoFamiliar() {
     const verHistoriaClinica = (idn) => {
         setDniPatient(idn);
         setTimeout(() => {
-            history.push('/usuario/historia-clinica/alergias');
+            history.push('/usuario/historia-clinica/hsi');
         }, 300);
     }
 
