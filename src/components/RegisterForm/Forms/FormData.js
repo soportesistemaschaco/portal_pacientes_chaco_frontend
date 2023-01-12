@@ -394,9 +394,10 @@ export const ValuesRegisterForm = {
 };
 
 export const ValuesRegisterAdminForm = {
-  name: "",
-  surname: "",
-  password: "",
   username: "",
-  status: true,
+  password: "",
+  confirmPassword: "",
+  id_person: 0,
+  id_user_status: 1,
+  id_role: 1
 };

@@ -10,13 +10,14 @@ import {
     ArcElement
 } from 'chart.js';
 import { useEffect, useState } from "react";
-import { Bar, Pie } from 'react-chartjs-2';
-import * as MdIcon from "react-icons/md";
+// import { Bar, Pie } from 'react-chartjs-2';
+// import * as MdIcon from "react-icons/md";
 import { useCallback } from "react";
-import {LoginChart} from "./charts/LoginChart/LoginChart";
+// import {LoginChart} from "./charts/LoginChart/LoginChart";
 import { FamilyGroupChart } from "./charts/FamilyGroupChart/FamilyGroupChart";
-import { HSIChart } from "./charts/HSIChart/HSIChart";
-import { SumarChart } from "./charts/SumarChart/SumarChart";
+// import { HSIChart } from "./charts/HSIChart/HSIChart";
+// import { SumarChart } from "./charts/SumarChart/SumarChart";
+import { ActiveUsers } from "./charts/ActiveUsers/ActiveUsers";
 
 export default function AdminDashboard() {
     const [data1, setData1] = useState(new Date());
@@ -88,10 +89,11 @@ export default function AdminDashboard() {
         <Container className='p-3'>
             <h5 className='section-title'>Indicadores</h5>
             <Row className="p-3">
-                <LoginChart reasults={data1} handleSearch={handleSearch}/>
-                <FamilyGroupChart reasults={data2} handleSearch={handleSearch}/>
-                <HSIChart reasults={data3} handleSearch={handleSearch}/>
-                <SumarChart reasults={data4} handleSearch={handleSearch}/>
+                {/* <LoginChart reasults={data1} handleSearch={handleSearch}/> */}
+                <ActiveUsers reasults={data1} handleSearch={handleSearch}/>
+                {/* <FamilyGroupChart reasults={data2} handleSearch={handleSearch}/> */}
+                {/* <HSIChart reasults={data3} handleSearch={handleSearch}/>
+                <SumarChart reasults={data4} handleSearch={handleSearch}/> */}
             </Row>
         </Container>
     )

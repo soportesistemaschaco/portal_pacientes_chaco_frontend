@@ -49,7 +49,9 @@ export const ModalMessage = (props) => {
 
                 <Modal.Body>
                     <h6>Asunto: <strong>{message.header}</strong></h6>
-                    <p>Enviado: {message.sent_datetime ? message.sent_datetime : 'No ha sido enviado'}</p>
+                    <p>Enviado: {message.sent_datetime 
+                    ? `${new Date(message.sent_datetime).toLocaleDateString()}, ${message.sent_datetime.split('T')[1]}`
+                    : 'No ha sido enviado'}</p>
                     <p>Mensaje: {message.body}
                     </p>
                 </Modal.Body>
