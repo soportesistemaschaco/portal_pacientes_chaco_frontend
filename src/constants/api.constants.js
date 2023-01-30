@@ -124,6 +124,7 @@ export const API_ENDPOINT_GET_USER_ADMIN_BY_ID = (query) => {
   return url;
 }
 export const API_ENDPOINT_UPDTAEUSERADMIN = `${baseUrl}/updateuseradmin`;
+export const API_ENDPOINT_UPDTAEUSERADMINPASSWORD = `${baseUrl}/updateuserpassword`;
 
 export const API_ENDPOINT_CREATEUSERADMIN = `${baseUrl}/createuseradmin`;
 

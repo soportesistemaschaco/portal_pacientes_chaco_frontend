@@ -2,6 +2,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
 import { SidebarData } from "../../components/Sidebar/SidebarData";
 import AdminPanelRouter from "./AdminPanelRouter";
+import * as FaIcon from 'react-icons/fa'
 
 export default function AdminPanel() {
     const data = SidebarData.admin.find(d => d.id === 14);
@@ -9,7 +10,10 @@ export default function AdminPanel() {
 
     return (
         <Container className='p-3'>
-            <h5 className='section-title mb-3'>Panel de administradores</h5>
+            <div className="d-flex">
+                <FaIcon.FaUserCheck className="menu-icon text-primary me-2" style={{fontSize: 'x-large'}}/>
+                <h5 className='section-title mb-3'>Panel de administradores</h5>
+            </div>
             <Row>
                 <Col className='switch-container p-3'>
                     {routes.map((route) => {

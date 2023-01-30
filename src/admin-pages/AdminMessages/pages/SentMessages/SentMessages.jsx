@@ -30,9 +30,13 @@ export default function SentMessages() {
                         setMessages(order)
                         setLoading(false)
                     } else {
-                        Swal.fire(error('Error al obtener mensajes'))
-                        setLoading(false)
+                        throw new Error('Error al obtener mensajes')
                     }
+                })
+                .catch((err) => {
+                    console.error(err);
+                    Swal.fire(error('Error al obtener mensajes'))
+                    setLoading(false)
                 })
         },
         [],

@@ -69,7 +69,7 @@ export default function ManageAdmin() {
                                                 <td>Activo</td>
                                                 <td>
                                                     <div className="my-tooltip">
-                                                        <Link className="text-dark" to={`/admin/panel/editar?id=${a.id_person}`} >
+                                                        <Link className="text-dark" to={`/admin/panel/editar?id=${a.id}`} >
                                                             <button className='btn text-secondary btn-icon'><MdIcon.MdEditNote style={{ fontSize: '1.5rem' }} /></button>
                                                             <span className="tiptext">
                                                                 Editar

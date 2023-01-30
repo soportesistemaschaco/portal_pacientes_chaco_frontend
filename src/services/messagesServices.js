@@ -17,7 +17,7 @@ export async function getAllMessages() {
     const promise = await get(API_ENDPOINT_GETALLMESSAGES, AUTH_HEADER());
     return promise;
   } catch (err) {
-    console.log("Error al cargar los mensajes: ", err);
+    console.error("Error al cargar los mensajes: ", err);
   }
 }
 
@@ -34,7 +34,7 @@ export async function getMessagesByPerson(person_id, only_unread) {
     );
     return promise;
   } catch (err) {
-    console.log("Error al cargar los mensajes: ", err);
+    console.error("Error al cargar los mensajes: ", err);
   }
 }
 
@@ -47,7 +47,7 @@ export async function getMessage(message_id) {
     const promise = await get(API_ENDPOINT_GETMESSAGE(query), AUTH_HEADER());
     return promise;
   } catch (err) {
-    console.log("Error al traer Mensajes: ", err);
+    console.error("Error al traer Mensajes: ", err);
   }
 }
 
@@ -65,7 +65,7 @@ export async function createMessage(header, body, is_formatted) {
     );
     return promise;
   } catch (err) {
-    console.log("Error al crear mensaje: ", err);
+    console.error("Error al crear mensaje: ", err);
   }
 }
 
@@ -84,7 +84,7 @@ export async function sendMessage(
     const promise = await post(API_ENDPOINT_SENDMESSAGE(query), AUTH_HEADER());
     return promise;
   } catch (err) {
-    console.log("Error al enviar mensaje: ", err);
+    console.error("Error al enviar mensaje: ", err);
   }
 }
 
@@ -101,7 +101,7 @@ export async function setMessageRead(person_id, message_id) {
     );
     return promise;
   } catch (err) {
-    console.log("Error al marcar mensaje como leido: ", err);
+    console.error("Error al marcar mensaje como leido: ", err);
   }
 }
 
@@ -111,7 +111,7 @@ export async function updateMessage(body) {
     const promise = await put(API_ENDPOINT_UPDATEMESSAGE, UPDATE_HEADER(), data);
     return promise;
   } catch (err) {
-    console.log("Error al marcar mensaje como leido: ", err);
+    console.error("Error al marcar mensaje como leido: ", err);
   }
 }
 
@@ -127,6 +127,6 @@ export async function deleteMessage(message_id) {
     );
     return promise;
   } catch (err) {
-    console.log("Error al marcar mensaje como leido: ", err);
+    console.error("Error al marcar mensaje como leido: ", err);
   }
 }

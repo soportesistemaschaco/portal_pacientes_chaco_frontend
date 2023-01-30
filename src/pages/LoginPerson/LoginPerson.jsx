@@ -134,10 +134,10 @@ function LoginPerson() {
                                                     value: true,
                                                     message: "El campo es requerido."
                                                 },
-                                                pattern: {
-                                                    value: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/,
-                                                    message: "El formato ingresado no es válido"
-                                                }
+                                                // pattern: {
+                                                //     value: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/,
+                                                //     message: "El formato ingresado no es válido"
+                                                // }
                                             })}
                                             onChange={(e) => { setEmail(e.target.value) }}
                                         />

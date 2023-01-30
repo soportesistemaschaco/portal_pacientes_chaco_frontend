@@ -62,6 +62,7 @@ const AuthProvider = ({ children }) => {
         .then((data) => {
           setTypeUser(1); //hardcode - 1 = user-admin. 2 = user-person
           setUser(data);
+          localStorage.setItem('userName', u);
           setTokenUser(data.access_token);
           setLoading(false)
           return tokenUser;

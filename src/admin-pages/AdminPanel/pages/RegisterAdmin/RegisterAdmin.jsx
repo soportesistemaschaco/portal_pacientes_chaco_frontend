@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { Button, Col, Container, Form } from "react-bootstrap";
+import { Button, Col, Form } from "react-bootstrap";
 // import DataNotFound from "../../../../components/DataNotFound";
 import Loader from "../../../../components/Loader";
 // import { getPersons } from "../../../../services/adminServices";
@@ -11,13 +11,15 @@ import { ValuesRegisterAdminForm } from "../../../../components/RegisterForm/For
 import FormGroup from "../../../../components/RegisterForm/Forms/FormGroup";
 import { ErrorMessage } from "../../../../components/ErrorMessage/ErrorMessage";
 import { Link, useHistory, useLocation } from "react-router-dom";
-import { deleteUserAdmin, getUserAdminById, postCreateUserAdmin, putUpdateUserAdmin } from "../../../../services/adminServices";
+import { deleteUserAdmin, getUserAdminById, postCreateUserAdmin, putUpdateUserAdmin, putUpdateUserAdminPassword } from "../../../../services/adminServices";
+import * as FaIcon from 'react-icons/fa'
 
 export default function RegisterAdmin() {
 
     const [loading, setLoading] = useState(false);
     const history = useHistory();
     const location = useLocation();
+    const userName = localStorage.getItem('userName');
     const action = location.pathname.split('/panel/')[1];
     const params = new Proxy(new URLSearchParams(window.location.search), {
         get: (searchParams, prop) => searchParams.get(prop),
@@ -25,6 +27,8 @@ export default function RegisterAdmin() {
     const editId = params.id;
     const [values, setValues] = useState(ValuesRegisterAdminForm); //Get and set values form
     const [changePassword, setChangePassword] = useState(true);
+    const [password, setPassword] = useState("")
+    const [confirmPassword, setConfirmPassword] = useState("")
 
     const { register, handleSubmit, setValue, getValues, formState: { errors } } = useForm();
 
@@ -43,14 +47,21 @@ export default function RegisterAdmin() {
             .then(
                 (res) => {
                     let user = {
-                        id_person: res.id_person,
+                        id: res.id,
                         username: res.username,
-                        password: res.password
+                        password: res.password,
+                        confirmPassword: res.password,
+                        id_person: 0,
+                        id_user_status: 1,
+                        id_role: 1,
+                        is_admin: 1
                     }
                     // SETEA EN VALUES
                     setValues(user);
+                    setPassword(user.password)
+                    setConfirmPassword(user.password)
                     // SETEA EN FORM
-                    Object.keys(values).forEach((key, value) => {
+                    Object.entries(user).forEach(([key, value]) => {
                         setValue(`${key}`, value);
                     })
                 }
@@ -74,28 +85,41 @@ export default function RegisterAdmin() {
             }
             );
             // SETVALUE DE REACT FORM SIRVE PARA QUE EL FORM DETECTE LOS CAMBIOS
-            setValue(`${targetName}`, values[targetName]);
+            setValue(`${targetName}`, e.target.value);
         }
     }
     const handleChangePassword = () => {
         setChangePassword(true);
-        setValues({
-            ...values,
-            ['password']: "",
-        });
+        setPassword("");;
+        setConfirmPassword("");
         // SETVALUE DE REACT FORM SIRVE PARA QUE EL FORM DETECTE LOS CAMBIOS
         setValue('password', "");
+
     }
 
+    const onPasswordChange = (value) => {
+        setPassword(value);
+        setValue('password', value)
+    }
+    const onConfirmPasswordChange = (value) => {
+        setConfirmPassword(value);
+        setValue('confirmPassword', value)
+    }
     const buildBody = () => {
         let body = values
         delete body.confirmPassword
         if (action === 'registrar') {
+            body.password = password;
             registerNewUserAdmin(body);
         }
-        //TODO: como es el body para editar???
         else if (action === 'editar') {
-            editUserAdmin(body);
+            if (changePassword) {
+                body.password = password;
+                editUserAdminPassword(body)
+            } else {
+                delete body.password
+                editUserAdmin(body);
+            }
         }
     }
 
@@ -109,36 +133,75 @@ export default function RegisterAdmin() {
     }
 
     const registerNewUserAdmin = useCallback((body) => {
-        // postCreateUserAdmin(body)
-        //     .then((res) => {
-        //         if (res.ok) {
-        //             Swal.fire(success('Usuario administrador creado'))
-        //             history.push('/admin/panel/listado')
-        //         } else {
-        //             throw new Error('Hubo un error al confirmar datos')
-        //         }
-        //     })
-        //     .catch((err) => {
-        //         console.error('error', err)
-        //         Swal.fire(error('Hubo un error al crear usuario'))
-        //         setLoading(false)
-        //     })
+        postCreateUserAdmin(body)
+            .then((res) => {
+                if (res.ok) {
+                    return res.text().then(text => {
+                        let readeble = JSON.parse(text)
+                        if (readeble.status) {
+                            Swal.fire(success('Usuario administrador creado'))
+                            history.push('/admin/panel/listado')
+                        } else {
+                            Swal.fire(error('Hubo un error al crear usuario'))
+                            throw new Error(text)
+                        }
+                    })
+                }
+            })
+            .catch((err) => {
+                console.error('error', err)
+                Swal.fire(error('Hubo un error al crear usuario'))
+                setLoading(false)
+            })
     }, []);
 
     const editUserAdmin = useCallback((body) => {
         putUpdateUserAdmin(body)
             .then((res) => {
                 if (res.ok) {
-                    Swal.fire(success('Usuario administrador editado'))
-                    history.push('/admin/panel/listado')
-                } else {
-                    throw new Error('Hubo un error al confirmar datos')
+                    return res.text().then(text => {
+                        let readeble = JSON.parse(text)
+                        if (readeble.status) {
+                            Swal.fire(success('Usuario administrador editado'))
+                            history.push('/admin/panel/listado')
+                        } else {
+                            Swal.fire(error('Hubo un error al editar usuario'))
+                            throw new Error(text)
+                        }
+                    })
                 }
             })
             .catch((err) => {
                 console.error('error', err)
                 Swal.fire(error('Hubo un error al editar usuario'))
                 setLoading(false)
+                let data = { user_id: editId }
+                getUserData(data)
+            })
+    }, [])
+
+    const editUserAdminPassword = useCallback((body) => {
+        putUpdateUserAdminPassword(body)
+            .then((res) => {
+                if (res.ok) {
+                    return res.text().then(text => {
+                        let readeble = JSON.parse(text)
+                        if (readeble.status) {
+                            Swal.fire(success('Usuario administrador editado'))
+                            history.push('/admin/panel/listado')
+                        } else {
+                            Swal.fire(error('Hubo un error editar usuario'))
+                            throw new Error(text)
+                        }
+                    })
+                }
+            })
+            .catch((err) => {
+                console.error('error', err)
+                Swal.fire(error('Hubo un error al editar usuario'))
+                setLoading(false)
+                let data = { user_id: editId }
+                getUserData(data)
             })
     }, [])
 
@@ -146,7 +209,7 @@ export default function RegisterAdmin() {
         Swal.fire(confirm(`¿Desea eliminar usuario administrador?`, false)).then((result) => {
             if (result.isConfirmed) {
                 setLoading(true)
-                let data = { user_id: idUser }
+                let data = { person_id: idUser }
                 deleteUser(data);
             }
         })
@@ -156,15 +219,20 @@ export default function RegisterAdmin() {
         (idUser) => {
             deleteUserAdmin(idUser)
                 .then(
-                    //TODO: que sucede al eliminar
                     (res) => {
-                        history.push('/admin/panel/listado');
+                        if (res.ok) {
+                            history.push('/admin/panel/listado');
+                            Swal.fire(success('El administrador ha sido eliminado'));
+                        } else {
+                            throw new Error('Hubo un error al eliminar usuario administrador')
+                        }
                     }
                 )
                 .catch(
                     (err) => {
                         console.error(err);
                         Swal.fire(error('Hubo un error al eliminar usuario administrador'));
+                        history.push('/admin/panel/listado');
                     }
                 )
         }, []
@@ -205,30 +273,38 @@ export default function RegisterAdmin() {
                                 />
                                 {errors.username && <ErrorMessage><p>{errors.username.message}</p></ErrorMessage>}
                             </Col>
-                            <Col xs={12} sm={6}>
-                                <FormGroup inputType='input' type='password' label='Contraseña' name='password'
-                                    value={values.password} disabled={!changePassword}
-                                    {...register('password', {
-                                        required: { value: true, message: "El campo es requerido." },
-                                    })}
-                                    onChange={handleChange}
-                                />
-                                {!changePassword &&
-                                    <button className="btn text-primary btn-sm"
-                                        onClick={() => handleChangePassword()} >Cambiar contraseña
-                                    </button>
-                                }
-                                {errors.password && <ErrorMessage><p>{errors.password.message}</p></ErrorMessage>}
-                            </Col>
-                            {changePassword && <Col xs={12} sm={6} >
-                                <FormGroup inputType='input' label='Confirmar Contraseña' name='confirmPassword' value={values.confirmPassword} type='password'
-                                    {...register('confirmPassword', {
-                                        validate: (value) => value === getValues("password") || 'Las contraseñas no coinciden'
-                                    })}
-                                    onChange={handleChange}
-                                />
-                                {errors.confirmPassword && <ErrorMessage><p>{errors.confirmPassword.message}</p></ErrorMessage>}
-                            </Col>}
+                            {!changePassword &&
+                                <Col>
+                                    <p className="text-primary mt-2 cursor"
+                                        onClick={() => handleChangePassword()} ><FaIcon.FaKey /> Cambiar contraseña
+                                    </p>
+                                </Col>
+                            }
+                            {changePassword &&
+                                <Col xs={12} sm={6}>
+                                    <FormGroup inputType='input' type='password' label='Contraseña' name='password'
+                                        value={password}
+                                        {...register('password', {
+                                            required: { value: true, message: "El campo es requerido." },
+                                        })}
+                                        onChange={(e) => onPasswordChange(e.target.value)}
+                                    />
+
+                                    {errors.password && <ErrorMessage><p>{errors.password.message}</p></ErrorMessage>}
+                                </Col>
+                            }
+                            {changePassword &&
+                                <Col xs={12} sm={6} >
+                                    <FormGroup inputType='input' type='password' label='Confirmar Contraseña' name='confirmPassword'
+                                        value={confirmPassword}
+                                        {...register('confirmPassword', {
+                                            validate: (value) => value === getValues("password") || 'Las contraseñas no coinciden'
+                                        })}
+                                        onChange={(e) => onConfirmPasswordChange(e.target.value)}
+                                    />
+                                    {errors.confirmPassword && <ErrorMessage><p>{errors.confirmPassword.message}</p></ErrorMessage>}
+                                </Col>
+                            }
                             {/* <Col>
                                 <FormGroup inputType='radio' label='Activo' name='status' value={values.status} type='radio'
                                     onChange={handleChange}
@@ -236,8 +312,8 @@ export default function RegisterAdmin() {
                             </Col> */}
                             <Col xs={12} className="my-3">
                                 <div className="d-flex w-100 justify-content-end align-items-center">
-                                    {action === 'editar' &&
-                                        <Button variant="danger" type="button" className="text-capitalize me-3" onClick={() => { submitDelete(values.id_person) }}>Eliminar</Button>
+                                    {values.username && action === 'editar' && values.username !== userName &&
+                                        <Button variant="danger" type="button" className="text-capitalize me-3" onClick={() => { submitDelete(values.id) }}>Eliminar</Button>
                                     }
                                     <Link to="/admin/panel/listado">
                                         <button className='btn btn-secondary me-3'>Cancelar</button>

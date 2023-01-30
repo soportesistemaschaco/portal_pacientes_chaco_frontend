@@ -8,7 +8,8 @@ import { API_ENDPOINT_GETPERSONS,
    API_ENDPOINT_CREATEUSERADMIN,
    API_ENDPOINT_UPDTAEUSERADMIN,
    API_ENDPOINT_DELETEUSERADMIN,
-   UPDATE_HEADER} from "../constants/api.constants";
+   UPDATE_HEADER,
+   API_ENDPOINT_UPDTAEUSERADMINPASSWORD} from "../constants/api.constants";
 import { get, post, put } from "./httpServices";
 
 export async function getPersons() {
@@ -89,6 +90,17 @@ export async function putUpdateUserAdmin(body) {
     console.error("Error al cargar datos: ", err);
   }
 }
+
+export async function putUpdateUserAdminPassword(body) {
+  try {
+    const data = JSON.stringify(body);
+    const promise = await put(API_ENDPOINT_UPDTAEUSERADMINPASSWORD, UPDATE_HEADER(), data);
+    return promise;
+  } catch (err) {
+    console.error("Error al cargar datos: ", err);
+  }
+}
+
 
 export async function deleteUserAdmin(id) {
   try {

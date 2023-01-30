@@ -399,5 +399,6 @@ export const ValuesRegisterAdminForm = {
   confirmPassword: "",
   id_person: 0,
   id_user_status: 1,
-  id_role: 1
+  id_role: 1,
+  is_admin: 1
 };

@@ -16,18 +16,14 @@ import { getFamilyGroupIndicators, getUsersIndicators } from "../../../../servic
 import Swal from 'sweetalert2';
 import { error } from "../../../../components/SwalAlertData";
 
-export const ActiveUsers = (props) => {
+export const ActiveUsers = () => {
 
-    const { handleSearch, results } = props
     const fromDate = new Date('01/01/2023').toISOString().split('T')[0]
     const toDate = new Date().toISOString().split('T')[0];
     const [labels, setLabels] = useState(['Usuarios']);
     const [dataUsers, setDataUsers] = useState([]);
-    const search = 1; //id type of search (Tabla en la que debe buscarse la data)
+    const [dataFamilyGroup, setDataFamilyGroup] = useState([]);
 
-    useEffect(() => {
-        handleSearch(fromDate, toDate, search);
-    }, [fromDate, toDate, handleSearch]);
 
     useEffect(() => {
         handleDataUsers();
@@ -36,42 +32,30 @@ export const ActiveUsers = (props) => {
 
     const handleDataUsers = useCallback(() => {
         getUsersIndicators()
-        .then(
-            (res) => {
-                if (res > 0) {
+            .then(
+                (res) => {
                     setDataUsers([res])
+                })
+            .catch(
+                (err) => {
+                    console.error(err);
+                    Swal.fire(error('Error al cargar datos'))
                 }
-                else {
-                    Swal.fire(error('No existen datos de usuarios activos'))
-                }
-        })
-        .catch(
-            (err) => {
-                console.error(err);
-                Swal.fire(error('Error al cargar datos'))
-            }
-        )
+            )
     }, [])
 
     const handleDataFamilyGroup = useCallback(() => {
         getFamilyGroupIndicators()
-        .then(
-            (res) => {
-                console.log(res)
-                // if (res > 0) {
-
-                //     // setDataUsers([res])
-                // }
-                // else {
-                //     Swal.fire(error('No existen datos de usuarios activos'))
-                // }
-        })
-        .catch(
-            (err) => {
-                console.error(err);
-                Swal.fire(error('Error al cargar datos'))
-            }
-        )
+            .then(
+                (res) => {
+                    setDataFamilyGroup([res])
+                })
+            .catch(
+                (err) => {
+                    console.error(err);
+                    Swal.fire(error('Error al cargar datos'))
+                }
+            )
     }, [])
 
 
@@ -81,11 +65,9 @@ export const ActiveUsers = (props) => {
         BarElement,
         Title,
         Tooltip,
-        Legend
+        Legend,
+        
     );
-
-    // TODO: setear labels segun resultado
-    // mapear resultado segun labes
 
     const options = {
         responsive: true,
@@ -104,13 +86,13 @@ export const ActiveUsers = (props) => {
         labels,
         datasets: [
             {
-                label: 'Usuarios Principales',
+                label: `Usuarios Principales: ${dataUsers}`,
                 data: dataUsers,
                 backgroundColor: 'rgba(0, 87, 128, 0.7)',
             },
             {
-                label: 'Miembros de grupo familiar',
-                data: [8],
+                label: `Total en grupos familiares: ${dataFamilyGroup}`,
+                data: dataFamilyGroup,
                 backgroundColor: 'rgba(53, 162, 235, 0.5)',
             }
         ],
@@ -128,7 +110,7 @@ export const ActiveUsers = (props) => {
                         name='from'
                         disabled
                         value={fromDate}
-                        onChange={() => {}}
+                        onChange={() => { }}
                     />
                 </div>
                 <div>
@@ -138,7 +120,7 @@ export const ActiveUsers = (props) => {
                         name='from'
                         value={toDate}
                         disabled
-                        onChange={() => {}}
+                        onChange={() => { }}
                     />
                 </div>
                 {/* <div xs={1}>
