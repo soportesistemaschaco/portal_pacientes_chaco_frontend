@@ -9,11 +9,13 @@ import SelectType from '../../../components/SelectType';
 import { confirm, error, success } from '../../../components/SwalAlertData';
 import usePatient from '../../../hooks/usePatient'
 import { sendApplicationEmailService } from '../../../services/applicactionService';
+import { efectoresPriorizadosServices } from '../../../services/institutionsServices';
 
 function ApplicationModal({ show, handleClose, }) {
 
 
     const [loading, setLoading] = useState(false)
+    const [institution, setInstitution] = useState("")
     //patient
     const p = usePatient()
     //form
@@ -36,6 +38,7 @@ function ApplicationModal({ show, handleClose, }) {
         details: "",
         email: p.patient.email,
         phone_number: p.patient.phone_number,
+        institution: ""
     })
 
     let days = []
@@ -43,6 +46,20 @@ function ApplicationModal({ show, handleClose, }) {
         let k = key.toString()
         days.push(k)
     })
+
+    // CAPS PRIORIZADOS PARA ATENCION DE TURNOS
+    const getInstitutitons = useCallback(
+        () => {
+            efectoresPriorizadosServices()
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => console.error(err))
+        }, [])
+
+    useEffect(() => {
+        getInstitutitons()
+    }, [])
 
     const handleChange = (e) => {
         if (e.target?.name) {
@@ -67,7 +84,7 @@ function ApplicationModal({ show, handleClose, }) {
     const buildApplication = (days, specialty) => {
         setLoading(true)
         let body = values
-        let subject = `Solicitud de turno: ${specialty || ''} - Paciente ${body.person}, DNI ${body.identification_number}`
+        let subject = `Solicitud de turno: ${specialty || ''} - ${body.institution} - Paciente ${body.person}, DNI ${body.identification_number}`
         body.weekly_availability = days.toString()
         body.specialty = specialty
         let application =
@@ -157,6 +174,17 @@ function ApplicationModal({ show, handleClose, }) {
                                 </p>
                             </Col>
                             <Row className="d-flex">
+                            <Col xs={12}>
+                                    <Form.Group className="mb-3">
+                                        <Form.Label>Centro de atención</Form.Label>
+                                        {/* <SelectType
+                                            name='institution'
+                                            variants={variantsSpecialties}
+                                            selectValue={values.institution}
+                                            handleChange={e => handleChange(e)}
+                                        /> */}
+                                    </Form.Group>
+                                </Col>
                                 <Col xs={12}>
                                     <Form.Group className="mb-3">
                                         <Form.Label>Especialidad médica</Form.Label>

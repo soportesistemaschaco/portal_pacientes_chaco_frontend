@@ -220,6 +220,11 @@ export const API_ENDPOINT_EFECTORES_SUMAR = () => {
   return url;
 };
 
+export const API_ENDPOINT_EFECTORES_PRIORIZADOS_SUMAR = () => {
+  let url = `${baseUrl}/efectores-priorizados`;
+  return url;
+};
+
 export const API_ENDPOINT_VACUNAS_SUMAR = (idn) => {
   let url = `${baseUrl}/vaccines?${idn}`;
   return url;
