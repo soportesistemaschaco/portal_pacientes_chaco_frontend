@@ -36,8 +36,8 @@ function ApplicationModal({ show, handleClose, }) {
         weekly_availability: "",
         time_availability: "",
         details: "",
-        email: p.patient.email,
-        phone_number: p.patient.phone_number,
+        email: p.patient.email || "",
+        phone_number: p.patient.phone_number || "",
         institution: ""
     })
 
@@ -52,7 +52,14 @@ function ApplicationModal({ show, handleClose, }) {
         () => {
             efectoresPriorizadosServices()
             .then((res) => {
-                console.log(res);
+                if (res) {
+                    let response = [...res]
+                    let institutionsArr = response.map((item) => {
+                        return {id: item.cuie, name: item.Servicio.split(' - ')[2]}
+                    })
+                    console.log(institutionsArr)
+                    setInstitution(institutionsArr);
+                }
             })
             .catch((err) => console.error(err))
         }, [])
@@ -81,10 +88,10 @@ function ApplicationModal({ show, handleClose, }) {
         }
     }
 
-    const buildApplication = (days, specialty) => {
+    const buildApplication = (days, specialty, institution) => {
         setLoading(true)
-        let body = values
-        let subject = `Solicitud de turno: ${specialty || ''} - ${body.institution} - Paciente ${body.person}, DNI ${body.identification_number}`
+        let body = values;
+        let subject = `Solicitud de turno: ${specialty || ''} - ${institution} - Paciente ${body.person}, DNI ${body.identification_number}`
         body.weekly_availability = days.toString()
         body.specialty = specialty
         let application =
@@ -103,6 +110,8 @@ function ApplicationModal({ show, handleClose, }) {
         Swal.fire(confirm(`¿Enviar solicitud de turno?`)).then((result) => {
             if (result.isConfirmed) {
                 send(p.patient.id, subject, application)
+            } else {
+                setLoading(false);
             }
         })
     }
@@ -129,17 +138,18 @@ function ApplicationModal({ show, handleClose, }) {
 
     const onSubmit = () => {
         let daysSelected = []
-        let specialtySelected = variantsSpecialties.find(s => s.id === parseInt(values.specialty))
+        let specialtySelected = variantsSpecialties.find(s => s.id === parseInt(values.specialty)).name;
+        let institutionSelected = institution.find(i => i.id === values.institution).name;
         Object.entries(weekdays).forEach(([key, value], i, obj) => {
             if (value) {
                 let k = key.toString()
                 daysSelected.push(k)
                 if (Object.is(obj.length - 1, i)) {
-                    buildApplication(daysSelected, specialtySelected?.name)
+                    buildApplication(daysSelected, specialtySelected, institutionSelected)
                 }
             } else {
                 if (Object.is(obj.length - 1, i)) {
-                    buildApplication(daysSelected, specialtySelected?.name)
+                    buildApplication(daysSelected, specialtySelected, institutionSelected)
                 }
             }
         })
@@ -177,12 +187,12 @@ function ApplicationModal({ show, handleClose, }) {
                             <Col xs={12}>
                                     <Form.Group className="mb-3">
                                         <Form.Label>Centro de atención</Form.Label>
-                                        {/* <SelectType
+                                        <SelectType
                                             name='institution'
-                                            variants={variantsSpecialties}
+                                            variants={institution ?? []}
                                             selectValue={values.institution}
                                             handleChange={e => handleChange(e)}
-                                        /> */}
+                                        />
                                     </Form.Group>
                                 </Col>
                                 <Col xs={12}>
