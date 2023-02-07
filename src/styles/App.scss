@@ -427,6 +427,7 @@
   @media only screen and (min-width: $desktop) {
     width: calc(100% - 21rem);
     transform: translateX(18rem);
+    padding-top: 2rem;
   }
 }
 

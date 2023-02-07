@@ -101,3 +101,13 @@ export const receiverCategory = [
   { id: 3, description: "Pacientes con enfermedad respiratoria crónica" },
   { id: 4, description: "Pacientes con enfermedad renal crónica" },
 ];
+
+export const institutionData = {
+  name : 'Ministerio de Salud Pública',
+  gob: 'Gobierno de Chaco',
+  address:  'Marcelo T. de Alvear 145 - 8vo, Ciudad de Resistencia, Chaco, Argentina',
+  addressLink: 'https://goo.gl/maps/q36LaFxqwV44Wjc9A',
+  email: 'comunicaciondesalud@gmail.com',
+  phone: ' (0362) 444-8028',
+  webLink: 'https://chaco.gov.ar/',
+}
