@@ -84,6 +84,7 @@ const AuthProvider = ({ children }) => {
     [tokenUser]
   );
 
+  // INICIO COMUN
   const loginPerson = useCallback(
     (u, p) => {
       setLoading(true);
@@ -126,6 +127,11 @@ const AuthProvider = ({ children }) => {
     [tokenUser]
   );
 
+  const setUserNewData = (data) => {
+    setUser(data)
+  }
+ 
+
   function getLocalStorage(key) {
     let exp = 60 * 60 * 24 * 1000; //hardcode - milliseconds in a day
     if (localStorage.getItem(key)) {
@@ -146,39 +152,84 @@ const AuthProvider = ({ children }) => {
     }
   }
 
+  // INICIO RECIBIENDO DATOS DESDE TGD
+  const getUserData = (query) => {
+    const result = new Promise((resolve, reject) => {
+        // FUNCION PARA CONVERTIR DATOS RECIBIDOS POR QUERY EN JSON
+        try  {
+            let userData = {};
+            let clearQuery = query.replace('%27', '', 1);
+            clearQuery = clearQuery.replace('?', '', 1);
+            let arrayData = clearQuery.split('&');
+            arrayData.forEach(element => {
+                let key = element.split('=')[0];
+                let value = element.split('=')[1];
+                if (key === 'data') {
+                    let clearJSON = value.replaceAll('%27', '"');
+                    clearJSON = clearJSON.replaceAll('%3A+', ':');
+                    clearJSON = decodeURI(clearJSON);
+                    // clearJSON = clearJSON.replaceAll('%7B', '{');
+                    clearJSON = clearJSON.replaceAll('%3A+', ':');
+                    clearJSON = clearJSON.replaceAll('%2C+', ',');
+                    clearJSON = clearJSON.replaceAll('}"', '}');
+                    console.log(clearJSON)
+                    clearJSON = JSON.parse(clearJSON);
+                    userData[key] = clearJSON;   
+                } else {
+                    userData[key] = value;
+                }
+            });
+            // console.log(userData);
+            resolve(userData);
+            // return userData;
+        } catch (err) {
+            reject(err);
+        }
+    })
+
+    result.then((res) =>{
+        if (res.access_token) {
+          setUser(res.data);
+          setTokenUser(res.access_token);
+          setTypeUser(2); //hardcode //hardcode - 1 = user-admin. 2 = user-person
+          setLoading(false);
+          return tokenUser;
+        }
+    })
+}
+
   // LOGIN WITH TGD
   // with the code obtained, I request the token
-  const getUserTokenTGD = useCallback(
-    (params) => {
-      tgdServiceToken(params)
-        .then((response) => {
-          console.log('tokenTGD response', response)
-          if (response.access_token ) {
-            let tgdToken = response.access_token;
-            getUserDataTGD(tgdToken);
-          } 
-        })
-        .catch((error) => {
-          console.log('error', error)
-        })
-    }
-    , []
-  );
+  // const getUserTokenTGD = useCallback(
+  //   (params) => {
+  //     tgdServiceToken(params)
+  //       .then((response) => {
+  //         if (response.access_token ) {
+  //           let tgdToken = response.access_token;
+  //           getUserDataTGD(tgdToken);
+  //         } 
+  //       })
+  //       .catch((error) => {
+  //         console.log('error', error)
+  //       })
+  //   }
+  //   , []
+  // );
 
   
-  // with the tpken obtained, I request the user data
-  const getUserDataTGD = useCallback(
-    (tgdToken) => {
-      tgdServiceUserData(tgdToken)
-        .then((response) => {
-          console.log('userTGD response', response)
-        })
-        .catch((error) => {
-          console.log('error', error)
-        })
-    }
-    , []
-  );
+  // // with the tpken obtained, I request the user data
+  // const getUserDataTGD = useCallback(
+  //   (tgdToken) => {
+  //     tgdServiceUserData(tgdToken)
+  //       .then((response) => {
+  //         console.log('userTGD response', response)
+  //       })
+  //       .catch((error) => {
+  //         console.log('error', error)
+  //       })
+  //   }
+  //   , []
+  // );
   // EXPIRE SESSION
   useEffect(() => {
     getLocalStorage("curtime");
@@ -226,7 +277,9 @@ const AuthProvider = ({ children }) => {
     loginPerson,
     loginAdmin,
     logout,
-    getUserTokenTGD,
+    // getUserTokenTGD,
+    setUserNewData,
+    getUserData,
     isLogged() {
       getLocalStorage("curtime");
       if (tokenUser) {

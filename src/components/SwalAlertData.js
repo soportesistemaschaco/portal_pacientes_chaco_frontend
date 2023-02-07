@@ -1,3 +1,4 @@
+import logoFondoBlanco from '../assets/statics/logo-fondo-blanco-2.jpg'
 export const successRegister = {
   title: "Registro realizado",
   html: "Inicie sesión nuevamente para cargar nuevos datos. ",
@@ -53,6 +54,24 @@ export const confirm = (text, is_success) => {
     confirmButtonText: "Confirmar",
     confirmButtonColor: "#007bff",
     reverseButtons: true,
+  };
+  return content;
+};
+
+export const completeProfile = () => {
+  let content = {
+    title: '¡Te damos la Bienvenida!',
+    html: `<image src="${logoFondoBlanco}" alt="Portal-del-paciente-chaco" width="400" /> 
+    <p>Para continuar, complete los datos faltantes en su perfil.</p>`,
+    // showCancelButton: true,
+    // cancelButtonText: "Cancelar",
+    confirmButtonText: "Completar datos",
+    confirmButtonColor: "#007bff",
+    reverseButtons: true,
+    // imageUrl: logoFondoBlanco,
+    // imageWidth: 400,
+    // imageHeight: 200,
+    // imageAlt: '',
   };
   return content;
 };

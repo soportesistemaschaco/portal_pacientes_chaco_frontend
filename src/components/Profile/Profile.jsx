@@ -7,11 +7,12 @@ import useAuth from '../../hooks/useAuth';
 import usePatient from '../../hooks/usePatient';
 import { updatePerson } from '../../services/personServices';
 import Loader from '../Loader/Loader';
-import { LabelsFormData } from '../RegisterForm/Forms/FormData';
+import { LabelsFormData, ValuesRegisterForm } from '../RegisterForm/Forms/FormData';
 import { error, confirm } from '../SwalAlertData';
 import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
+import * as MdIcon from 'react-icons/md'
 
-function Profile({ show, handleClose, type }) {
+function Profile({ show, handleClose, dataExiste, type }) {
 
     const [loading, setLoading] = useState(true)
     const f = LabelsFormData //Information to build form fields
@@ -20,7 +21,7 @@ function Profile({ show, handleClose, type }) {
     const data = type === 'user' ? auth.user : p.patient
     //button
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
-    const [values, setValues] = useState(data)
+    const [values, setValues] = useState(ValuesRegisterForm)
     const [newValue, setNewValue] = useState("") //Get and set values form to required
     //set form with data
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -28,7 +29,8 @@ function Profile({ show, handleClose, type }) {
         if (show) {
             Object.entries(data).forEach(([key, value]) => {
                 setValue(`${key}`, value);
-            })
+                values[`${key}`] = value
+            });
         }
     }
     useEffect(() => {
@@ -45,11 +47,12 @@ function Profile({ show, handleClose, type }) {
                 [targetName]: e.target?.value,
             });
             setNewValue(targetName)
-        }else if (e.name) {
+        }else {
             setValues({
                 ...values,
-                ['id_usual_institution']: e.id,
+                ['id_usual_institution']: e.id ? e.id : '',
             });
+            setNewValue('id_usual_institution')
         }
     }
     useEffect(() => {
@@ -89,7 +92,8 @@ function Profile({ show, handleClose, type }) {
                             let readeble = JSON.parse(text)
                             console.log(readeble);
                             if (readeble.status) {
-                                Swal.fire(confirm('El usuario ha sido actualizado. Verás los cambios cuando vuelvas a iniciar sesión.', true))
+                                Swal.fire(confirm('El usuario ha sido actualizado', true))
+                                auth.setUserNewData(values);
                                 setLoading(false)
                                 handleClose()
                             } else {
@@ -121,7 +125,11 @@ function Profile({ show, handleClose, type }) {
             </Col>
             <Col xs={12} sm={6}>
                 <FormGroup inputType={f.id_identification_type.inputType} label={f.id_identification_type.label} name={f.id_identification_type.form_name} selectValue={values.id_identification_type}
-                    variants={f.id_identification_type.variants} disabled />
+                    variants={f.id_identification_type.variants} disabled={dataExiste}
+                    handleChange={(e) => handleChange(e)}
+                    {...register(`${f.id_identification_type.form_name}`, f.id_identification_type.register)}
+                />
+                {errors[f.id_identification_type.form_name] && <ErrorMessage><p>{errors[f.id_identification_type.form_name].message}</p></ErrorMessage>}
             </Col>
             <Col xs={12} sm={6}>
                 <FormGroup inputType={f.identification_number.inputType} label={f.identification_number.label} name={f.identification_number.form_name} value={values.identification_number} disabled />
@@ -131,15 +139,22 @@ function Profile({ show, handleClose, type }) {
             </Col>
             <Col xs={12} sm={6}>
                 <FormGroup inputType={f.id_gender.inputType} label={f.id_gender.label} name={f.id_gender.form_name} selectValue={values.id_gender}
-                    variants={f.id_gender.variants} disabled
+                    variants={f.id_gender.variants}
+                    handleChange={(e) => handleChange(e)}
+                    {...register(`${f.id_gender.form_name}`, f.id_gender.register)}
                 />
+                {errors[f.id_gender.form_name] && <ErrorMessage><p>{errors[f.id_gender.form_name].message}</p></ErrorMessage>}
             </Col>
         </Row>
 
     const contactDataForm =
         <Row className="in">
             <Col xs={12} >
-                <FormGroup inputType={f.email.inputType} label={f.email.label} name={f.email.form_name} value={values.email} disabled />
+                <FormGroup inputType={f.email.inputType} label={f.email.label} name={f.email.form_name} value={values.email} disabled={dataExiste}
+                    {...register(`${f.email.form_name}`, f.email.register)}
+                    onChange={handleChange}
+                />
+                {errors[f.email.form_name] && <ErrorMessage><p>{errors[f.email.form_name].message}</p></ErrorMessage>}
             </Col>
             <Col xs={12} sm={8}>
                 <FormGroup inputType={f.address_street.inputType} label={f.address_street.label} name={f.address_street.form_name} value={values.address_street}
@@ -184,12 +199,12 @@ function Profile({ show, handleClose, type }) {
                 <FormGroup inputType={f.id_usual_institution.inputType} label={f.id_usual_institution.label} name={f.id_usual_institution.form_name} selectValue={values.id_usual_institution}
                     variants={f.id_usual_institution.variants}
                     handleChange={(e) => handleChange(e)}
-                    {...register(`${f.id_usual_institution.form_name}`, f.id_usual_institution.register)}
-                />
-                {errors[f.id_usual_institution.form_name] && <ErrorMessage><p>{errors[f.id_usual_institution.form_name].message}</p></ErrorMessage>}
+                        {...register(`${f.id_usual_institution.form_name}`, f.id_usual_institution.register)}
+                    />
+                    {errors[f.id_usual_institution.form_name] && <ErrorMessage><p>{errors[f.id_usual_institution.form_name].message}</p></ErrorMessage>}
             </Col>
             <Col xs={12} className="mt-3">
-                <Form.Label className="mb-0">¿Padecés alguna de las siguientes afecciones crónicas? (Opcional)</Form.Label>
+                <Form.Label className="mb-0">¿Padecés alguna de las siguientes afecciones crónicas?</Form.Label>
                 <FormGroup inputType={f.is_diabetic.inputType} label={f.is_diabetic.label} name={f.is_diabetic.form_name} value={values.is_diabetic} type={f.is_diabetic.type}
                     onChange={handleChange}
                 />
@@ -215,8 +230,11 @@ function Profile({ show, handleClose, type }) {
             size="lg"
             className="perfil-usuario"
         >
-            <Modal.Header closeButton>
-                <Modal.Title>Perfil del usuario</Modal.Title>
+            <Modal.Header>
+                <Modal.Title> 
+                <MdIcon.MdOutlinePersonOutline className="menu-icon me-1" style={{ fontSize: 'x-large', marginBottom: '5px' }} />
+                    Perfil del paciente
+                </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 {loading ? <Loader isActive={loading} />
@@ -235,7 +253,7 @@ function Profile({ show, handleClose, type }) {
                                 </>
                             }
                             <div className='d-flex justify-content-end'>
-                                <Button variant='outline-secondary' className="me-2" onClick={() => handleClose()}>Cancelar</Button>
+                                {dataExiste && <Button variant='outline-secondary' className="me-2" onClick={() => handleClose()}>Cancelar</Button>}
                                 <Button variant='primary' type="submit" >Guardar cambios</Button>
                             </div>
                         </Form>

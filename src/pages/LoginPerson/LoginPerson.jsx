@@ -25,12 +25,10 @@ function LoginPerson() {
     const auth = useAuth();
     const history = useHistory();
     const location = useLocation();
+    // LEVANTA DATOS DESDE TGD
+    const data = location.search
+    // const url = ('id_person=3&access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJvb2NhbnRvIiwiZXhwIjoxNjc1Nzk2NTE4fQ.YCCYMM1m0ApL2Q_Qs6ZZzCG7oba3vbQixLlWlFW6z84&token_type=bearer&data=%7B%27id%27%3A+3%2C+%27surname%27%3A+%27Ocanto%27%2C+%27name%27%3A+%27Osvaldo%27%2C+%27identification_number%27%3A+%2727543642%27%2C+%27birthdate%27%3A+%271979-01-01%27%2C+%27id_person_status%27%3A+2%2C+%27family_group%27%3A+%5B%5D%7D')
     const previousObjetURL = location.state?.from
-
-    // HABILITAR PARA RECIBIR CODE DESDE TGD
-    // const search = location.search;
-    // const code = search.split('code=')[1];
-    // const [accessToken, setAccessToken] = useState(null);
 
     const tgdCredentials = {
         clientId: environment.tgd.clientId,
@@ -39,6 +37,13 @@ function LoginPerson() {
         authURL: environment.tgd.authURL + '/auth',
         scope: 'email'
     }
+
+    useEffect(() => {
+        // SI LLEGAN DATOS DESDE TGD
+        if (data) {
+            auth.getUserData(data);
+        }
+    }, [])
 
     useEffect(() => {
         if (auth.isLogged()) history.push(previousObjetURL || "/usuario")
@@ -134,10 +139,10 @@ function LoginPerson() {
                                                     value: true,
                                                     message: "El campo es requerido."
                                                 },
-                                                pattern: {
-                                                    value: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/,
-                                                    message: "El formato ingresado no es válido"
-                                                }
+                                                // pattern: {
+                                                //     value: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/,
+                                                //     message: "El formato ingresado no es válido"
+                                                // }
                                             })}
                                             onChange={(e) => { setEmail(e.target.value) }}
                                         />

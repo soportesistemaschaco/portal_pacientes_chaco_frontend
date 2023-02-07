@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Container } from "react-bootstrap"
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory, useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import Profile from "../../components/Profile/Profile";
 import DatosPaciente from "./components/DatosPaciente";
 import * as FaIcon from 'react-icons/fa';
 import * as MdIcon from 'react-icons/md';
+import { useEffect } from "react";
 
 export default function PerfilPaciente() {
 
@@ -12,11 +13,18 @@ export default function PerfilPaciente() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const location = useLocation();
+    const dataExiste = location.search.split('?')[1] === 'user=false' ? false : true;
 
     const verHistoriaClinica = () => {
         history.push('/usuario/historia-clinica/hsi')
     }
 
+    useEffect(() =>{
+        if (!dataExiste) {
+            handleShow(); 
+        }
+    }, [])
     return (
         <Container className='perfil-paciente p-3'>
             <div className="w-100 d-flex justify-content-between">
@@ -39,8 +47,8 @@ export default function PerfilPaciente() {
                     </div>
                 </div>
             </div>
-            <DatosPaciente></DatosPaciente>
-            {show && <Profile type={'patient'} show={show} handleClose={handleClose} />}
+           {dataExiste && <DatosPaciente></DatosPaciente>}
+            {show && <Profile type={'patient'} show={show} dataExiste={dataExiste} handleClose={handleClose} />}
         </Container>
     )
 }
