@@ -6,6 +6,7 @@ import DatosPaciente from "./components/DatosPaciente";
 import * as FaIcon from 'react-icons/fa';
 import * as MdIcon from 'react-icons/md';
 import { useEffect } from "react";
+import usePatient from '../../hooks/usePatient';
 
 export default function PerfilPaciente() {
 
@@ -15,14 +16,15 @@ export default function PerfilPaciente() {
     const handleShow = () => setShow(true);
     const location = useLocation();
     const dataExiste = location.search.split('?')[1] === 'user=false' ? false : true;
+    const p = usePatient();
 
     const verHistoriaClinica = () => {
         history.push('/usuario/historia-clinica/hsi')
     }
 
-    useEffect(() =>{
+    useEffect(() => {
         if (!dataExiste) {
-            handleShow(); 
+            handleShow();
         }
     }, [])
     return (
@@ -47,8 +49,8 @@ export default function PerfilPaciente() {
                     </div>
                 </div>
             </div>
-           {dataExiste && <DatosPaciente></DatosPaciente>}
-            {show && <Profile type={'patient'} show={show} dataExiste={dataExiste} handleClose={handleClose} />}
+            {dataExiste && <DatosPaciente></DatosPaciente>}
+            {show && <Profile type={'patient'} show={show} dataExiste={dataExiste} handleClose={handleClose} identification_number={p.patient.identification_number} />}
         </Container>
     )
 }

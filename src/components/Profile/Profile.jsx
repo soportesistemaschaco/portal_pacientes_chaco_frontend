@@ -12,13 +12,12 @@ import { error, confirm, success } from '../SwalAlertData';
 import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
 import * as MdIcon from 'react-icons/md'
 
-function Profile({ show, handleClose, dataExiste, type }) {
+function Profile({ show, handleClose, dataExiste, type, identification_number}) {
 
     const [loading, setLoading] = useState(true)
     const f = LabelsFormData //Information to build form fields
     const auth = useAuth();
-    const p = usePatient();
-    const dni = type === 'user' ? auth.user.identification_number : p.patient.identification_number;
+    const dni = type === 'user' ? auth.user.identification_number : identification_number;
     //button
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
     const [values, setValues] = useState(ValuesRegisterForm)

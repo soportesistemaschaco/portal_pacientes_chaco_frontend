@@ -186,13 +186,13 @@ const AuthProvider = ({ children }) => {
       })
 
     result.then((res) => {
-    if (res.access_token && res.data.id) {
-      setUser(res.data);
-      setTokenUser(res.access_token);
-      setTypeUser(2); //hardcode //hardcode - 1 = user-admin. 2 = user-person
-      setLoading(false);
-      return res.data;
-    }
+      if (res.access_token && res.data.id) {
+        setUser(res.data);
+        setTokenUser(res.access_token);
+        setTypeUser(2); //hardcode //hardcode - 1 = user-admin. 2 = user-person
+        setLoading(false);
+        return res.data;
+      }
     }).catch((err) => {
       console.error(err);
       Swal.fire(error('Error al obtener datos de usuario. Reintentar'));
@@ -222,11 +222,13 @@ const AuthProvider = ({ children }) => {
 
   const getFamilyGroup = useCallback(
     () => {
-      getFamilyGroupByIdentificationNumberMaster(user.identification_number, tokenUser)
+      if (user?.identification_number && tokenUser) {
+        getFamilyGroupByIdentificationNumberMaster(user.identification_number, tokenUser)
         .then((res) => {
           setFamilyGroup(res)
         })
         .catch((err) => { throw new Error(err) })
+      }
     }, []);
 
   const deleteDataSession = () => {

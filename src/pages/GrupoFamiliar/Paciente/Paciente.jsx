@@ -34,7 +34,7 @@ export const Paciente = (props) => {
                         Editar
                     </span>
                 </div>
-                {show && <Profile type={'patient'} show={show} handleClose={handleClose} />}
+                {show && <Profile type={'patient'} show={show} handleClose={handleClose} dataExiste={true} identification_number={patientIdn} />}
             </Col>
         </Row>
     )
