@@ -22,7 +22,7 @@ const PatientProvider = ({ children }) => {
   const [idPatient, setIdPatient] = useState(
     JSON.parse(localStorage.getItem("idPatient")) || patient.id_patient || null
   );
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     try {
@@ -46,10 +46,11 @@ const PatientProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    if (auth.user.family_group && auth.user.family_group.length > 0) {
-      auth.user.family_group.map((p) => allPatients.push(p));
+    if (auth.familyGroup && auth.familyGroup.length > 0) {
+      auth.familyGroup.map((p) => allPatients.push(p));
     }
-  }, [allPatients]);
+  }, [auth.familyGroup, allPatients]);
+
 
   const getPatient = useCallback((identification_number) => {
     setLoading(true);
@@ -58,28 +59,27 @@ const PatientProvider = ({ children }) => {
         setLoading(false);
         if (res.id) {
           let p = res;
-          if (p) {
-            if (p.id_usual_institution) {
-              setPatientInstitution(p.id_usual_institution);
-              setPatient(p);
           
-              if (p.id_patient) {
-                setIdPatient(p.id_patient);
-              } else {
-                setIdPatient(null);
-              }
-          
-              Toast.fire(toastPatient(`${p.name} ${p.surname}`));
-              return patient;
-  
-            
+          if (p.id_usual_institution) {
+            setPatientInstitution(p.id_usual_institution);
+            setPatient(p);
+
+            if (p.id_patient) {
+              setIdPatient(p.id_patient);
             } else {
-               Swal.fire(completeProfile()).then((result) => {
-                if (result.isConfirmed) {
-                  history.push('/usuario/perfil-paciente?user=false')
-                }
-              });
+              setIdPatient(null);
             }
+
+            Toast.fire(toastPatient(`${p.name} ${p.surname}`));
+            return patient;
+
+
+          } else {
+            Swal.fire(completeProfile()).then((result) => {
+              if (result.isConfirmed) {
+                history.push('/usuario/perfil-paciente?user=false')
+              }
+            });
           }
         } else {
           throw new Error("No se encontró información del paciente");

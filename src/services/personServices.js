@@ -6,6 +6,8 @@ import {
   AUTH_HEADER,
   API_ENDPOINT_GETADMINSTATUS,
   UPDATE_HEADER,
+  API_ENDPOINT_GETFAMILYGROUP,
+  AUTH_HEADER_TOKEN,
 } from "../constants/api.constants";
 import { get, put } from "./httpServices";
 
@@ -72,6 +74,19 @@ export async function setAdminStatusToPerson(id, status) {
 export async function getAdminStatus() {
   try {
     const promise = await get(API_ENDPOINT_GETADMINSTATUS, AUTH_HEADER());
+    return promise;
+  } catch (err) {
+    console.log("Error ", err);
+  }
+}
+
+export async function getFamilyGroupByIdentificationNumberMaster(dni, token) {
+  try {
+    const searchParams = new URLSearchParams({
+      person_identification_number_master: dni
+    });
+    let query = searchParams.toString();
+    const promise = await get(API_ENDPOINT_GETFAMILYGROUP(query), AUTH_HEADER_TOKEN(token));
     return promise;
   } catch (err) {
     console.log("Error ", err);

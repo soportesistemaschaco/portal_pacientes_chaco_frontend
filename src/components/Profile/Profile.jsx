@@ -46,7 +46,7 @@ function Profile({ show, handleClose, dataExiste, type }) {
 
     const getData = useCallback(
         () => {
-            getPersonByIdentificationNumber(dni)
+                getPersonByIdentificationNumber(dni)
                 .then((res) => {
                     setForm(res);
                     setLoading(false);
@@ -92,7 +92,7 @@ function Profile({ show, handleClose, dataExiste, type }) {
         setValue(`${newValue}`, values[newValue]);
     }, [newValue, values])
 
-    const onSubmit = () => {   
+    const onSubmit = () => {
         Swal.fire(confirm(`¿Desea actualizar los datos de ${type === 'user' ? 'usuario' : 'paciente'}`)).then((result) => {
             if (result.isConfirmed) {
                 setLoading(true);

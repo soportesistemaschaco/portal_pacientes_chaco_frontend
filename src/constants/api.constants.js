@@ -42,6 +42,15 @@ export let AUTH_HEADER = () => {
   return header;
 };
 
+export let AUTH_HEADER_TOKEN = (token) => {
+  const jwt = token
+  let header = {
+    "accept": "application/json",
+    "Authorization": `Bearer ${jwt}`,
+  };
+  return header;
+};
+
 export let UPDATE_HEADER = () => {
   const jwt = localStorage.getItem("tokenUser")
     ? JSON.parse(localStorage.getItem("tokenUser"))
@@ -104,6 +113,11 @@ export const API_ENDPOINT_DOWNLOADIDENTIFICATIONIMAGES = (query) => {
 
 export const API_ENDPOINT_SETADMINSTATUSTOPERSON = (query) => {
   let url = `${baseUrl}/setadminstatustoperson?${query}`;
+  return url;
+};
+
+export const API_ENDPOINT_GETFAMILYGROUP = (query) => {
+  let url = `${baseUrl}/getfamilygroupbyidentificationnumbermaster?${query}`;
   return url;
 };
 

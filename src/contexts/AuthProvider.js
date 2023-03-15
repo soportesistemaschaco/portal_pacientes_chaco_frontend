@@ -7,7 +7,7 @@ import {
   error
 } from "../components/SwalAlertData";
 import { loginPersonService } from "../services/loginPersonService";
-import tgdServiceToken, { tgdServiceUserData } from "../services/tgdServices";
+import { getFamilyGroupByIdentificationNumberMaster } from "../services/personServices";
 
 export const AuthContext = createContext();
 
@@ -21,6 +21,7 @@ const AuthProvider = ({ children }) => {
   const [typeUser, setTypeUser] = useState(
     JSON.parse(localStorage.getItem("typeUser")) || null
   ); //note: 1 = admin / 2 = person
+  const [familyGroup, setFamilyGroup] = useState([]);
   const curtime = new Date().getTime();
   const [newUser, setNewUser] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -175,23 +176,36 @@ const AuthProvider = ({ children }) => {
     })
 
     result.then((res) => {
-      if (res.access_token && res.data.id) {
-        setUser(res.data);
-        setTokenUser(res.access_token);
-        setTypeUser(2); //hardcode //hardcode - 1 = user-admin. 2 = user-person
-        setLoading(false);
-        return tokenUser;
-      }
+      let dni = res.data.identification_number;
+      let token = res.data.access_token;
+      getFamilyGroup(dni, token, res);
+    })
+      .catch((err) => {
+        console.error(err);
+        Swal.fire(error('Error al obtener datos de usuario. Reintentar'));
+      })
+
+    result.then((res) => {
+    if (res.access_token && res.data.id) {
+      setUser(res.data);
+      setTokenUser(res.access_token);
+      setTypeUser(2); //hardcode //hardcode - 1 = user-admin. 2 = user-person
+      setLoading(false);
+      return res.data;
+    }
     }).catch((err) => {
       console.error(err);
       Swal.fire(error('Error al obtener datos de usuario. Reintentar'));
     })
   }
 
-  
   // EXPIRE SESSION
   useEffect(() => {
     getLocalStorage("curtime");
+  }, []);
+
+  useEffect(() => {
+    getFamilyGroup();
   }, []);
 
   const logout = (expired) => {
@@ -205,6 +219,15 @@ const AuthProvider = ({ children }) => {
       deleteDataSession();
     }
   };
+
+  const getFamilyGroup = useCallback(
+    () => {
+      getFamilyGroupByIdentificationNumberMaster(user.identification_number, tokenUser)
+        .then((res) => {
+          setFamilyGroup(res)
+        })
+        .catch((err) => { throw new Error(err) })
+    }, []);
 
   const deleteDataSession = () => {
     let email = localStorage.getItem("loginDataEmail");
@@ -236,6 +259,7 @@ const AuthProvider = ({ children }) => {
     loginPerson,
     loginAdmin,
     logout,
+    familyGroup,
     // getUserTokenTGD,
     setUserNewData,
     getUserData,
@@ -248,7 +272,7 @@ const AuthProvider = ({ children }) => {
       }
     },
     newUser,
-    newRegisterUser,
+    newRegisterUser
   };
 
   return (
