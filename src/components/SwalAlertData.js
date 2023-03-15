@@ -68,10 +68,6 @@ export const completeProfile = () => {
     confirmButtonText: "Completar datos",
     confirmButtonColor: "#007bff",
     reverseButtons: true,
-    // imageUrl: logoFondoBlanco,
-    // imageWidth: 400,
-    // imageHeight: 200,
-    // imageAlt: '',
   };
   return content;
 };
