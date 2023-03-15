@@ -28,7 +28,6 @@ const FormGroup = React.forwardRef((props, ref) => {
 
   const getInstitutionsVariants = useCallback(
     () => {
-      setOptions([{cuie: 1, Servicio: '1 - 1'}]);
       efectoresServices()
         .then((res) => {
           const inst = res
@@ -36,7 +35,6 @@ const FormGroup = React.forwardRef((props, ref) => {
         })
         .then((res) => {
           if (res?.length > 0) {
-            setOptions([{id: 1, nombre: '1'}]);
             setOptions(res);
             return options
           }
