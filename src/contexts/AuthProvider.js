@@ -23,7 +23,7 @@ const AuthProvider = ({ children }) => {
   ); //note: 1 = admin / 2 = person
   const curtime = new Date().getTime();
   const [newUser, setNewUser] = useState(false);
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     try {
@@ -130,7 +130,7 @@ const AuthProvider = ({ children }) => {
   const setUserNewData = (data) => {
     setUser(data)
   }
- 
+
 
   function getLocalStorage(key) {
     let exp = 60 * 60 * 24 * 1000; //hardcode - milliseconds in a day
@@ -155,81 +155,39 @@ const AuthProvider = ({ children }) => {
   // INICIO RECIBIENDO DATOS DESDE TGD
   const getUserData = (query) => {
     const result = new Promise((resolve, reject) => {
-        // FUNCION PARA CONVERTIR DATOS RECIBIDOS POR QUERY EN JSON
-        try  {
-            let userData = {};
-            let clearQuery = query.replace('%27', '', 1);
-            clearQuery = clearQuery.replace('?', '', 1);
-            let arrayData = clearQuery.split('&');
-            arrayData.forEach(element => {
-                let key = element.split('=')[0];
-                let value = element.split('=')[1];
-                if (key === 'data') {
-                    let clearJSON = value.replaceAll('%27', '"');
-                    clearJSON = clearJSON.replaceAll('%3A+', ':');
-                    clearJSON = decodeURI(clearJSON);
-                    // clearJSON = clearJSON.replaceAll('%7B', '{');
-                    clearJSON = clearJSON.replaceAll('%3A+', ':');
-                    clearJSON = clearJSON.replaceAll('%2C+', ',');
-                    clearJSON = clearJSON.replaceAll('}"', '}');
-                    console.log(clearJSON)
-                    clearJSON = JSON.parse(clearJSON);
-                    userData[key] = clearJSON;   
-                } else {
-                    userData[key] = value;
-                }
-            });
-            // console.log(userData);
-            resolve(userData);
-            // return userData;
-        } catch (err) {
-            reject(err);
+      try {
+        let userData = {};
+        let clearQuery;
+        // LIMPIA QUERY QUE OBTIENE CON DATOS
+        clearQuery = query.replace('?', '', 1);
+        const params = new URLSearchParams(clearQuery);
+        const obj = {};
+        for (const [key, value] of params) {
+          obj[key] = value === 'None' ? null : value;
         }
+        userData.data = obj;
+        userData.access_token = obj.access_token;
+        resolve(userData);
+      } catch (err) {
+        reject(err);
+      }
     })
 
-    result.then((res) =>{
-        if (res.access_token) {
-          setUser(res.data);
-          setTokenUser(res.access_token);
-          setTypeUser(2); //hardcode //hardcode - 1 = user-admin. 2 = user-person
-          setLoading(false);
-          return tokenUser;
-        }
+    result.then((res) => {
+      if (res.access_token && res.data.id) {
+        setUser(res.data);
+        setTokenUser(res.access_token);
+        setTypeUser(2); //hardcode //hardcode - 1 = user-admin. 2 = user-person
+        setLoading(false);
+        return tokenUser;
+      }
+    }).catch((err) => {
+      console.error(err);
+      Swal.fire(error('Error al obtener datos de usuario. Reintentar'));
     })
-}
-
-  // LOGIN WITH TGD
-  // with the code obtained, I request the token
-  // const getUserTokenTGD = useCallback(
-  //   (params) => {
-  //     tgdServiceToken(params)
-  //       .then((response) => {
-  //         if (response.access_token ) {
-  //           let tgdToken = response.access_token;
-  //           getUserDataTGD(tgdToken);
-  //         } 
-  //       })
-  //       .catch((error) => {
-  //         console.log('error', error)
-  //       })
-  //   }
-  //   , []
-  // );
+  }
 
   
-  // // with the tpken obtained, I request the user data
-  // const getUserDataTGD = useCallback(
-  //   (tgdToken) => {
-  //     tgdServiceUserData(tgdToken)
-  //       .then((response) => {
-  //         console.log('userTGD response', response)
-  //       })
-  //       .catch((error) => {
-  //         console.log('error', error)
-  //       })
-  //   }
-  //   , []
-  // );
   // EXPIRE SESSION
   useEffect(() => {
     getLocalStorage("curtime");
