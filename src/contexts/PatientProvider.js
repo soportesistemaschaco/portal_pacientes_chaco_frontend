@@ -46,7 +46,7 @@ const PatientProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    if (auth.user.family_group.length > 0) {
+    if (auth.user.family_group && auth.user.family_group.length > 0) {
       auth.user.family_group.map((p) => allPatients.push(p));
     }
   }, [allPatients]);
@@ -59,7 +59,6 @@ const PatientProvider = ({ children }) => {
         if (res.id) {
           let p = res;
           if (p) {
-
             if (p.id_usual_institution) {
               setPatientInstitution(p.id_usual_institution);
               setPatient(p);
