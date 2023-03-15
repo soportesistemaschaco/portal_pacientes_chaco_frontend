@@ -15,18 +15,21 @@ import { ErrorMessage } from "../../components/ErrorMessage/ErrorMessage";
 
 function LoginPerson() {
 
+    // SE OCULTA CUALQUIER POSIBILIDAD DE INGRESAR AL PORTAL QUE NO SEA A TRAVÉS DE TGD !!!!
+
     // const [loading, setLoading] = useState(false);
     const [loginTGD, setLoginTGD] = useState(true);
-    const [email, setEmail] = useState(JSON.parse(localStorage.getItem("loginDataEmail")) || "");
-    const [password, setPassword] = useState(JSON.parse(localStorage.getItem("loginDataPassword")) || "");
-    const [saveData, setSaveData] = useState(JSON.parse(localStorage.getItem("loginDataEmail")) ? true : false);
-    const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+    // const [email, setEmail] = useState(JSON.parse(localStorage.getItem("loginDataEmail")) || "");
+    // const [password, setPassword] = useState(JSON.parse(localStorage.getItem("loginDataPassword")) || "");
+    // const [saveData, setSaveData] = useState(JSON.parse(localStorage.getItem("loginDataEmail")) ? true : false);
+    // const { register, handleSubmit, setValue, formState: { errors } } = useForm();
 
     const auth = useAuth();
     const history = useHistory();
     const location = useLocation();
     // LEVANTA DATOS DESDE TGD
     const data = location.search
+    // login?id=5&surname=NUñEZ&name=FERNANDO&identification_number=26806376&birthdate=None&id_gender=None&id_department=None&id_locality=None&address_street=None&address_number=None&id_usual_institution=None&is_diabetic=None&is_hypertensive=None&is_chronic_respiratory_disease=None&is_chronic_kidney_disease=None&identification_number_master=None&id_identification_type=None&id_identification_type_master=None&is_deleted=None&id_patient=None&id_admin_status=None&phone_number=None&department=None&locality=None&email=None&identification_front_image=None&identification_back_image=None&identification_front_image_file_type=None&identification_back_image_file_type=None&id_person_status=None&is_admin=0&access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyNjgwNjM3NiIsImV4cCI6MTY3ODc1MzQxNn0.gjj7M438vJ17QgUqLkr7nSKFHAwScuOXMvQVG1H4PMs
     // const url = ('id_person=3&access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJvb2NhbnRvIiwiZXhwIjoxNjc1Nzk2NTE4fQ.YCCYMM1m0ApL2Q_Qs6ZZzCG7oba3vbQixLlWlFW6z84&token_type=bearer&data=%7B%27id%27%3A+3%2C+%27surname%27%3A+%27Ocanto%27%2C+%27name%27%3A+%27Osvaldo%27%2C+%27identification_number%27%3A+%2727543642%27%2C+%27birthdate%27%3A+%271979-01-01%27%2C+%27id_person_status%27%3A+2%2C+%27family_group%27%3A+%5B%5D%7D')
     const previousObjetURL = location.state?.from
 
@@ -49,32 +52,27 @@ function LoginPerson() {
         if (auth.isLogged()) history.push(previousObjetURL || "/usuario")
     }, [auth, history, previousObjetURL])
 
-    const handlePassword = (value) => {
-        setPassword(value)
-        setValue('password', value)
-    }
+    // const handlePassword = (value) => {
+    //     setPassword(value)
+    //     setValue('password', value)
+    // }
 
-    const onSubmit = () => {
-        // setLoading(true)
-        if (loginTGD) {
-            // DEBE RECIBIR DATOS DE PERSONA DESDE TGD Y AHI REALIZAR EL LOGIN
-        } else {
-            // REALIZA LOGIN CON DATOS INGRESADOS EN BASE DE DATOS
-            auth.loginPerson(email, password);
-            if (saveData) {
-                localStorage.setItem("loginDataEmail", JSON.stringify(email));
-                localStorage.setItem("loginDataPassword", JSON.stringify(password));
-            } else {
-                localStorage.removeItem("loginDataEmail");
-                localStorage.removeItem("loginDataPassword");
-            }
-        }
-    }
-
-    // FUNCIONES DE OAUTH 
-    const onSuccess = (response) => { }
-
-    const onFailure = response => console.error(response);
+    // const onSubmit = () => {
+    //     // setLoading(true)
+    //     if (loginTGD) {
+    //         // DEBE RECIBIR DATOS DE PERSONA DESDE TGD Y AHI REALIZAR EL LOGIN
+    //     } else {
+    //         // REALIZA LOGIN CON DATOS INGRESADOS EN BASE DE DATOS
+    //         auth.loginPerson(email, password);
+    //         if (saveData) {
+    //             localStorage.setItem("loginDataEmail", JSON.stringify(email));
+    //             localStorage.setItem("loginDataPassword", JSON.stringify(password));
+    //         } else {
+    //             localStorage.removeItem("loginDataEmail");
+    //             localStorage.removeItem("loginDataPassword");
+    //         }
+    //     }
+    // }
 
     // HABILITAR PARA REALIZAR FLUJO CON TGD DESDE FRONT. Actualmente se realiza desde BACK
     // useEffect(() => {
@@ -96,6 +94,12 @@ function LoginPerson() {
     //     setLoading(false);
     // }
 
+    // FUNCIONES DE OAUTH 
+    const onSuccess = (response) => { }
+
+    const onFailure = response => console.error(response);
+
+
     return (
         <div className="bg-container">
             {auth.loading ? <Loader isActive={auth.loading} />
@@ -116,14 +120,14 @@ function LoginPerson() {
                                     <img src={logoTGD} className="w-75 my-4" alt="Logo Tu Gobierno Digital" />
                                 </OAuth2Login>
                             </Col>
-                            <Col xs={10} md={4} lg={3}>
+                            {/* <Col xs={10} md={4} lg={3}>
                                 <button type="button" className="btn btn-ligth mt-3 w-100" onClick={() => setLoginTGD(false)}>
                                     <p className="text-light text-decoration-underline">O ingresar con usuario <br />  Portal del Paciente</p>
                                 </button>
-                            </Col>
+                            </Col> */}
                         </Row>
                         : <Row className="w-100 d-flex justify-content-center in">
-                            <Col xs={10} md={6} lg={3} className="d-flex flex-column align-items-center justify-content-around h-100">
+                            {/* <Col xs={10} md={6} lg={3} className="d-flex flex-column align-items-center justify-content-around h-100">
                                 <img src={logo} className="w-100" alt="Logo blanco Portal del paciente Chaco" />
                                 <h6 className="text center text-light my-3">Iniciar sesión</h6>
                                 <Form className="form-group in" onSubmit={handleSubmit(onSubmit)}>
@@ -177,7 +181,7 @@ function LoginPerson() {
                                             <Link to="/recuperar-clave" className="text-light text-decoration-underline">¿Olvidaste tu contraseña?</Link>
                                         </Form.Label>
                                     </Form.Group> */}
-                                    <div className="d-flex flex-column align-items-center mt-2">
+                            {/* <div className="d-flex flex-column align-items-center mt-2">
                                         <Button variant="primary" type="submit" className="w-100">
                                             Iniciar Sesión
                                         </Button>
@@ -191,11 +195,11 @@ function LoginPerson() {
                                             onSuccess={onSuccess}
                                             onFailure={onFailure}>
                                             Tu Gobierno Digital
-                                        </OAuth2Login>
-                                        {/* <Link to="/register" className="text-light mt-3 ">Crear cuenta en Portal del Paciente</Link> */}
-                                    </div>
-                                </Form>
-                            </Col>
+                                        </OAuth2Login> */}
+                            {/* <Link to="/register" className="text-light mt-3 ">Crear cuenta en Portal del Paciente</Link> */}
+                            {/* </div> */}
+                            {/* </Form> */}
+                            {/* </Col> */}
                         </Row>
                     }
                 </Container>
