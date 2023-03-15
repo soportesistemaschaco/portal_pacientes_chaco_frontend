@@ -46,6 +46,7 @@ const FormGroup = React.forwardRef((props, ref) => {
 
   const getDNIVariants = useCallback(
     () => {
+      setOptions([{id: 1, name: '1'}]);
       documentTypeServices()
         .then((res) => {
           const types = res
@@ -86,7 +87,7 @@ const FormGroup = React.forwardRef((props, ref) => {
       {inputType === 'input' &&
         <Form.Control
           name={name}
-          value={value}
+          value={value ?? ''}
           type={type ? type : 'text'}
           className="form-control"
           disabled={disabled ? disabled : false}
@@ -135,7 +136,7 @@ const FormGroup = React.forwardRef((props, ref) => {
             className="form-check-input"
             disabled={disabled ? disabled : false}
             value={true}
-            checked={value.toString() === 'true' ? true : false}
+            checked={value && value.toString() === 'true' ? true : false}
             onChange={onChange}
           /> <label className="form-label me-3">
             Sí
@@ -146,7 +147,7 @@ const FormGroup = React.forwardRef((props, ref) => {
             disabled={disabled ? disabled : false}
             className="form-check-input"
             value={false}
-            checked={value.toString() === 'true' ? false : true}
+            checked={value && value.toString() === 'true' ? false : true}
             onChange={onChange}
           /> <label className="form-label">
             No

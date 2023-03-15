@@ -23,6 +23,7 @@ const AutocompleteComponent = React.forwardRef((props, ref) => {
     }, [variants])
 
     const handleOnSearch = (string, results) => {
+      handleChange(string)
       }
     
       const handleOnHover = (result) => {
@@ -36,6 +37,7 @@ const AutocompleteComponent = React.forwardRef((props, ref) => {
       }
     
       const handleOnFocus = () => {
+        // setItems(items);
       }
 
       const formatResult = (item) => {
@@ -58,6 +60,7 @@ const AutocompleteComponent = React.forwardRef((props, ref) => {
         <ReactSearchAutocomplete
             items={items}
             onSelect={handleOnSelect}
+            onSearch={handleOnSearch}
             styling={{
                 height: "34px",
                 border: "1px solid gray",
@@ -69,7 +72,7 @@ const AutocompleteComponent = React.forwardRef((props, ref) => {
                 clearIconMargin: "3px 8px 0 0",
                 zIndex: 2,
               }}
-            placeholder={value}
+            placeholder='Buscar...'
         />
     )
 })

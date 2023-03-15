@@ -33,7 +33,7 @@ export default function AppRouter() {
             {/* <Header /> */}
             <div className="main-container">
             <Switch>
-                <PublicRoute exact path='/login' component={LoginPerson }/>
+                <PublicRoute path='/login' component={LoginPerson }/>
                 <PublicRoute exact path='/callback' component={LoginPerson }/>
                 <PublicRoute exact path='/login-admin' component={Login}/>
                 {/* <PublicRoute exact path='/register' component={Register}/>

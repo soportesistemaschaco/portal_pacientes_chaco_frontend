@@ -101,7 +101,7 @@ function Header() {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-            {show && <Profile type={'user'} show={show} handleClose={handleClose} />}
+            {show && <Profile type={'user'} show={show} handleClose={handleClose} dataExiste={true} />}
             <div className={`container-block ${sidebar ? 'show' : 'close'}`} onClick={showSidebar}></div>
             {auth.isLogged() && <Sidebar isActive={sidebar ? 'show' : 'close'} action={showSidebar} ></Sidebar>}
         </>
