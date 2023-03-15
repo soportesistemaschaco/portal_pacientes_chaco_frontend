@@ -57,7 +57,6 @@ function ApplicationModal({ show, handleClose, }) {
                     let institutionsArr = response.map((item) => {
                         return {id: item.cuie, name: item.Servicio.split(' - ')[2]}
                     })
-                    console.log(institutionsArr)
                     setInstitution(institutionsArr);
                 }
             })
