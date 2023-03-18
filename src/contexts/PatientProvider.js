@@ -47,9 +47,12 @@ const PatientProvider = ({ children }) => {
 
   useEffect(() => {
     if (auth.familyGroup && auth.familyGroup.length > 0) {
-      auth.familyGroup.map((p) => allPatients.push(p));
+      auth.familyGroup.forEach((p) => {
+        let exist = allPatients.find((item) => item.id === p.id);
+        if (!exist) allPatients.push(p)
+      });
     }
-  }, [auth.familyGroup, allPatients]);
+  }, [auth.familyGroup, auth.user, allPatients]);
 
 
   const getPatient = useCallback((identification_number) => {
@@ -86,7 +89,7 @@ const PatientProvider = ({ children }) => {
         }
       })
       .catch((err) => {
-        console.log("error", err);
+        console.error("error", err);
         Swal.fire(errorActivePatient).then((result) => {
           if (result.isConfirmed) {
             auth.logout();

@@ -176,16 +176,6 @@ const AuthProvider = ({ children }) => {
     })
 
     result.then((res) => {
-      let dni = res.data.identification_number;
-      let token = res.data.access_token;
-      getFamilyGroup(dni, token, res);
-    })
-      .catch((err) => {
-        console.error(err);
-        Swal.fire(error('Error al obtener datos de usuario. Reintentar'));
-      })
-
-    result.then((res) => {
       if (res.access_token && res.data.id) {
         setUser(res.data);
         setTokenUser(res.access_token);
@@ -196,16 +186,12 @@ const AuthProvider = ({ children }) => {
     }).catch((err) => {
       console.error(err);
       Swal.fire(error('Error al obtener datos de usuario. Reintentar'));
-    })
+    });
   }
 
   // EXPIRE SESSION
   useEffect(() => {
     getLocalStorage("curtime");
-  }, []);
-
-  useEffect(() => {
-    getFamilyGroup();
   }, []);
 
   const logout = (expired) => {
@@ -220,15 +206,20 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  useEffect(() => {
+    if (user?.identification_number && tokenUser){
+      getFamilyGroup(user.identification_number, tokenUser);
+    }
+  }, [user, tokenUser]);
+
   const getFamilyGroup = useCallback(
-    () => {
-      if (user?.identification_number && tokenUser) {
-        getFamilyGroupByIdentificationNumberMaster(user.identification_number, tokenUser)
+    (dni, token) => {
+      getFamilyGroupByIdentificationNumberMaster(dni, token)
         .then((res) => {
           setFamilyGroup(res)
         })
         .catch((err) => { throw new Error(err) })
-      }
+      // }
     }, []);
 
   const deleteDataSession = () => {
