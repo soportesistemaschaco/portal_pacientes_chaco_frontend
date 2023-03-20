@@ -60,18 +60,6 @@ export default function RegisterForm(formType) {
         }
     }
 
-    // const handleChangeImage = (e) => {
-    //     if (e.target.files) {
-    //         let targetName = e.target.name
-    //         setValues({
-    //             ...values,
-    //             [targetName]: e.target.files[0],
-    //         }
-    //         );
-    //         setNewValue(targetName)
-    //     }
-    // }
-
     const getAddress = (obj) => {
         if (obj.address) {
             let data = ['postal_address', 'address_number', 'address_street', 'locality', 'department']
@@ -106,6 +94,8 @@ export default function RegisterForm(formType) {
     const buildBody = () => {
         setLoading(true)
         let body = values
+        delete body.id_person
+        delete body.id_patient
         delete body.confirmEmail
         delete body.confirmPassword
         delete body.postal_address
@@ -114,6 +104,8 @@ export default function RegisterForm(formType) {
         const [month, day, year] = [body.birthdate.getMonth() + 1, body.birthdate.getDate(), body.birthdate.getFullYear()];
         let date = `${day}/${month}/${year}`
         body.birthdate = date
+        body.name = capitalizarPrimeraLetra(body.name)
+        body.surname = capitalizarPrimeraLetra(body.surname)
         body.id_identification_type = parseInt(body.id_identification_type)
         body.id_gender = parseInt(body.id_gender)
         body.id_usual_institution = parseInt(body.id_usual_institution)
@@ -140,19 +132,11 @@ export default function RegisterForm(formType) {
             sendRegisterNewPatientForm(body);
         }
     }
-
-    // const onSubmitImages = () => {
-    //     setLoading(true)
-    //     let images = new FormData();
-    //     images.append('file1', values.file1, 'file1')
-    //     images.append('file2', values.file2, 'file2')
-    //     uploadIdentificationImages(newPersonId, images);
-    // }
+    function capitalizarPrimeraLetra(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+      }
 
     const onSubmit = (length, i) => {
-        // if (length === i + 1) { 
-        //     onSubmitImages()
-        // } else if (length - 1 === i + 1) {  //penultimate step 
         if (length === i + 1){
             buildBody() //last step 
         } else {
@@ -232,38 +216,6 @@ export default function RegisterForm(formType) {
                 setLoading(false)
             })
     }, []);
-
-    // const uploadIdentificationImages = useCallback(
-    //     (id, body) => {
-    //         uploadIdentificationImagesService(id, body)
-    //             .then((res) => {
-    //                 if (res && type === "user") {
-    //                     if (res.ok) {
-    //                         setLoading(false)
-    //                         history.push("/verificacion")
-    //                     } else {
-    //                         Swal.fire(error('Ha ocurrido un error al enviar las imágenes'))
-    //                     }
-    //                 } else if (res && type === "patient") {
-    //                     if (res.ok) {
-                            // Swal.fire(successRegister).then((result) => {
-                            //     if (result.isConfirmed) {
-                            //         setLoading(false)
-                            //         history.push("/usuario/grupo-familiar");
-                            //     }
-                            // })
-    //                     } else {
-    //                         Swal.fire(error('Ha ocurrido un error al enviar las imágenes'))
-    //                     }
-    //                 }
-    //             })
-    //             .catch((err) => {
-    //                 console.log('error', err)
-    //                 Swal.fire(error('Ha ocurrido un error al cargar las imágenes'))
-    //             })
-    //     },
-    //     [],
-    // );
 
     const loginDataForm =
         <Row className={step === 0 ? "in" : "out"}>
