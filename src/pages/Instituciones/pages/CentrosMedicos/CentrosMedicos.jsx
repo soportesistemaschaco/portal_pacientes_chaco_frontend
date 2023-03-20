@@ -49,7 +49,11 @@ export default function CentrosMedicos() {
                         setLoading(false);
                     }
                 })
-                .catch((err) => { console.log(err) })
+                .catch((err) => { 
+                    console.error(err);
+                    setNotFound(true);
+                    setLoading(false);
+                })
         },
         [institutions, tokenUser],
     )
