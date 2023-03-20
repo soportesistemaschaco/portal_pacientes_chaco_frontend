@@ -29,8 +29,6 @@ function Profile({ show, handleClose, dataExiste, type, identification_number}) 
             Object.entries(data).forEach(([key, value]) => {
                 setValue(`${key}`, value);
                 values[`${key}`] = value;
-                values[`id_usual_institution`] = '1';
-                setValue('id_usual_institution', '1')
                 if (key === 'id') {
                     values.id_person = value;
                     setValue('id_person', value);
@@ -113,7 +111,6 @@ function Profile({ show, handleClose, dataExiste, type, identification_number}) 
         delete body.username
         delete body.password
         delete body.access_token
-        body.id_usual_institution = '1' //hardcode
         body.id_person = body.id
         body.is_diabetic = body.is_diabetic?.toString() == 'true' ? true : false
         body.is_hypertensive = body.is_hypertensive?.toString() == 'true' ? true : false
