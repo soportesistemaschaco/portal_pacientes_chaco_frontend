@@ -103,7 +103,7 @@ function MisTurnos() {
                     <h6 className='datos-paciente__title mb-3'>Historial:</h6>
                     {historialTurno.map((d, i) => {
                         return (
-                            <blockquote className="blockquote mb-3">
+                            <blockquote key={i} className="blockquote mb-3">
                                 <p className='fw-lighter mb-0 fst-italic me-3'>Fecha: {new Date(d.date).toLocaleDateString()}</p>
                                 <p className='fw-lighter mb-0 fst-italic me-3'>Hora: {d.hour}</p>
                                 <p className='mb-0 fst-italic'>Profesional: {d.professional.person.firstName+', '+d.professional.person.firstName || ' - '}</p>
