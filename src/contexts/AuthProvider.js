@@ -130,7 +130,7 @@ const AuthProvider = ({ children }) => {
   );
 
   const setUserNewData = (data) => {
-    setUser(data)
+    setUser(data);
   }
 
 
@@ -141,7 +141,7 @@ const AuthProvider = ({ children }) => {
       let data = JSON.parse(vals);
       let isTimed = new Date().getTime() - data > exp;
       if (isTimed) {
-        console.log("Error: El almacenamiento ha expirado");
+        console.error("Error: El almacenamiento ha expirado");
         setTokenUser(null);
         logout(isTimed);
         return null;
