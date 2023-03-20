@@ -31,7 +31,9 @@ function HCSumar() {
                 })
                 .catch((err) => {
                     console.error(err)
-                    Swal.fire(error('Hubo un error al solicitar datos'))
+                    // Swal.fire(error('Hubo un error al solicitar datos'))
+                    setData([]);
+                    setNotFound(true);
                     setLoading(false);
                 })
         },
@@ -41,7 +43,7 @@ function HCSumar() {
     useEffect(() => {
         setLoading(true);
         getData(p.patient.identification_number);
-    }, []);
+    }, [p.patient]);
 
     return (
         <div className='in'>

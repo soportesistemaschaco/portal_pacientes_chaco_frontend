@@ -33,8 +33,9 @@ function HCHSI() {
                     }
                 })
                 .catch((err) => {
-                    console.log(err)
-                    Swal.fire(error('Hubo un error al solicitar datos'));
+                    console.error(err)
+                    // Swal.fire(error('Hubo un error al solicitar datos'));
+                    setData([]);
                     setNotFound(true);
                     setLoading(false);
                 })
@@ -69,7 +70,7 @@ function HCHSI() {
     useEffect(() => {
         setLoading(true);
         getData(p.patient.identification_number, p.patient.id_identification_type, p.patient.id_gender);
-    }, []);
+    }, [p.patient]);
 
     return (
         <div className='in'>
