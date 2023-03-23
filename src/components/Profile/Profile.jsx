@@ -29,11 +29,11 @@ function Profile({ show, handleClose, dataExiste, type, identification_number}) 
             Object.entries(data).forEach(([key, value]) => {
                 setValue(`${key}`, value);
                 values[`${key}`] = value;
-                if (key === 'id') {
+                if (key === 'id' && value) {
                     values.id_person = value;
                     setValue('id_person', value);
                 }
-                if (key === 'birthdate') {
+                if (key === 'birthdate' && value) {
                     let isoDate = value.includes('T') ? value : value + 'T00:00:00';
                     values.birthdate = new Date(isoDate);
                     setValue(`${key}`, isoDate);
