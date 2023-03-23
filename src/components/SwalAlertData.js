@@ -60,14 +60,14 @@ export const confirm = (text, is_success) => {
 
 export const completeProfile = () => {
   let content = {
-    title: '¡Te damos la Bienvenida!',
+    title: '',
     html: `<image src="${logoFondoBlanco}" alt="Portal-del-paciente-chaco" width="400" /> 
-    <p>Para continuar, complete los datos faltantes en su perfil.</p>`,
-    // showCancelButton: true,
-    // cancelButtonText: "Cancelar",
+      <h2>¡Te damos la Bienvenida!</h2>
+    <p>Antes de continuar, completá los datos en tu perfil.</p>`,
     confirmButtonText: "Completar datos",
     confirmButtonColor: "#007bff",
     reverseButtons: true,
+    allowOutsideClick: false
   };
   return content;
 };

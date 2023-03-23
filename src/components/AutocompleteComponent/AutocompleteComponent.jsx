@@ -16,7 +16,12 @@ const AutocompleteComponent = React.forwardRef((props, ref) => {
       let items = variants.map((item) => {
         return { id: item.cuie, name: item.Servicio.split(' - ')[1] }
       });
-      setItems(items);
+      let itemsOrder = items.sort((a, b) => {
+        if (a.name < b.name) return -1
+        else if (a.name > b.name) return 1;
+        else  return 0;
+      })
+      setItems(itemsOrder);
     }
   }, [variants]);
 
@@ -70,6 +75,7 @@ const AutocompleteComponent = React.forwardRef((props, ref) => {
         clearIconMargin: "3px 8px 0 0",
         zIndex: 2,
       }}
+      showClear={false}
       placeholder={value || 'Buscar...'}
       autoFocus={false}
       showItemsOnFocus={true}
