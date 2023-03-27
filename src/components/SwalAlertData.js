@@ -15,6 +15,8 @@ export const errorActivePatient = {
   showCancelButton: false,
   confirmButtonText: "Aceptar",
   confirmButtonColor: "#007bff",
+  allowOutsideClick: false,
+  allowEscapeKey: false
 };
 
 export const logOut = {
@@ -67,7 +69,8 @@ export const completeProfile = () => {
     confirmButtonText: "Completar datos",
     confirmButtonColor: "#007bff",
     reverseButtons: true,
-    allowOutsideClick: false
+    allowOutsideClick: false,
+    allowEscapeKey: false
   };
   return content;
 };
