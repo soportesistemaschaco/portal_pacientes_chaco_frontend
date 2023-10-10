@@ -34,3 +34,13 @@ export async function put(url, header, data) {
   });
   return promise;
 }
+
+export async function deleteService(url, header, data) {
+  const promise = await fetch(url, {
+    method: "DELETE",
+    headers: header
+  })
+  .then(res => res)
+  .catch(err => console.error('err', err));
+  return promise;
+}
