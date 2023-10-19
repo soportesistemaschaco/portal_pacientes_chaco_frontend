@@ -8,6 +8,7 @@ import {
 } from "../components/SwalAlertData";
 import { loginPersonService } from "../services/loginPersonService";
 import { getFamilyGroupByIdentificationNumberMaster } from "../services/personServices";
+import { jwtVerify } from "../services/jwtService";
 
 export const AuthContext = createContext();
 
@@ -85,6 +86,15 @@ const AuthProvider = ({ children }) => {
     },
     [tokenUser]
   );
+
+  const getAdminData = () => {  
+    const verify  = jwtVerify(tokenUser);
+    if (verify?.id) {
+      return verify
+    } 
+    // logout(true)
+    return false
+  }
 
   // INICIO COMUN
   const loginPerson = useCallback(
@@ -252,6 +262,7 @@ const AuthProvider = ({ children }) => {
     loginPerson,
     loginAdmin,
     logout,
+    getAdminData,
     familyGroup,
     // getUserTokenTGD,
     setUserNewData,

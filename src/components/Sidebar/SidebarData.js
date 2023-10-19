@@ -277,6 +277,17 @@ export const SidebarData = {
       cName: "sidebar-text",
       aIcon: <MdIcon.MdKeyboardArrowDown className="menu-icon" />,
       options: [],
+    },
+    {
+      id: 17,
+      title: "Establecimientos",
+      path: "/admin/establecimientos",
+      icon: <FaIcon.FaHospital className="menu-icon" />,
+      acordeon: false,
+      a: false,
+      cName: "sidebar-text",
+      aIcon: <MdIcon.MdKeyboardArrowDown className="menu-icon" />,
+      options: [],
     }
   ],
 };

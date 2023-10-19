@@ -19,7 +19,7 @@ import {
     putUpdateUserAdminPassword
 } from "../../../../services/adminServices";
 import * as FaIcon from 'react-icons/fa'
-import Selector from "../../../Establecimientos/components/Selector/Selector";
+import Selector from "../../../Establecimientos/components/Selector";
 import { efectoresServices } from "../../../../services/institutionsServices";
 // import { getInstitutionsAllWithNewData } from "../../../../services/institutionsServices";
 

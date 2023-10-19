@@ -388,3 +388,32 @@ export const API_ENDPOINT_DELETESTUDY = (query) => {
   let url = `${baseUrl}/delete-study?${query}`;
   return url
 }
+
+// INSTITUTIONS ---------------------------------------
+export const API_ENDPOINT_INSTITUTIONS_ALL = `${baseUrl}/getinstitutions`;
+export const API_ENDPOINT_CREATE_INSTITUTION = `${baseUrl}/createinstitution`;
+export const API_ENDPOINT_UPDATE_INSTITUTION = `${baseUrl}/updateinstitution`;
+export const API_ENDPOINT_STATUS_INSTITUTION = `${baseUrl}/onoffinstitution`;
+export const API_ENDPOINT_INSTITUTIONS_BY_ID = (query) => {
+  return `${baseUrl}/getinstitutionsbyid?${query}`;
+}
+export const API_ENDPOINT_SHORTEST_ROUTE= (query) => {
+  return `${baseUrl}/shortest-route?${query}`;
+}
+export const API_ENDPOINT_ESPECIALIDADES_ALL = `${baseUrl}/especialidades`;
+export const API_ENDPOINT_ESPECIALIDADES_BY_ID = (especialidad) => {
+  return `${baseUrl}/especialidades/${especialidad}`;
+}
+export const API_ENDPOINT_SERVICIOS_ALL = `${baseUrl}/servicios`;
+export const API_ENDPOINT_SERVICIOS_BY_ID = (servicio) => {
+  return `${baseUrl}/servicios/${servicio}`;
+}
+export const API_ENDPOINT_ALL_PROVINCIAS = () => {
+  return `${baseUrl}/get_all_provincias`;
+}
+export const API_ENDPOINT_ALL_DEPARTAMENTOS_FROM = (query) => {
+  return `${baseUrl}/get_all_departamentos_from?${query}`;
+}
+export const API_ENDPOINT_ALL_LOCALIDADES_FROM = (query) => {
+  return `${baseUrl}/get_all_localidades_from?${query}`;
+}

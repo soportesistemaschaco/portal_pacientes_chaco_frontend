@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap"
 import Swal from "sweetalert2";
-import { warning } from "../../../../../components/SwalAlertData";
+import { warning } from "../../../../components/SwalAlertData";
 
 
 const Selector = (props) => {
