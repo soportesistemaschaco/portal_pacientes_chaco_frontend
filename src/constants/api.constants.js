@@ -159,6 +159,16 @@ export const API_ENDPOINT_DELETEUSERADMIN = (query) => {
   return url;
 }
 
+export const API_ENDPOINT_ASSIGN_INSTITUTIONS = (query) => {
+  let url = `${baseUrl}/assign_institutions?${query}`;
+  return url;
+}
+
+export const API_ENDPOINT_ONOFFADMIN = (query) => {
+  let url = `${baseUrl}/onoffadmin?${query}`;
+  return url;
+}
+
 // get patients/users data ---------------------------------------
 
 export const API_ENDPOINT_GETPERSONBYIDENTIFICATIONNUMBER = (query) => {

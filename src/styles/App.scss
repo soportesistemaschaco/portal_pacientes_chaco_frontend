@@ -996,3 +996,81 @@
 .cursor{
   cursor: pointer;
 }
+
+// establecimientos modal
+.est-list {
+  background-color: $secondary-light;
+  min-height: 48px;
+  width: 100%;
+  padding: 0.5rem;
+  span {
+    font-size: 14px;
+  }
+}
+.backdrop-class{
+  opacity: 1;
+  z-index: 1055 !important;
+}
+.modal-body-height{
+  max-height: 500px;
+  min-height: 500px;
+}
+.selector {
+  max-height: 400px;
+  min-height: 400px;
+  overflow-y: scroll;
+  border: 0.1px solid $secondary-light;
+
+  .selector-li:hover {
+    background-color: $secondary-light;
+  }
+}
+
+// establecimiento card
+.card-institution {
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: 5px;
+  background-color: $third;
+  box-shadow: $shadow-four;
+  transition: 0.2s;
+
+  @media only screen and (min-width: $tablet) {
+    justify-content: space-between;
+    // height: 5.5rem;
+  }
+}
+.select-institution {
+  select {
+    min-height: 36px !important;
+    border: 1px solid gray !important;
+  }
+}
+.select-institution{
+  select:focus {
+    box-shadow: none !important;
+  }
+}
+
+.form_establecimiento {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .col-12,
+  .col-6 {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.text-responsive {
+  min-width: 200px;
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.count-number{
+  font-size: 3rem;
+}

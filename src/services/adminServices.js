@@ -9,7 +9,9 @@ import { API_ENDPOINT_GETPERSONS,
    API_ENDPOINT_UPDTAEUSERADMIN,
    API_ENDPOINT_DELETEUSERADMIN,
    UPDATE_HEADER,
-   API_ENDPOINT_UPDTAEUSERADMINPASSWORD} from "../constants/api.constants";
+   API_ENDPOINT_UPDTAEUSERADMINPASSWORD,
+   API_ENDPOINT_ASSIGN_INSTITUTIONS,
+   API_ENDPOINT_ONOFFADMIN} from "../constants/api.constants";
 import { get, post, put } from "./httpServices";
 
 export async function getPersons() {
@@ -75,6 +77,29 @@ export async function postCreateUserAdmin(body) {
   try {
     const data = JSON.stringify(body);
     const promise = await post(API_ENDPOINT_CREATEUSERADMIN, UPDATE_HEADER(), data);
+    return promise;
+  } catch (err) {
+    console.error("Error al cargar datos: ", err);
+  }
+}
+
+export async function putAssignInstitutionsAdmin(username, body) {
+  try {
+    const searchParams = new URLSearchParams(username);
+    let query = searchParams.toString();
+    const data = JSON.stringify(body);
+    const promise = await put(API_ENDPOINT_ASSIGN_INSTITUTIONS(query), UPDATE_HEADER(), data);
+    return promise;
+  } catch (err) {
+    console.error("Error al cargar datos: ", err);
+  }
+}
+
+export async function putOnOffAdmin(id) {
+  try {
+    const searchParams = new URLSearchParams(id);
+    let query = searchParams.toString();
+    const promise = await put(API_ENDPOINT_ONOFFADMIN(query), AUTH_HEADER());
     return promise;
   } catch (err) {
     console.error("Error al cargar datos: ", err);
