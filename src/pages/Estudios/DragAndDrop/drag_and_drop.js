@@ -15,14 +15,14 @@ export default function FilesDragAndDrop({ onUpload }) {
   const [errorMessage, setErrorMessage] = useState('');
   const [selectedType, setSelectedType] = useState('');
 
-  const [studyTypes, setStudyTypes] = useState([]);
-  // const studyTypeMappings = {
-  //   'Estudios de Imágenes': 1,
-  //   'Estudios de Laboratorio': 2,
-  //   'Estudios Observacionales': 3,
-  //   'Resumen de Historia Clínica': 4,
-  //   'Otros': 5,
-  // };
+  const studyTypeMappings = [
+    {type_name: 'Estudios de Imágenes', id: 1},
+    {type_name: 'Estudios de Laboratorio', id: 2},
+    {type_name: 'Estudios Observacionales', id: 3},
+    {type_name: 'Resumen de Historia Clínica', id: 4},
+    {type_name: 'Otros', id: 5},
+ ];
+  const [studyTypes, setStudyTypes] = useState(studyTypeMappings);
   const [studyDescription, setStudyDescription] = useState('');
 
   const [loading, setLoading] = useState(true);
@@ -124,12 +124,12 @@ export default function FilesDragAndDrop({ onUpload }) {
 
   const getTiposDeEstudios = useCallback(
     () => {
-      getStudyTypes()
-        .then((res) => {
-          setStudyTypes(res);
+      // getStudyTypes()
+      //   .then((res) => {
+          // setStudyTypes(res);
           setLoading(false);
-        })
-        .catch((err) => console.error(err))
+        // })
+        // .catch((err) => console.error(err))
     }, [])
 
   const getEstudiosDePersona = useCallback(

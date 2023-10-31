@@ -3,6 +3,7 @@ import usePatient from '../../../../hooks/usePatient';
 import { Col, Row } from "react-bootstrap";
 import { variantsGender } from '../../../../components/ComponentsData';
 import { efectoresServices } from '../../../../services/institutionsServices';
+import { establecimientosDataHardcode } from '../../../../components/EstablecimientosDataHardcode';
 
 function DatosPaciente() {
 
@@ -23,16 +24,19 @@ function DatosPaciente() {
     const [institution, setInstitution] = useState([]);
     const getInstitutions = useCallback(
         () => {
-            efectoresServices()
-                .then((res) => {
-                    return res
-                })
-                .then((res) => {
-                    let find = res.find(i => i.id === p.patient.id_usual_institution) || 1
-                    // console.log(find.name)
-                    setInstitution(find.name)
-                })
-                .catch((err) => { console.log(err) })
+            const institutions = establecimientosDataHardcode
+            let find = institutions.find(i => i.CUIE === p.patient.id_usual_institution) || 1
+            setInstitution(find.name)
+            // efectoresServices()
+            //     .then((res) => {
+            //         return res
+            //     })
+            //     .then((res) => {
+            //         let find = res.find(i => i.id === p.patient.id_usual_institution) || 1
+            //         // console.log(find.name)
+            //         setInstitution(find.name)
+            //     })
+            //     .catch((err) => { console.log(err) })
         },
         [institution],
     )

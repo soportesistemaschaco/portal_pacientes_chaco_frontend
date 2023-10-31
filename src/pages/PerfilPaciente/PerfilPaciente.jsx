@@ -49,7 +49,7 @@ export default function PerfilPaciente() {
                     </div>
                 </div>
             </div>
-            {dataExiste && p.idPatient && <DatosPaciente></DatosPaciente>}
+            {dataExiste && p.patient?.id && <DatosPaciente></DatosPaciente>}
             {show && <Profile type={'patient'} show={show} dataExiste={dataExiste} handleClose={handleClose} identification_number={p.patient.identification_number} />}
         </Container>
     )
