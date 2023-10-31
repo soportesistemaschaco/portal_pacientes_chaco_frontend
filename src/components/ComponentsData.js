@@ -4,6 +4,56 @@ export const variantsGender = [
   { id: 3, name: "No-binario" },
 ];
 
+export const variantsTimeAvaialability = [
+  { id: 'Por la mañana', name: "Por la mañana" },
+  { id: 'Por la tarde', name: "Por la tarde" },
+  { id: 'Indistinto', name: "Indistitnto" },
+];
+
+export const variantsDependencies = [
+  { id: 'Municipal', name: "Municipal" },
+  { id: 'Provincial', name: "Provincial" }
+];
+
+export const variantsTypologies = [
+  { id: 'Centro de salud "A"', name: 'Centro de Salud "A"' },
+  { id: 'Hospital', name: "Hospital" },
+  { id: 'Laboratorio', name: "Laboratorio" },
+  { id: 'Transporte', name: "Transporte" }
+];
+
+export const variantsDepartment = [
+  { id: '1', name: "Arauco" },
+  { id: '2', name: "Castro Barros" },
+  { id: '3', name: "Chamical" },
+  { id: '4', name: "Chilecito" },
+  { id: '5', name: "Famatina" },
+  { id: '6', name: "General Ángel Vicente Peñaloza" },
+  { id: '7', name: "General Belgrano" },
+  { id: '8', name: "General Felipe Varela" },
+  { id: '9', name: "General Juan Facundo Quiroga" },
+  { id: '10', name: "General Lamadrid" },
+  { id: '11', name: "General Ortiz de Ocampo" },
+  { id: '12', name: "General San Martín" },
+  { id: '13', name: "Independencia" },
+  { id: '14', name: "La Rioja" },
+  { id: '15', name: "Rosario Vera Peñaloza" },
+  { id: '16', name: "San Blas" },
+  { id: '17', name: "Sanagasta" },
+  { id: '18', name: "Vinchina" }
+];
+export const variantsTypologyCategories = [
+  { id: 'Establecimiento para la salud', name: "Establecimiento para la salud" },
+  { id: 'Establecimiento para la salud con internación', name: "Establecimiento para la salud con internación" },
+  { id: 'Establecimiento para la salud con internación general', name: "Establecimiento para la salud con internación general" },
+  { id: 'Establecimiento para la salud con internación especializada', name: "Establecimiento para la salud con internación especializada" },
+  { id: 'Establecimiento para la salud sin internación', name: "Establecimiento para la salud sin internación" },
+  { id: 'Establecimiento para la salud sin internación de diagnóstico', name: "Establecimiento para la salud sin internación de diagnóstico" },
+  { id: 'Establecimiento para la salud sin internación de diagnóstico y tratamiento', name: "Establecimiento para la salud sin internación de diagnóstico y tratamiento" },
+  { id: 'Sin especificar', name: "Sin especificar" }
+];
+
+
 export const endDate = () => {
   var endYear = new Date().getFullYear() - 14;
   var todayDay = new Date().getDate();

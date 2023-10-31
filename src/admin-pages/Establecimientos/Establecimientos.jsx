@@ -12,6 +12,7 @@ import DataNotFound from '../../components/DataNotFound';
 import Paginador from '../../components/Paginador';
 import useAuth from '../../hooks/useAuth';
 import { getUserAdminById } from '../../services/adminServices';
+import { establecimientosDataHardcode } from '../../components/EstablecimientosDataHardcode';
 
 
 
@@ -41,19 +42,21 @@ const Establecimientos = () => {
 
     const getData = useCallback(
         () => {
-            efectoresServices()
-                .then((res) => {
-                    if (res) {
-                        setEstablecimientos(res);
-                        setLoading(false)
-                        return establecimientos
-                    }
-                })
-                .catch((err) => {
-                    console.error(err)
-                    Swal.fire(error('Error al cargar los estableciemientos'))
-                    setLoading(false)
-                })
+            setEstablecimientos(establecimientosDataHardcode);
+            setLoading(false)
+            // efectoresServices()
+            //     .then((res) => {
+            //         if (res) {
+            //             setEstablecimientos(res);
+            //             setLoading(false)
+            //             return establecimientos
+            //         }
+            //     })
+            //     .catch((err) => {
+            //         console.error(err)
+            //         Swal.fire(error('Error al cargar los estableciemientos'))
+            //         setLoading(false)
+            //     })
         },
         [establecimientos],
     )
@@ -112,9 +115,9 @@ const Establecimientos = () => {
         if (typeof selected === 'string' && selected !== '') {
             let value = selected.toLowerCase()
             let search = establecimientos.filter((item) => {
-                return item.name.toLowerCase().includes(value)
-                    || item.ciudad.toLowerCase().includes(value)
-                    || item.localidad.toLowerCase().includes(value)
+                return item.name?.toLowerCase().includes(value)
+                    || item.ciudad?.toLowerCase().includes(value)
+                    || item.localidad?.toLowerCase().includes(value)
             });
             setData(search);
         } else if (selected.name) {
@@ -199,7 +202,7 @@ const Establecimientos = () => {
                                             <td className='d-flex'>
                                                 <div className="my-tooltip">
                                                     <div className="text-dark">
-                                                        <button className='btn text-secondary btn-icon' onClick={() => openModal('edit', establecimiento.id)}><MdIcon.MdEditNote style={{ fontSize: '1.5rem' }} /></button>
+                                                        <button className='btn text-secondary btn-icon' onClick={() => openModal('edit', establecimiento.CUIE)}><MdIcon.MdEditNote style={{ fontSize: '1.5rem' }} /></button>
                                                         <span className="tiptext">
                                                             Editar
                                                         </span>

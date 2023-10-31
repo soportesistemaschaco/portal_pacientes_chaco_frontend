@@ -8,15 +8,17 @@ import { confirm, error, success } from "../../../../components/SwalAlertData";
 import * as MdIcon from 'react-icons/md';
 import * as FaIcon from 'react-icons/fa';
 import Selector from "../Selector";
-import { 
-    createInstitution, 
-    getEspecialidadesAll, 
-    getInstitutionsByID, 
-    getServiciosAll, 
-    updateInstitution } from "../../../../services/institutionsServices";
-// import MapView from "../../../../components/MapsView/MapsView";
+import {
+    createInstitution,
+    getEspecialidadesAll,
+    getInstitutionsByID,
+    getServiciosAll,
+    updateInstitution
+} from "../../../../services/institutionsServices";
+import MapView from "../../../../components/MapsView/MapsView";
 import { ErrorMessage } from "../../../../components/ErrorMessage/ErrorMessage";
 import { getAllDepartamentosFrom, getAllLocalidadesFrom } from "../../../../services/searchAddressService";
+import { establecimientosDataHardcode } from "../../../../components/EstablecimientosDataHardcode";
 
 const EstablecimientoModal = (props) => {
 
@@ -37,7 +39,7 @@ const EstablecimientoModal = (props) => {
         departamento: '',
         localidad: '',
         ciudad: '',
-        tetlefono: '',
+        telefono: '',
         email: '',
         activate: 1,
         services: [],
@@ -83,23 +85,30 @@ const EstablecimientoModal = (props) => {
 
     const getInstitutionData = useCallback(
         (idInstitution) => {
-            getInstitutionsByID(idInstitution)
-                .then((res) => {
-                    if (res) setForm(res)
-                    return valuesForm
-                })
-                .then((res) => {
-                    if (res) {
-                        setUbicacion({ lat: res.lat, long: res.long })
-                        setEspecialidadesYServicios('especialidades', res.especialidades)
-                        setEspecialidadesYServicios('services', res.services)
-                    }
-                })
-                .then(() => setLoading(false))
-                .catch((err) => {
-                    Swal.fire(error('Error al obtener datos de establecimeinto.'))
-                    handleClose();
-                })
+            const institutions = establecimientosDataHardcode
+            const selected = institutions.find((inst) => inst.CUIE === idInstitution)
+            if (selected) setForm(selected)
+            setUbicacion({ lat: selected.lat, long: selected.long })
+            setEspecialidadesYServicios('especialidades', selected.especialidades)
+            setEspecialidadesYServicios('services', selected.services)
+            setLoading(false)
+            // getInstitutionsByID(idInstitution)
+            //     .then((res) => {
+            //         if (res) setForm(res)
+            //         return valuesForm
+            //     })
+            //     .then((res) => {
+            //         if (res) {
+            //             setUbicacion({ lat: res.lat, long: res.long })
+            //             setEspecialidadesYServicios('especialidades', res.especialidades)
+            //             setEspecialidadesYServicios('services', res.services)
+            //         }
+            //     })
+            //     .then(() => setLoading(false))
+            //     .catch((err) => {
+            //         Swal.fire(error('Error al obtener datos de establecimeinto.'))
+            //         handleClose();
+            //     })
         }, [])
 
     //SET VALUES FROM DATA
@@ -153,66 +162,66 @@ const EstablecimientoModal = (props) => {
 
     const getEspecialidades = useCallback(
         () => {
-            getEspecialidadesAll()
-                .then((res) => {
-                    let ordenado = res.sort((a, b) => {
-                        if (a.name === b.name) { return 0; }
-                        if (a.name < b.name) { return -1; }
-                        return 1;
-                    });
-                    return ordenado
-                })
-                .then((res) => {
-                    if (res?.length > 0) setEspecialidades(res);
-                })
-                .catch((err) => { console.error(err) })
+            // getEspecialidadesAll()
+            //     .then((res) => {
+            //         let ordenado = res.sort((a, b) => {
+            //             if (a.name === b.name) { return 0; }
+            //             if (a.name < b.name) { return -1; }
+            //             return 1;
+            //         });
+            //         return ordenado
+            //     })
+            //     .then((res) => {
+            //         if (res?.length > 0) setEspecialidades(res);
+            //     })
+            //     .catch((err) => { console.error(err) })
         },
         [],
     )
 
     const getServicios = useCallback(
         () => {
-            getServiciosAll()
-                .then((res) => {
-                    let ordenado = res.sort((a, b) => {
-                        if (a.name.trim() === b.name.trim()) { return 0; }
-                        if (a.name.trim() < b.name.trim()) { return -1; }
-                        return 1;
-                    });
-                    return ordenado
-                })
-                .then((res) => {
-                    if (res?.length > 0) setServicios(res);
-                })
-                .catch((err) => { console.error(err) })
+            // getServiciosAll()
+            //     .then((res) => {
+            //         let ordenado = res.sort((a, b) => {
+            //             if (a.name.trim() === b.name.trim()) { return 0; }
+            //             if (a.name.trim() < b.name.trim()) { return -1; }
+            //             return 1;
+            //         });
+            //         return ordenado
+            //     })
+            //     .then((res) => {
+            //         if (res?.length > 0) setServicios(res);
+            //     })
+            //     .catch((err) => { console.error(err) })
         },
         [],
     )
 
     const getDepartamentos = useCallback(
         (provinciaID) => {
-            getAllDepartamentosFrom(provinciaID)
-                .then((res) => {
-                    return res.map((item) => {
-                        item.name = item.nombre
-                        return item
-                    })
-                })
-                .then((res) => setDepartamentos(res))
-                .catch((err) => console.error(err))
+            // getAllDepartamentosFrom(provinciaID)
+            //     .then((res) => {
+            //         return res.map((item) => {
+            //             item.name = item.nombre
+            //             return item
+            //         })
+            //     })
+            //     .then((res) => setDepartamentos(res))
+            //     .catch((err) => console.error(err))
         }, [])
 
     const getLocalidades = useCallback(
         (departamentoID) => {
-            getAllLocalidadesFrom(departamentoID)
-                .then((res) => {
-                    return res.map((item) => {
-                        item.name = item.nombre
-                        return item
-                    })
-                })
-                .then((res) => setLocalidades(res))
-                .catch((err) => console.error(err))
+            // getAllLocalidadesFrom(departamentoID)
+            //     .then((res) => {
+            //         return res.map((item) => {
+            //             item.name = item.nombre
+            //             return item
+            //         })
+            //     })
+            //     .then((res) => setLocalidades(res))
+            //     .catch((err) => console.error(err))
         }, [])
 
     useEffect(() => {
@@ -333,7 +342,7 @@ const EstablecimientoModal = (props) => {
                                                 <h5 className="mb-0">Ubicación</h5>
                                             </Col>
                                             <Col xs={12} style={{ height: '800px' }}>
-                                                {/* <MapView latitud={ubicacion.lat} longitud={ubicacion.long} descripcion={valuesForm.domicilio + ', ' + valuesForm.localidad}></MapView> */}
+                                                <MapView latitud={ubicacion.lat} longitud={ubicacion.long} descripcion={valuesForm.domicilio + ', ' + valuesForm.localidad}></MapView>
                                             </Col>
                                         </Row>
                                     </Container>
@@ -362,7 +371,6 @@ const EstablecimientoModal = (props) => {
                                             <Col xs={12} sm={6} className="mb-2">
                                                 <FormGroup
                                                     inputType={'input'}
-                                                    type='number'
                                                     paste={true}
                                                     label={'Teléfono'}
                                                     name={'telefono'}
