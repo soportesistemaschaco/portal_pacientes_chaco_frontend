@@ -13,8 +13,8 @@ const AutocompleteComponent = React.forwardRef((props, ref) => {
 
   useEffect(() => {
     if (variants) {
-      let items = variants.map((item) => {
-        return { id: item.cuie, name: item.Servicio.split(' - ')[1] }
+      let items = variants.map((item, index) => {
+        return { id: index, name: item.name }
       });
       let itemsOrder = items.sort((a, b) => {
         if (a.name < b.name) return -1
