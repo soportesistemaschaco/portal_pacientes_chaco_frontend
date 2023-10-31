@@ -1,6 +1,6 @@
 import { Col, Modal } from "react-bootstrap"
 import * as MdIcon from "react-icons/md";
-// import MapView from "../../../../../components/MapsView/MapsView";
+import MapView from "../../../../../components/MapsView/MapsView";
 import { useCallback, useState } from "react";
 import { useEffect } from "react";
 import Loader from "../../../../../components/Loader";
@@ -59,12 +59,12 @@ const InstitutionMap = ({ institution, show, handleClose }) => {
                 : <Modal.Body>
                     <Col xs={12} style={{height: '500px'}}>
                         <button onClick={rutaMasCorta}>¿Cómo llego?</button>
-                        {/* <MapView
+                        <MapView
                             latitud={institution.lat ?? 0}
                             longitud={institution.long ?? 0}
                             descripcion={adress}
                             coordinates={ruta}
-                        /> */}
+                        />
                         {/* <MapView latitud={institution.lat ?? 0} longitud={institution.long ?? 0} descripcion={adress} /> */}
                     </Col>
                 </Modal.Body>
