@@ -10,6 +10,7 @@ import { LabelsFormData, ValuesRegisterForm } from '../RegisterForm/Forms/FormDa
 import { error, confirm, success } from '../SwalAlertData';
 import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
 import * as MdIcon from 'react-icons/md'
+import { establecimientosDataHardcode } from '../EstablecimientosDataHardcode';
 
 function Profile({ show, handleClose, dataExiste, type, identification_number}) {
 
@@ -21,6 +22,7 @@ function Profile({ show, handleClose, dataExiste, type, identification_number}) 
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
     const [values, setValues] = useState(ValuesRegisterForm)
     const [newValue, setNewValue] = useState("") //Get and set values form to required
+    const institutionsHardcode = establecimientosDataHardcode;
 
     //set form with data
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -81,10 +83,17 @@ function Profile({ show, handleClose, dataExiste, type, identification_number}) 
 
     const handleInstitution = (e) => {
         if (e.name) {
-            values['id_usual_institution'] = e.id;
-            setValue('id_usual_institution', e.id)
+            let institution = institutionsHardcode[e.id]
+            values['id_usual_institution'] = institution.CUIE;
+            setValue('id_usual_institution', institution.CUIE)
         }
     }
+
+
+    const setInstitution = (idInstitution) => {
+        let institution = establecimientosDataHardcode.find((inst) => inst.CUIE === idInstitution);
+        return institution ? institution.name : ''
+    }   
 
     useEffect(() => {
         setValue(`${newValue}`, values[newValue]);
@@ -290,6 +299,7 @@ function Profile({ show, handleClose, dataExiste, type, identification_number}) 
     const conditionDataForm =
         <Row className="in">
             <Col xs={12} >
+                <p className='text-secondary mb-0'>Institución: {setInstitution(values.id_usual_institution)}</p>
                 <FormGroup
                     inputType={f.id_usual_institution.inputType}
                     label={f.id_usual_institution.label}

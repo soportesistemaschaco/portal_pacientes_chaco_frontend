@@ -6,6 +6,7 @@ import AutocompleteComponent from '../../AutocompleteComponent';
 import { variantsGender } from '../../ComponentsData';
 import DatePickerComponent from '../../DatePickerComponent';
 import SelectType from '../../SelectType';
+import { establecimientosDataHardcode } from '../../EstablecimientosDataHardcode';
 
 const FormGroup = React.forwardRef((props, ref) => {
 
@@ -28,18 +29,20 @@ const FormGroup = React.forwardRef((props, ref) => {
 
   const getInstitutionsVariants = useCallback(
     () => {
-      efectoresServices()
-        .then((res) => {
-          const inst = res
-          return inst;
-        })
-        .then((res) => {
-          if (res?.length > 0) {
-            setOptions(res);
-            return options
-          }
-        })
-        .catch((err) => { console.log(err) })
+      const institutions = establecimientosDataHardcode;
+      setOptions(institutions);
+      // efectoresServices()
+      //   .then((res) => {
+      //     const inst = res
+      //     return inst;
+      //   })
+      //   .then((res) => {
+      //     if (res?.length > 0) {
+      //       setOptions(res);
+      //       return options
+      //     }
+      //   })
+      //   .catch((err) => { console.log(err) })
     },
     [],
   )

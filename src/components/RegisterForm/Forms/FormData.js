@@ -263,7 +263,7 @@ export const LabelsFormData = {
   },
   id_usual_institution: {
     form_name: "id_usual_institution",
-    label: "Establecimiento de atención usual",
+    label: "Cambiar Establecimiento de atención usual",
     inputType: "autocomplete",
     type: "number",
     variants: "variantsInstitutions",
