@@ -23,7 +23,6 @@ function LoginPerson() {
     // const [password, setPassword] = useState(JSON.parse(localStorage.getItem("loginDataPassword")) || "");
     // const [saveData, setSaveData] = useState(JSON.parse(localStorage.getItem("loginDataEmail")) ? true : false);
     // const { register, handleSubmit, setValue, formState: { errors } } = useForm();
-    // http://localhost:3000/login?id=7&surname=FERNANDO&name=N%C3%BA%C3%B1EZ&identification_number=26806376&birthdate=2023-12-26&id_gender=2&id_department=None&id_locality=None&address_street=rodriguez+pena&address_number=55&id_usual_institution=H00003&is_diabetic=True&is_hypertensive=True&is_chronic_respiratory_disease=True&is_chronic_kidney_disease=True&identification_number_master=None&id_identification_type=1&id_identification_type_master=None&is_deleted=None&id_patient=None&id_admin_status=None&phone_number=%2B541134226247&department=CABA&locality=CABA+&email=fernandonu%40gmail.com&identification_front_image=None&identification_back_image=None&identification_front_image_file_type=None&identification_back_image_file_type=None&id_person_status=None&is_admin=0&access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyNjgwNjM3NiIsImV4cCI6MTY5NzA0MjU5NH0.CLvud_FJMS0aKGl-iXOYKOJmAYh3Ql81uj4zte2pkiw
     const auth = useAuth();
     const history = useHistory();
     const location = useLocation();
